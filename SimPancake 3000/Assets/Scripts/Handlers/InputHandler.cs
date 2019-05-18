@@ -97,7 +97,10 @@ public class InputHandler : MonoBehaviour
         // parse the pans, hob and distance into the input values
         for (int i = 0; i < panCount; i++)
         {
-            inputValues.pans[i] = int.Parse( inputVals[currentValIndex] );
+            inputValues.pans_x[i] = int.Parse( inputVals[currentValIndex] );
+            currentValIndex++;
+
+            inputValues.pans_y[i] = int.Parse( inputVals[currentValIndex] );
             currentValIndex++;
 
             inputValues.hobs[i] = int.Parse( inputVals[currentValIndex] );
@@ -153,7 +156,8 @@ public class InputHandler : MonoBehaviour
 public struct InputValues
 {
 
-    public int[] pans;
+    public int[] pans_x;
+    public int[] pans_y;
     public int[] hobs;
     public int[] panDistances;
     public int jug;
@@ -161,7 +165,8 @@ public struct InputValues
 
     public void Init()
     {
-        pans = new int[3];
+        pans_x = new int[3];
+        pans_y = new int[3];
         hobs = new int[3];
         panDistances = new int[3];
         jug = 0;
