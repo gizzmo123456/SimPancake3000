@@ -29,7 +29,6 @@ public class HobNob : MonoBehaviour
 
         currentRotation.z = -270f * (inputs.hobs[hobID] / 1023f);
         transform.eulerAngles = currentRotation;
-        print(inputs.hobs[hobID]);
 
     }
 }
