@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
+    [SerializeField]
+    private int panCount = 3;
+
     [Header("Serial")]
 
     [SerializeField]
@@ -21,27 +24,30 @@ public class InputHandler : MonoBehaviour
     [SerializeField]
     private string writeChar = "r";
     [SerializeField]
-    private char inputSeperator = ';';
+    private int inputCount = 15;
+    [SerializeField]
+    private int inputLength = 5;
     // input values...
 
     // static so it is avable to everything :)  // use GetInputs() for access 
     private static InputValues inputValues;
 
-    private void Awake()
+    private void Start()
     {
 
-        serial = new SerialPort("COM"+COM_port, COM_updateRate);
+        inputValues.Init();
+        serial = new SerialPort("COM" + COM_port, COM_updateRate);
+        serial.ReadTimeout = readTimeout;
 
         // Serial or mouse & keyboard
         try
         {
             serial.Open();
-            serial.ReadTimeout = readTimeout;
             useSerial = true;
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
-            print("Unable to connect to serial port: COM" + COM_port + " @ "+ COM_updateRate);
+            print("Unable to connect to serial port: COM" + COM_port + " @ "+ COM_updateRate + " ("+e+")");
         }
 
     }
@@ -51,7 +57,7 @@ public class InputHandler : MonoBehaviour
         // Get Inputs
 
         if (useSerial)
-            SerialInputs();
+           SerialInputs();
         else
             MouseKeyboardInputs();
 
@@ -65,24 +71,77 @@ public class InputHandler : MonoBehaviour
     void SerialInputs()
     {
 
-        char[] buffer = new char[1];
-
         string line = string.Empty;
 
-        try
-        {
-            serial.Write(writeChar);
-            line = serial.ReadLine();
-        }
-        catch
-        {
-            Debug.LogError("Error: Unable to read line :(");
-        }
+            try
+            {
+                serial.WriteLine(writeChar);
+                serial.BaseStream.Flush();
+                line = serial.ReadLine();
 
-        string[] inputValues = line.Split(';');
+                UpdateInputValuesFromSerialLine(line);
+
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Error: Unable to read line :( ( " + e + " )");
+            }
 
     }
 
+    void UpdateInputValuesFromSerialLine(string line)
+    {
+        string[] inputVals = SplitSerialLine(line);
+        int currentValIndex = 0;
+
+        // parse the pans, hob and distance into the input values
+        for (int i = 0; i < panCount; i++)
+        {
+            inputValues.pans[i] = int.Parse( inputVals[currentValIndex] );
+            currentValIndex++;
+
+            inputValues.hobs[i] = int.Parse( inputVals[currentValIndex] );
+            currentValIndex++;
+
+            inputValues.panDistances[i] = int.Parse( inputVals[currentValIndex] );
+            currentValIndex++;
+        }
+
+        // parse the jug and whisk :)
+        inputValues.jug = int.Parse(inputVals[currentValIndex]);
+        currentValIndex++;
+
+        inputValues.whisk = int.Parse(inputVals[currentValIndex]);
+
+
+    }
+
+    //Splits string into array of checks of 'inputLength'
+    string[] SplitSerialLine(string line)
+    {
+        string[] inputs = new string[inputCount];
+
+        int currentInputId = 0;
+        int currentStrPosition = 0;
+        
+        // Get each input from line.
+        // since each input is the same size we can extract each on in checks of 'inputLength' (5)
+        while( currentInputId < inputCount )
+        {
+            inputs[currentInputId] = line.Substring(currentStrPosition, inputLength);
+            currentInputId++;
+            currentStrPosition += inputLength;
+        }
+
+        return inputs;
+    }
+
+    
+    private void OnDestroy()
+    {
+        if(useSerial)   // TODO: check if its open?? 
+            serial.Close();
+    }
 
     public static InputValues GetInputs()
     {
