@@ -6,7 +6,7 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     [SerializeField]
-    private int panCount = 3;
+    private int panCount = 3;   //TODO: move into Static Game Class once exist
 
     [Header("Serial")]
 
@@ -44,6 +44,7 @@ public class InputHandler : MonoBehaviour
         {
             serial.Open();
             useSerial = true;
+            
         }
         catch (System.Exception e)
         {
@@ -51,10 +52,19 @@ public class InputHandler : MonoBehaviour
         }
 
     }
-    
+
+    bool first = false;
+
     void Update()
     {
         // Get Inputs
+
+        if(!first && useSerial)
+        {
+            serial.WriteLine("N");
+            serial.BaseStream.Flush();
+            first = true;
+        }
 
         if (useSerial)
            SerialInputs();
@@ -108,6 +118,7 @@ public class InputHandler : MonoBehaviour
 
             inputValues.panDistances[i] = int.Parse( inputVals[currentValIndex] );
             currentValIndex++;
+
         }
 
         // parse the jug and whisk :)
@@ -115,7 +126,6 @@ public class InputHandler : MonoBehaviour
         currentValIndex++;
 
         inputValues.whisk = int.Parse(inputVals[currentValIndex]);
-
 
     }
 
