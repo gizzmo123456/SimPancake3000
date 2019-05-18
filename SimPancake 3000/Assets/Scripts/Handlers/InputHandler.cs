@@ -24,6 +24,8 @@ public class InputHandler : MonoBehaviour
     private char inputSeperator = ';';
     // input values...
 
+    // static so it is avable to everything :)  // use GetInputs() for access 
+    private static InputValues inputValues;
 
     private void Awake()
     {
@@ -82,5 +84,29 @@ public class InputHandler : MonoBehaviour
     }
 
 
+    public static InputValues GetInputs()
+    {
+        return inputValues;
+    }
+
+}
+
+public struct InputValues
+{
+
+    public int[] pans;
+    public int[] hobs;
+    public int[] panDistances;
+    public int jug;
+    public int whisk;
+
+    public void Init()
+    {
+        pans = new int[3];
+        hobs = new int[3];
+        panDistances = new int[3];
+        jug = 0;
+        whisk = 0;
+    }
 
 }
