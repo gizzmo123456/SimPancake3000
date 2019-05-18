@@ -113,10 +113,10 @@ public class InputHandler : MonoBehaviour
             inputValues.pans_y[i] = int.Parse( inputVals[currentValIndex] );
             currentValIndex++;
 
-            inputValues.hobs[i] = int.Parse( inputVals[currentValIndex] );
+            inputValues.panDistances[i] = int.Parse(inputVals[currentValIndex]);
             currentValIndex++;
 
-            inputValues.panDistances[i] = int.Parse( inputVals[currentValIndex] );
+            inputValues.hobs[i] = int.Parse( inputVals[currentValIndex] );
             currentValIndex++;
 
         }
