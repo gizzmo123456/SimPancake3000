@@ -289,6 +289,21 @@ PrefabInstance:
       propertyPath: panID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: panPositionOffset
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: minInputValue
+      value: 780
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: maxInputValue
+      value: 835
+      objectReference: {fileID: 0}
     - target: {fileID: 7913728039848718636, guid: 4d9e3da265f2b7741b740a9320a904fd,
         type: 3}
       propertyPath: m_Name
@@ -452,6 +467,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: panPositionOffset
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: minInputValue
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 7913728039848718636, guid: 4d9e3da265f2b7741b740a9320a904fd,
         type: 3}
       propertyPath: m_Name
@@ -2426,6 +2451,21 @@ PrefabInstance:
         type: 3}
       propertyPath: panID
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: panPositionOffset
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: minInputValue
+      value: 770
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567725336457000841, guid: 4d9e3da265f2b7741b740a9320a904fd,
+        type: 3}
+      propertyPath: maxInputValue
+      value: 830
       objectReference: {fileID: 0}
     - target: {fileID: 7913728039848718636, guid: 4d9e3da265f2b7741b740a9320a904fd,
         type: 3}
