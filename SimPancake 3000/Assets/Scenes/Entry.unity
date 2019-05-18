@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 55503704}
   - component: {fileID: 55503703}
   m_Layer: 0
-  m_Name: Main
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cbc50e5dc572ad4d9d4a9a29cc60283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panCount: 3
   COM_port: 3
   COM_updateRate: 250000
   readTimeout: 100
