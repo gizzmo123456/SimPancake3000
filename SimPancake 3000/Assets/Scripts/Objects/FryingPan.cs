@@ -6,6 +6,9 @@ public class FryingPan : MonoBehaviour
 {
     [SerializeField]
     private int panID = 0;
+    private int last_x, last_y;
+
+    Pancake currentPancake;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +28,39 @@ public class FryingPan : MonoBehaviour
             Debug.LogError("Pan Id Out of range (obj name: "+name+")");
             return;
         }
+
         int x = inputs.pans_x[panID];
         int y = inputs.pans_y[panID];
 
+        // make shore the pancake is awake if the inputs have changed since the last frame :)
+        if (currentPancake != null && (x != last_x || y != last_y))
+            currentPancake.WakeUp();
+
         transform.eulerAngles = new Vector3(-x, -90, -y);
 
+        last_x = x;
+        last_y = y;
 
     }
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        
+        if(coll.CompareTag("pancake"))
+        {
+            currentPancake = coll.gameObject.GetComponent<Pancake>();
+            currentPancake.SetCurrentPan(this);
+        }
+
+    }
+
+    private void OnTriggerExit(Collider coll)
+    {
+        if (coll.CompareTag("pancake"))
+        {
+            currentPancake.SetCurrentPan(null);
+            currentPancake = null;
+        }
+    }
+
 }

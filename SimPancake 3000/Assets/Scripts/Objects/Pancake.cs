@@ -2,26 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Pancake : MonoBehaviour
 {
 
     private Rigidbody rb;
-    // Start is called before the first frame update
+    private FryingPan currentPan;   //null if its not in a pan
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
-        //never sleep :)
-        if(rb.IsSleeping())
+    }
+
+    public void SetCurrentPan(FryingPan fryingPan)
+    {
+        currentPan = fryingPan;
+    }
+
+    public void WakeUp()
+    {
+        if (rb.IsSleeping())
         {
             print("Stop sleeping on the job!");
             rb.WakeUp();
         }
-
     }
+
 }
