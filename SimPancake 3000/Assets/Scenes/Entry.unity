@@ -142,10 +142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   COM_port: 3
-  COM_updateRate: 9600
+  COM_updateRate: 250000
   readTimeout: 100
-  writeChar: r
-  inputSeperator: 59
+  writeChar: i
+  inputCount: 15
+  inputLength: 5
 --- !u!4 &55503704
 Transform:
   m_ObjectHideFlags: 0
