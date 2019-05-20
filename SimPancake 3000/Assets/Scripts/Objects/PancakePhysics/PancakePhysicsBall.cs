@@ -45,7 +45,7 @@ public class PancakePhysicsBall : MonoBehaviour
         /*Vector3*/ avgPosition = GetAvgPosition();
         maintainDistance = Vector3.Distance(transform.localPosition, avgPosition);
 
-        maxY = ( avgPosition.x + avgPosition.z ) / 8;
+        maxY = Mathf.Abs( ( avgPosition.x + avgPosition.z ) / 8 );
         positionOffset = transform.localPosition - avgPosition;
 
     }
@@ -73,28 +73,49 @@ public class PancakePhysicsBall : MonoBehaviour
         if ( debug )
             print( "-----# "+velocity );
         Vector3 targetPosition = GetAvgPosition();
-        Vector3 posDif = targetPosition - transform.position;
+        Vector3 posDif = targetPosition - transform.localPosition;
 
+        // Needed ??
         float currentDist = (Vector3.Distance( transform.localPosition, targetPosition ));
         float distDiff = currentDist - maintainDistance; // from maintain distance 
 
+        ///////// Y
+        
         // find how much Y distance we are from 0
         float yDistDiff = Mathf.Abs( transform.localPosition.y - targetPosition.y );
-        float yDiffPercent = /*1f -*/ ( yDistDiff / Mathf.Abs(maxY) );
+        float yDiffPercent = /*1f -*/ ( yDistDiff / maxY );
+
         float yVel = -yDiffPercent * Physics.gravity.y * Time.deltaTime;
         yVel = transform.localPosition.y >= targetPosition.y ? -yVel : yVel;
 
         if ( debug )
-            print( "%: " + yDiffPercent + " # yVel: " + yVel +" # distDif: "+distDiff);
+            print( "%: " + yDiffPercent + " # yVel: " + yVel +" # distDif: "+distDiff + " # yDistDif: "+yDistDiff);
 
         yVel = velocity.y - yVel;
         if ( debug )
             print( " # yVel (after): " + yVel + " # External: "+externalForce );
 
         velocity.y -= ( yVel + -externalForce.y);
+
+        /////////// OK no for the x & z Bit :|
+        
+        // could do both x & z together here :)
+        float maxX_pos = targetPosition.x + positionOffset.x;
+        float targetX_pos = Mathf.LerpUnclamped( maxX_pos, targetPosition.x, ( yDiffPercent ) );
+        float targetX_percent = 0;
+
+        if( ( maxX_pos - targetX_pos ) != 0)
+            targetX_percent = ( targetX_pos - transform.localPosition.x ) / ( 1.0f + Mathf.Abs(maxX_pos - targetX_pos)); //??
+
+        if ( debug )
+            print( "X %: "+targetX_percent + " ## "+( targetX_pos - transform.localPosition.x )+" / "+(1+Mathf.Abs( maxX_pos - targetX_pos )) +" ## Target Pos: "+targetPosition +" # X: "+targetX_pos);
+
+        velocity.x += targetX_percent * Time.deltaTime;
+
 //        velocity.y += ( -Physics.gravity.y * Time.deltaTime ) + yVel;  //Anti gravity :)
- //       yVel = velocity.y - yVel;
- //       velocity.y += yVel;
+//        yVel = velocity.y - yVel;
+//        velocity.y += yVel;
+
 /*  // GOOD kinda.
         velocity.x = -( yDistDiff / Mathf.Abs( maxY ) ) * positionOffset.x;
         velocity.z = -( yDistDiff / Mathf.Abs( maxY ) ) * positionOffset.z;
