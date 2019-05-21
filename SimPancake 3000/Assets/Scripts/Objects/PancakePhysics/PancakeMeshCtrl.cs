@@ -116,13 +116,16 @@ public class PancakeMeshCtrl : MonoBehaviour
     void FixedUpdate()
     {
         //return;
-        for (int i = 0; i < verticeGroups.Count; i++ )
+        for ( int i = 0; i < verticeGroups.Count; i++ )
         {
             Vector3 pbPosition = verticeGroups[ i ].physicsBall.transform.localPosition;
 
-            verticeGroups[ i ].Update( ref vertices, pbPosition.x, pbPosition.y, pbPosition.z);
+            verticeGroups[ i ].Update( ref vertices, pbPosition.x, pbPosition.y, pbPosition.z );
         }
+    }
 
+    private void Update()
+    {
         mesh.vertices = vertices;   // << am i fucking crazy
         //mesh.RecalculateBounds();
         //mesh.RecalculateNormals();
