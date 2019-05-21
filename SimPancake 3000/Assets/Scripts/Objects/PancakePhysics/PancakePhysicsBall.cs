@@ -100,17 +100,21 @@ public class PancakePhysicsBall : MonoBehaviour
         /////////// OK no for the x & z Bit :|
         
         // could do both x & z together here :)
-        float maxX_pos = targetPosition.x + positionOffset.x;
-        float targetX_pos = Mathf.LerpUnclamped( maxX_pos, targetPosition.x, ( yDiffPercent ) );
-        float targetX_percent = 0;
+        Vector3 max_pos = targetPosition + positionOffset;
+        Vector3 target_pos = Vector3.LerpUnclamped( max_pos, targetPosition, ( yDiffPercent ) );
+        Vector3 target_percent = Vector3.zero;
 
-        if( ( maxX_pos - targetX_pos ) != 0)
-            targetX_percent = ( targetX_pos - transform.localPosition.x ) / ( 1.0f + Mathf.Abs(maxX_pos - targetX_pos)); //??
+        if( ( max_pos.x - target_pos.x ) != 0)
+            target_percent.x = ( target_pos.x - transform.localPosition.x ) / ( 1.0f + Mathf.Abs(max_pos.x - target_pos.x)); //??
+
+        if ( ( max_pos.z - target_pos.z ) != 0 )
+            target_percent.z = ( target_pos.z - transform.localPosition.z ) / ( 1.0f + Mathf.Abs( max_pos.z - target_pos.z ) ); //??
 
         if ( debug )
-            print( "X %: "+targetX_percent + " ## "+( targetX_pos - transform.localPosition.x )+" / "+(1+Mathf.Abs( maxX_pos - targetX_pos )) +" ## Target Pos: "+targetPosition +" # X: "+targetX_pos);
+            print( "X %: "+target_percent + " ## "+( target_pos.x - transform.localPosition.x )+" / "+(1+Mathf.Abs( max_pos.x - target_pos.x )) +" ## Target Pos: "+targetPosition +" # X: "+target_pos.x);
 
-        velocity.x += targetX_percent * Time.deltaTime;
+        velocity.x += target_percent.x * Time.deltaTime;
+        velocity.z += target_percent.z * Time.deltaTime;
 
 //        velocity.y += ( -Physics.gravity.y * Time.deltaTime ) + yVel;  //Anti gravity :)
 //        yVel = velocity.y - yVel;
