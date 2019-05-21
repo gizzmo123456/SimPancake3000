@@ -65,7 +65,7 @@ public class PancakePhysicsBall : MonoBehaviour
     void FixedUpdate()
     {
 
-        if( !enablePhysics )
+        if( !enablePhysics || isCenter )
             return;
         
 
@@ -176,7 +176,10 @@ public class PancakePhysicsBall : MonoBehaviour
 
     private Vector3 GetAvgPosition()
     {
-        return ( balls[ BallType.left ].transform.localPosition + balls[ BallType.right ].transform.localPosition ) / 2f;
+        if ( isCenter )
+            return Vector3.zero;
+        else
+            return ( balls[ BallType.left ].transform.localPosition + balls[ BallType.right ].transform.localPosition ) / 2f;
     }
 
     public void SetIsCenter(bool center)
