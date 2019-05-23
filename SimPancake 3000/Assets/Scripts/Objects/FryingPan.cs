@@ -60,24 +60,14 @@ public class FryingPan : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider coll)
+    public void RegisterPancake(Pancake pancakeToReg)
     {
-        
-        if(coll.CompareTag("pancake"))
-        {
-            currentPancake = coll.gameObject.GetComponent<Pancake>();
-            currentPancake.SetCurrentPan(this);
-        }
-
+        currentPancake = pancakeToReg;
     }
 
-    private void OnTriggerExit(Collider coll)
+    public void UnregisterPancake( Pancake pancakeToUnreg )
     {
-        if (coll.CompareTag("pancake"))
-        {
-            currentPancake.SetCurrentPan(null);
-            currentPancake = null;
-        }
+        currentPancake = null;
     }
 
 }
