@@ -16,7 +16,7 @@ public class Pancake : MonoBehaviour
 
     void Update()
     {
-        
+        WakeUp();
     }
 
     public void SetCurrentPan(FryingPan fryingPan)
