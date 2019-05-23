@@ -12,11 +12,13 @@ public class PancakePhysicsBall : MonoBehaviour
 
     private Dictionary< BallType, PancakePhysicsBall> balls;
     private Dictionary< BallType, float> ballDistance;
+    private List<PancakePhysicsBall> balls_;
 
     private bool isCenter = false;
     [SerializeField]
     private float strechyness = 0.1f;
 
+    private Vector3 startPosition;
     private Vector3 avgPosition;
     private Vector3 positionOffset; // offset from maintain position
     private float maintainDistance; // amount of distance to maintain from the the target Position
@@ -42,11 +44,10 @@ public class PancakePhysicsBall : MonoBehaviour
     // so we can work out all the required data.
     public void Init()
     {
-        /*Vector3*/ avgPosition = GetAvgPosition();
-        maintainDistance = Vector3.Distance(transform.localPosition, avgPosition);
+        startPosition = transform.localPosition;
 
-        maxY = Mathf.Abs( ( avgPosition.x + avgPosition.z ) / 8 );
-        positionOffset = transform.localPosition - avgPosition;
+
+
 
     }
 
@@ -57,6 +58,11 @@ public class PancakePhysicsBall : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = enablePhysics;
 
+        avgPosition = GetAvgPosition();
+        maintainDistance = Vector3.Distance( transform.localPosition, avgPosition );
+
+        maxY = Mathf.Abs( ( avgPosition.x + avgPosition.z ) / 2f );
+        positionOffset = transform.localPosition - avgPosition;
     }
 
     float lastYVel = 0;
@@ -64,8 +70,14 @@ public class PancakePhysicsBall : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if( !enablePhysics || isCenter )
+/*
+        if(isCenter)
+        {
+            transform.localPosition = Vector3.zero;
+            return;
+        }
+*/
+        if( !enablePhysics || isCenter)
             return;
         
 
@@ -113,9 +125,8 @@ public class PancakePhysicsBall : MonoBehaviour
         if ( debug )
             print( "X %: "+target_percent + " ## "+( target_pos.x - transform.localPosition.x )+" / "+(1+Mathf.Abs( max_pos.x - target_pos.x )) +" ## Target Pos: "+targetPosition +" # X: "+target_pos.x);
 
-        velocity.x += target_percent.x * Time.deltaTime;
-        velocity.z += target_percent.z * Time.deltaTime;
-
+        velocity.x = target_percent.x * 10 * Time.deltaTime;
+        velocity.z = target_percent.z * 10 * Time.deltaTime;
 //        velocity.y += ( -Physics.gravity.y * Time.deltaTime ) + yVel;  //Anti gravity :)
 //        yVel = velocity.y - yVel;
 //        velocity.y += yVel;
@@ -148,22 +159,23 @@ public class PancakePhysicsBall : MonoBehaviour
     {
         if ( balls == null )
         {
+            balls_ = new List<PancakePhysicsBall>();
             balls = new Dictionary<BallType, PancakePhysicsBall>();
             ballDistance = new Dictionary<BallType, float>();
         }
+
+        balls_.Add( physicsBall );
 
         if ( balls.ContainsKey( type ) )
         {
             balls[ type ] = physicsBall;
             ballDistance[ type ] = Vector3.Distance( transform.position, physicsBall.transform.position );
-            print( "Cont" + type );
 
         }
         else
         {
             balls.Add( type, physicsBall );
             ballDistance.Add( type, Vector3.Distance( transform.position, physicsBall.transform.position ) );
-            print( "Add" + type );
         }
 
         if ( type == BallType.left )
@@ -176,15 +188,30 @@ public class PancakePhysicsBall : MonoBehaviour
 
     private Vector3 GetAvgPosition()
     {
-        if ( isCenter )
-            return Vector3.zero;
-        else
-            return ( balls[ BallType.left ].transform.localPosition + balls[ BallType.right ].transform.localPosition ) / 2f;
+        Vector3 avg = Vector3.zero;
+        int avgCount = 0;
+
+        foreach(PancakePhysicsBall ball in balls_)
+        {
+            if ( !ball.isCenter )
+            {
+                avg += /*ball.GetStartPosition() +*/ ball.transform.localPosition;
+                avgCount++;
+            }
+        }
+        avg /= (float)avgCount; // (float)balls.Count;// * 2f;
+
+        return avg;
+        //return ( balls[ BallType.left ].transform.localPosition + balls[ BallType.right ].transform.localPosition ) / 2f;
     }
 
     public void SetIsCenter(bool center)
     {
         isCenter = center;
+
+        enablePhysics = false;
+        GetComponent<Rigidbody>().useGravity = false;
+
     }
 
     public void AddForce(float x, float y, float z)
@@ -202,9 +229,27 @@ public class PancakePhysicsBall : MonoBehaviour
 
     private void UpdateExternalForce()  //Y ONLY atm.
     {
+
+        float hozFrict = 5;
+
         if ( externalForce.y > 0 )
             externalForce.y += Physics.gravity.y * Time.deltaTime;
         else
             externalForce.y = 0;
+
+        if ( externalForce.x > 0 )
+            externalForce.x -= hozFrict * Time.deltaTime;
+        else if ( externalForce.y < 0 )
+            externalForce.x += hozFrict * Time.deltaTime;
+
+        if ( externalForce.z > 0 )
+            externalForce.z -= hozFrict * Time.deltaTime;
+        else if ( externalForce.y < 0 )
+            externalForce.z += hozFrict * Time.deltaTime;
+    }
+
+    public Vector3 GetStartPosition()
+    {
+        return startPosition;
     }
 }

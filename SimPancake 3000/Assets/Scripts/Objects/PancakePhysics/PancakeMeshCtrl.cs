@@ -81,6 +81,10 @@ public class PancakeMeshCtrl : MonoBehaviour
             List<float> dist = new List<float>( 2 );
             dist.AddRange( new float[ 2 ] { 100f, 100f } );
 
+            verticeGroups[ i ].physicsBall.name = i + "";
+            print( i + " center dist: " + Vector3.Distance( verticeGroups[ i ].GetAsVector3(), verticeGroups[ centerId ].GetAsVector3() ) );
+
+
             for ( int j = 0; j < verticeGroups.Count; j++ )
             {
 
@@ -105,8 +109,6 @@ public class PancakeMeshCtrl : MonoBehaviour
             verticeGroups[ i ].physicsBall.SetBall( PancakePhysicsBall.BallType.left, verticeGroups[ cloestId[0] ].physicsBall );
             verticeGroups[ i ].physicsBall.SetBall( PancakePhysicsBall.BallType.right, verticeGroups[ cloestId[1] ].physicsBall );
             verticeGroups[ i ].physicsBall.Init();
-        
-            print( i + " # " + cloestId[ 0 ] + " # " + cloestId[ 1 ] +" ## "+ centerId );
 
         }
         
