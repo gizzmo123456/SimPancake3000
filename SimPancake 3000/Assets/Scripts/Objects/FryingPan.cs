@@ -32,8 +32,6 @@ public class FryingPan : MonoBehaviour
     void Update()
     {
 
-        InputValues inputs = InputHandler.GetInputs();
-
         //TODO: check that the panID is in range of pan count once we have a Static Game Class
         if (panID < 0 || panID >= 3) //i know there 3 but still.
         {
@@ -41,18 +39,23 @@ public class FryingPan : MonoBehaviour
             return;
         }
 
-        int x = inputs.pans_x[panID];
-        int y = inputs.pans_y[panID];
+        InputValues inputs = InputHandler.GetInputs();
 
         Vector3 position = transform.position;
-        print(inputs.panDistances[panID]);
+		Vector3 rotation = transform.eulerAngles;
+
+        // Update the Y position of the pan when it has moved on the hob
         position.y = startYPosition + (pan_OffHob_YPositionOffset * (1f - ((inputs.panDistances[panID] - pan_OffHob_minInputValue) / (pan_OffHob_maxInputValue - pan_OffHob_minInputValue))));
 
-        // make shore the pancake is awake if the inputs have changed since the last frame :)
-        if (currentPancake != null && (x != last_x || y != last_y))
+		// get the current pan rotation from inputs 
+		rotation.x = -inputs.pans_x[ panID ];
+		rotation.y = -inputs.pans_y[ panID ];
+
+		// make shore the pancake is awake if the inputs have changed since the last frame :)
+		if ( currentPancake != null && ( rotation.x != last_x || rotation.y != last_y ) )
             currentPancake.WakeUp();
 
-        transform.eulerAngles = new Vector3(-x, -90, -y);
+        transform.eulerAngles = rotation;
         transform.position = position;
 
         last_x = x;
