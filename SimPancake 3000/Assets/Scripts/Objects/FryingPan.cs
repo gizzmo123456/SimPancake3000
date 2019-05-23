@@ -11,13 +11,17 @@ public class FryingPan : MonoBehaviour
     Pancake currentPancake;
 
     private float startYPosition;
-    [SerializeField]
-    private float panPositionOffset = 10f;
+
+
+    [Header("Off Hob Distacne.")]
 
     [SerializeField]
-    private float minInputValue = 230;
+    private float pan_OffHob_YPositionOffset = 10f;
     [SerializeField]
-    private float maxInputValue = 1023f;
+    private float pan_OffHob_minInputValue = 230;
+    [SerializeField]
+    private float pan_OffHob_maxInputValue = 1023f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +46,7 @@ public class FryingPan : MonoBehaviour
 
         Vector3 position = transform.position;
         print(inputs.panDistances[panID]);
-        position.y = startYPosition + (panPositionOffset * (1f - ((inputs.panDistances[panID] - minInputValue) / (maxInputValue - minInputValue))));
+        position.y = startYPosition + (pan_OffHob_YPositionOffset * (1f - ((inputs.panDistances[panID] - pan_OffHob_minInputValue) / (pan_OffHob_maxInputValue - pan_OffHob_minInputValue))));
 
         // make shore the pancake is awake if the inputs have changed since the last frame :)
         if (currentPancake != null && (x != last_x || y != last_y))
