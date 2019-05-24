@@ -68,8 +68,8 @@ public class FryingPan : MonoBehaviour
 
     public void RegisterPancake(Pancake pancakeToReg)
     {
-		currentPancake.transform.parent = transform;
 		currentPancake = pancakeToReg;
+		currentPancake.transform.parent = transform;
     }
 
     public void UnregisterPancake( Pancake pancakeToUnreg )
