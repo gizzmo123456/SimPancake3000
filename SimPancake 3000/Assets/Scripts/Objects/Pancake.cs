@@ -36,6 +36,7 @@ public class Pancake : MonoBehaviour
 	public void AddForce(float force)
 	{
 		rb.AddForce( new Vector3( 0, force, 0 ) );
+		//rb.AddTorque(new Vector3(-1500f * force, 0, 0) );
 	}
 
 }
