@@ -49,7 +49,7 @@ public class FryingPan : MonoBehaviour
 
 		// get the current pan rotation from inputs 
 		rotation.x = -inputs.pans_x[ panID ];
-		rotation.y = -inputs.pans_y[ panID ];
+		rotation.z = -inputs.pans_y[ panID ];		//<-- Hmm, this is a lil confusing. Y on the Gyro is z in unity. TODO: do somthink to clear this up :), ie. rename the array.
 
 		// make shore the pancake is awake if the inputs have changed since the last frame :)
 		if ( currentPancake != null && ( rotation.x != last_x_rotation || rotation.y != last_y_rotation ) )
