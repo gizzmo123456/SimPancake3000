@@ -7,6 +7,7 @@ public class FryingPan : MonoBehaviour
     [SerializeField]
     private int panID = 0;
     private float last_x_rotation, last_y_rotation;
+	private float last_y_position;
 
     Pancake currentPancake;
 
@@ -52,14 +53,16 @@ public class FryingPan : MonoBehaviour
 		rotation.z = -inputs.pans_y[ panID ];		//<-- Hmm, this is a lil confusing. Y on the Gyro is z in unity. TODO: do somthink to clear this up :), ie. rename the array.
 
 		// make shore the pancake is awake if the inputs have changed since the last frame :)
-		if ( currentPancake != null && ( rotation.x != last_x_rotation || rotation.y != last_y_rotation ) )
+		if ( currentPancake != null && ( rotation.x != last_x_rotation || rotation.y != last_y_rotation || position.y != last_y_position) )
             currentPancake.WakeUp();
 
         transform.eulerAngles = rotation;
         transform.position = position;
 
-        last_x_rotation = rotation.x;
+		// record the last rotation and y position so we know whether or not to wake up any pancake that are in the pan 
+		last_x_rotation = rotation.x;
         last_y_rotation = rotation.y;
+		last_y_position = position.y;
 
     }
 
