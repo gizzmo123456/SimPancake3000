@@ -6,7 +6,7 @@ public class FryingPan : MonoBehaviour
 {
     [SerializeField]
     private int panID = 0;
-    private int last_x, last_y;
+    private float last_x_rotation, last_y_rotation;
 
     Pancake currentPancake;
 
@@ -52,14 +52,14 @@ public class FryingPan : MonoBehaviour
 		rotation.y = -inputs.pans_y[ panID ];
 
 		// make shore the pancake is awake if the inputs have changed since the last frame :)
-		if ( currentPancake != null && ( rotation.x != last_x || rotation.y != last_y ) )
+		if ( currentPancake != null && ( rotation.x != last_x_rotation || rotation.y != last_y_rotation ) )
             currentPancake.WakeUp();
 
         transform.eulerAngles = rotation;
         transform.position = position;
 
-        last_x = x;
-        last_y = y;
+        last_x_rotation = rotation.x;
+        last_y_rotation = rotation.y;
 
     }
 
