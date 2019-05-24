@@ -12,7 +12,7 @@ public class FryingPan_PancakeDetect : MonoBehaviour
     {
         
         // reg the pancake into the frying pan.
-        if(fryingPan && other.CompareTag("Pancake"))
+        if(fryingPan && other.CompareTag("pancake"))
         {
             fryingPan.RegisterPancake( other.GetComponent<Pancake>() );
         }
@@ -23,7 +23,7 @@ public class FryingPan_PancakeDetect : MonoBehaviour
     {
 
         // reg the pancake into the frying pan.
-        if ( fryingPan && other.CompareTag( "Pancake" ) )
+        if ( fryingPan && other.CompareTag( "pancake" ) )
         {
             fryingPan.UnregisterPancake( other.GetComponent<Pancake>() );
         }
