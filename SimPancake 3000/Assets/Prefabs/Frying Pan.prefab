@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 378098381}
   - component: {fileID: 378098382}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Padding Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 5575716150277337835}
   - component: {fileID: 5613731126062372896}
   - component: {fileID: 6070879110665185372}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pancake Detect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 570856364976766121}
   - component: {fileID: 7991714208533758856}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Frying Pan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ Transform:
   m_GameObject: {fileID: 7969881975204612529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1, z: -0.109}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 7401672384957794884}
   m_Father: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panID: 0
-  forceMuti: 5
+  forceMuti: 45
   pan_OffHob_YPositionOffset: 0.35
   pan_OffHob_minInputValue: 230
   pan_OffHob_maxInputValue: 1023
@@ -176,13 +176,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: FryingPan_reduced
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Name
       value: handleHold
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Name
       value: Pan
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Name
