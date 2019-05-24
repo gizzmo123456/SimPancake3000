@@ -10,6 +10,7 @@ public class FryingPan : MonoBehaviour
 	private float startYPosition;
 
 	private float last_x_rotation, last_z_rotation;
+	private float last_z_deltaRotation;
 	private float last_y_position;
 
     private Pancake currentPancake;
@@ -76,12 +77,12 @@ public class FryingPan : MonoBehaviour
 
     }
 
-	private void ApplyForceToPancakes( float yRotationDelta )
+	private void ApplyForceToPancakes( float zRotationDelta )
 	{
-		print( "Delta: "+yRotationDelta );
-		if ( currentPancake && yRotationDelta > 0 )
+		print( "Delta: "+zRotationDelta );
+		if ( currentPancake && zRotationDelta > 0 && zRotationDelta >= last_z_deltaRotation)
 		{
-			acumalatedPancakeForce += yRotationDelta;
+			acumalatedPancakeForce += zRotationDelta;
 			acumPancakeForce_frameCount++;
 		}
 		else if ( acumPancakeForce_frameCount > 0 )
@@ -95,6 +96,8 @@ public class FryingPan : MonoBehaviour
 			acumPancakeForce_frameCount = 0;
 			
 		}
+
+		last_z_deltaRotation = zRotationDelta;
 
 	}
 
