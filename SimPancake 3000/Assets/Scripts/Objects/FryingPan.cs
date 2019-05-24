@@ -83,15 +83,12 @@ public class FryingPan : MonoBehaviour
 		{
 			acumalatedPancakeForce += yRotationDelta;
 			acumPancakeForce_frameCount++;
-			Debug.LogWarning("################### "+acumalatedPancakeForce );
 		}
 		else if ( acumPancakeForce_frameCount > 0 )
 		{
 			if ( currentPancake )
 			{
 				currentPancake.AddForce( (acumalatedPancakeForce / (float)acumPancakeForce_frameCount ) * forceMuti );
-				Debug.LogWarning( "------------------>:"+ ( "== "+ acumalatedPancakeForce + "/"+ (float)acumPancakeForce_frameCount + " * "+ forceMuti+" # "+( acumalatedPancakeForce / (float)acumPancakeForce_frameCount ) * forceMuti ) );
-
 			}
 
 			acumalatedPancakeForce = 0;
