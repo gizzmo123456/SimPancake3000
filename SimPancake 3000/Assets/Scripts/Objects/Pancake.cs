@@ -33,4 +33,10 @@ public class Pancake : MonoBehaviour
         }
     }
 
+	public void AddForce(float force)
+	{
+		Debug.LogError("Adding Force: "+force);
+		rb.AddForce( new Vector3( 0, force, 0 ) );
+	}
+
 }

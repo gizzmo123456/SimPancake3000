@@ -6,15 +6,21 @@ public class FryingPan : MonoBehaviour
 {
     [SerializeField]
     private int panID = 0;
-    private float last_x_rotation, last_y_rotation;
+
+	private float startYPosition;
+
+	private float last_x_rotation, last_z_rotation;
 	private float last_y_position;
 
-    Pancake currentPancake;
+    private Pancake currentPancake;
 
-    private float startYPosition;
+	private float acumalatedPancakeForce = 0; // <-- it might be better if this was in the pancake itself. :)
+	private int acumPancakeForce_frameCount = 0;
 
+	[SerializeField]
+	private float forceMuti = 5f;
 
-    [Header("Off Hob Distacne.")]
+	[ Header("Off Hob Distacne.")]
 
     [SerializeField]
     private float pan_OffHob_YPositionOffset = 10f;
@@ -53,18 +59,47 @@ public class FryingPan : MonoBehaviour
 		rotation.z = -inputs.pans_y[ panID ];		//<-- Hmm, this is a lil confusing. Y on the Gyro is z in unity. TODO: do somthink to clear this up :), ie. rename the array.
 
 		// make shore the pancake is awake if the inputs have changed since the last frame :)
-		if ( currentPancake != null && ( rotation.x != last_x_rotation || rotation.y != last_y_rotation || position.y != last_y_position) )
+		if ( currentPancake != null && ( rotation.x != last_x_rotation || rotation.y != last_z_rotation || position.y != last_y_position) )
             currentPancake.WakeUp();
 
         transform.eulerAngles = rotation;
         transform.position = position;
 
+		print( "LP: " + rotation.z + " ## " + last_z_rotation );
+		ApplyForceToPancakes( rotation.z - last_z_rotation );
+
 		// record the last rotation and y position so we know whether or not to wake up any pancake that are in the pan 
 		last_x_rotation = rotation.x;
-        last_y_rotation = rotation.y;
+        last_z_rotation = rotation.z;
+
 		last_y_position = position.y;
 
     }
+
+	private void ApplyForceToPancakes( float yRotationDelta )
+	{
+		print( "Delta: "+yRotationDelta );
+		if ( currentPancake && yRotationDelta > 0 )
+		{
+			acumalatedPancakeForce += yRotationDelta;
+			acumPancakeForce_frameCount++;
+			Debug.LogWarning("################### "+acumalatedPancakeForce );
+		}
+		else if ( acumPancakeForce_frameCount > 0 )
+		{
+			if ( currentPancake )
+			{
+				currentPancake.AddForce( (acumalatedPancakeForce / (float)acumPancakeForce_frameCount ) * forceMuti );
+				Debug.LogWarning( "------------------>:"+ ( "== "+ acumalatedPancakeForce + "/"+ (float)acumPancakeForce_frameCount + " * "+ forceMuti+" # "+( acumalatedPancakeForce / (float)acumPancakeForce_frameCount ) * forceMuti ) );
+
+			}
+
+			acumalatedPancakeForce = 0;
+			acumPancakeForce_frameCount = 0;
+			
+		}
+
+	}
 
     public void RegisterPancake(Pancake pancakeToReg)
     {
