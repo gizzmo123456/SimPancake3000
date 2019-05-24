@@ -9,14 +9,25 @@ public class Pancake : MonoBehaviour
     private Rigidbody rb;
     private FryingPan currentPan;   //null if its not in a pan
 
+	private Vector3 startPosition;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+		startPosition = transform.position;
     }
 
     void Update()
     {
         WakeUp();
+
+		//TEMP RESET!
+		if ( transform.position.y < -3 )
+		{
+			transform.position = startPosition;
+			rb.velocity = Vector3.zero;
+		}
+
     }
 
     public void SetCurrentPan(FryingPan fryingPan)
