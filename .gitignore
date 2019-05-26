@@ -66,4 +66,5 @@ crashlytics-build.properties
 # ignore plugins folder
 */[Aa]ssets/Plugins/
 
-
+# ignore maya dir
+/Maya Files/
