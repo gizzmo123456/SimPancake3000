@@ -3580,6 +3580,36 @@ Transform:
   m_Father: {fileID: 1491053822}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &856754695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856754696}
+  m_Layer: 0
+  m_Name: BatterTrail_LerpEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &856754696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856754695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0441, y: 0.1104, z: -0.1099}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1149325187}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &878696405
 GameObject:
   m_ObjectHideFlags: 0
@@ -5050,6 +5080,11 @@ MonoBehaviour:
     min: 0.2
     max: 1
     current: 0
+  batterTrail: {fileID: 5019446189347574363, guid: 74e7890825eb69f45b947688e8df47fc,
+    type: 3}
+  pourTrail_startPosition: {fileID: 1509757766}
+  pourTrail_lerpEndPosition: {fileID: 856754696}
+  batterTrail_spwIntervals: 0.25
   defaultPosition: {x: 0, y: 0, z: 0}
   fryingPans:
   - {fileID: 750100201}
@@ -10694,6 +10729,36 @@ Transform:
   m_Father: {fileID: 1246150155}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &1509757765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1509757766}
+  m_Layer: 0
+  m_Name: BatterTrailStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1509757766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509757765}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0245, y: 0.0562, z: -0.0627}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1149325187}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1552796768
 GameObject:
   m_ObjectHideFlags: 0
@@ -11202,19 +11267,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.777
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.887
+      value: 1.565
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.13
+      value: -6.803
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -11247,6 +11312,18 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 35ec608366917ba45932cb5713158a6b, type: 3}
       propertyPath: m_Materials.Array.size
@@ -11806,7 +11883,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1926650435}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Batter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12494,7 +12571,7 @@ PrefabInstance:
     - target: {fileID: 570856364976766121, guid: dfe55ac4909513f45bf62b74dbc3a989,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.426
+      value: 0.496
       objectReference: {fileID: 0}
     - target: {fileID: 570856364976766121, guid: dfe55ac4909513f45bf62b74dbc3a989,
         type: 3}
