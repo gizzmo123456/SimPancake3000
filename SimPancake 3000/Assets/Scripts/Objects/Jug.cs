@@ -16,6 +16,12 @@ public class Jug : MonoBehaviour
 	[SerializeField] private float batter_maxPourRate = 0.2f;   // per second
 	[SerializeField] private MinMax batter_yScale_pour = new MinMax(0.2f, 1f);
 
+	[SerializeField] private BatterTrail batterTrail;
+	[SerializeField] private Transform pourTrail_startPosition;
+	[SerializeField] private Transform pourTrail_lerpEndPosition;
+	[SerializeField] private float batterTrail_spwIntervals = 0.25f;
+	private float batter_nextSpwTime = 0;
+
 	[Header("Position")]
 	[SerializeField] private Vector3 defaultPosition = Vector3.zero;
 	[SerializeField] private Transform[] fryingPans;
@@ -52,8 +58,16 @@ public class Jug : MonoBehaviour
 
 		batter.localScale = batterScale;
 
-	}
+		//TEST.
+		// spwan batter pour
+		if(Mathf.Abs(rotation.x) > 10 && Time.time >= batter_nextSpwTime)
+		{
+			BatterTrail bTrail = Instantiate( batterTrail , pourTrail_startPosition.position, Quaternion.identity );
+			bTrail.Init(this, pourTrail_startPosition, pourTrail_lerpEndPosition);
+			batter_nextSpwTime = Time.time + batterTrail_spwIntervals;
+		}
 
+	}
 
 	public float GetCurrentXRotation()
 	{
