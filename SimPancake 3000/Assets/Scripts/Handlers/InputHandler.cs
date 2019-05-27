@@ -126,8 +126,11 @@ public class InputHandler : MonoBehaviour
         currentValIndex++;
 
         inputValues.whisk = int.Parse(inputVals[currentValIndex]);
+		currentValIndex++;
 
-    }
+		inputValues.panToggle = int.Parse( inputVals[ currentValIndex ] );
+
+	}
 
     //Splits string into array of checks of 'inputLength'
     string[] SplitSerialLine(string line)
@@ -168,7 +171,7 @@ public class InputHandler : MonoBehaviour
 
 }
 
-public struct InputValues
+public struct InputValues	// this might be better off being a dict :)
 {
 
     public int[] pans_x;
@@ -177,6 +180,7 @@ public struct InputValues
     public int[] panDistances;
     public int jug;
     public int whisk;
+	public int panToggle;	//TEMP, this is only until i find a better solution to detect jug position :)
 
     public void Init()
     {
@@ -186,6 +190,7 @@ public struct InputValues
         panDistances = new int[3];
         jug = 0;
         whisk = 0;
+		panToggle = 0;
     }
 
 }
