@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 378098382}
   m_Layer: 10
   m_Name: Padding Collider
-  m_TagString: Untagged
+  m_TagString: fryingPan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6070879110665185372}
   m_Layer: 10
   m_Name: Pancake Detect
-  m_TagString: Untagged
+  m_TagString: fryingPan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 7991714208533758856}
   m_Layer: 10
   m_Name: Frying Pan
-  m_TagString: Untagged
+  m_TagString: fryingPan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,6 +180,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_TagString
+      value: fryingPan
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -187,6 +191,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Name
       value: handleHold
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_TagString
+      value: fryingPan
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Layer
@@ -196,6 +204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pan
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_TagString
+      value: fryingPan
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -203,6 +215,10 @@ PrefabInstance:
     - target: {fileID: 100004, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_Name
       value: Handle
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
+      propertyPath: m_TagString
+      value: fryingPan
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 7139bd2780d80f341b2cea66fb2001e6, type: 3}
       propertyPath: m_LocalPosition.x
