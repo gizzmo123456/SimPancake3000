@@ -66,7 +66,6 @@ public class FryingPan : MonoBehaviour
         transform.eulerAngles = rotation;
         transform.position = position;
 
-		print( "LP: " + rotation.z + " ## " + last_z_rotation );
 		ApplyForceToPancakes( rotation.z - last_z_rotation );
 
 		// record the last rotation and y position so we know whether or not to wake up any pancake that are in the pan 
@@ -79,7 +78,7 @@ public class FryingPan : MonoBehaviour
 
 	private void ApplyForceToPancakes( float zRotationDelta )
 	{
-		print( "Delta: "+zRotationDelta );
+
 		if ( currentPancake && zRotationDelta > 0 && zRotationDelta >= last_z_deltaRotation)
 		{
 			acumalatedPancakeForce += zRotationDelta;

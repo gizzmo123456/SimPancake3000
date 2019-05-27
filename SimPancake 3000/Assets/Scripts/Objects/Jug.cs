@@ -38,7 +38,6 @@ public class Jug : MonoBehaviour
 		minMaxInputValue.current = inputs.jug;
 		rotation.x = minMaxRotation.GetValue( minMaxInputValue.Precent );
 
-		print( minMaxInputValue.Precent );
 		transform.eulerAngles = rotation;
 
 		// keep the batters x rotation @ 0 so its always level.
