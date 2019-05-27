@@ -27,7 +27,8 @@ public class InputHandler : MonoBehaviour
     private int inputCount = 15;
     [SerializeField]
     private int inputLength = 5;
-    // input values...
+	private bool hasReadLine = false;
+	// input values...
 
     // static so it is avable to everything :)  // use GetInputs() for access 
     private static InputValues inputValues;
@@ -53,18 +54,12 @@ public class InputHandler : MonoBehaviour
 
     }
 
-    bool first = false;
-
     void Update()
     {
-        // Get Inputs
+		// Get Inputs
 
-        if(!first && useSerial)
-        {
-            serial.WriteLine("N");
-            serial.BaseStream.Flush();
-            first = true;
-        }
+		if ( Input.GetKeyDown( "n" ) )
+			NormalizeInputs();
 
         if (useSerial)
            SerialInputs();
@@ -85,11 +80,16 @@ public class InputHandler : MonoBehaviour
 
             try
             {
+				if ( !hasReadLine )
+					NormalizeInputs();
+
                 serial.WriteLine(writeChar);
                 serial.BaseStream.Flush();
                 line = serial.ReadLine();
 
                 UpdateInputValuesFromSerialLine(line);
+
+				hasReadLine = true;
 
             }
             catch (System.Exception e)
@@ -149,7 +149,12 @@ public class InputHandler : MonoBehaviour
         return inputs;
     }
 
-    
+    private void NormalizeInputs()
+	{
+		serial.WriteLine( "N" );
+		serial.BaseStream.Flush();
+	}
+
     private void OnDestroy()
     {
         if(useSerial)   // TODO: check if its open?? 
