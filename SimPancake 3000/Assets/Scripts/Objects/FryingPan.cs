@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class FryingPan : MonoBehaviour
 {
-    [SerializeField]
-    private int panID = 0;
+    [SerializeField] private int panID = 0;
 
 	private float startYPosition;
 
@@ -23,12 +22,9 @@ public class FryingPan : MonoBehaviour
 
 	[ Header("Off Hob Distacne.")]
 
-    [SerializeField]
-    private float pan_OffHob_YPositionOffset = 10f;
-    [SerializeField]
-    private float pan_OffHob_minInputValue = 230;
-    [SerializeField]
-    private float pan_OffHob_maxInputValue = 1023f;
+    [SerializeField] private float pan_OffHob_YPositionOffset = 10f;
+    [SerializeField] private float pan_OffHob_minInputValue = 230;
+    [SerializeField] private float pan_OffHob_maxInputValue = 1023f;
 
     // Start is called before the first frame update
     void Start()
