@@ -36,7 +36,7 @@ public class Jug : MonoBehaviour
 		Vector3 rotation = transform.eulerAngles;
 
 		minMaxInputValue.current = inputs.jug;
-		rotation.x = minMaxRotation.GetValue( minMaxInputValue.Precent );
+		rotation.x = GetCurrentXRotation();
 
 		transform.eulerAngles = rotation;
 
@@ -55,5 +55,9 @@ public class Jug : MonoBehaviour
 	}
 
 
+	public float GetCurrentXRotation()
+	{
+		return minMaxRotation.GetValue( minMaxInputValue.Precent );
+	}
 
 }
