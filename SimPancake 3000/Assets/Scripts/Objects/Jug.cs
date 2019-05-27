@@ -6,11 +6,14 @@ using AMS_Helpers;
 public class Jug : MonoBehaviour
 {
 
+	[Header("Inputs and limits")]
+	[SerializeField] private MinMax minMaxInputValue = new MinMax( -10, 90 );
+	[SerializeField] private MinMax minMaxRotation = new MinMax( -10, 90 );
+
+	[Header("Batter")]
 	[SerializeField] private Transform batter;
-
-	[SerializeField] private MinMax MinMaxRotation = new MinMax(-10, 90);
-	[SerializeField] private MinMax MinMaxInputValue = new MinMax(-10, 90);
-
+	
+	[Header("Position")]
 	[SerializeField] private Vector3 defaultPosition = Vector3.zero;
 	[SerializeField] private Transform[] fryingPans;
 	[SerializeField] private Vector3 fryingPanOffset;
@@ -29,8 +32,10 @@ public class Jug : MonoBehaviour
 
 		Vector3 rotation = transform.eulerAngles;
 
-		rotation.x = inputs.jug;
-		print( inputs.jug );
+		minMaxInputValue.current = inputs.jug;
+		rotation.x = minMaxRotation.GetValue( minMaxInputValue.Precent );
+
+		print( minMaxInputValue.Precent );
 		transform.eulerAngles = rotation;
 
 		// keep the batters x rotation @ 0 so its always level.
