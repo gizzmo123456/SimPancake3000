@@ -12,7 +12,10 @@ public class Jug : MonoBehaviour
 
 	[Header("Batter")]
 	[SerializeField] private Transform batter;
-	
+	private float batter_amount = 1f;
+	[SerializeField] private float batter_maxPourRate = 0.2f;   // per second
+	[SerializeField] private MinMax batter_yScale_pour = new MinMax(0.2f, 1f);
+
 	[Header("Position")]
 	[SerializeField] private Vector3 defaultPosition = Vector3.zero;
 	[SerializeField] private Transform[] fryingPans;
@@ -41,9 +44,14 @@ public class Jug : MonoBehaviour
 		// keep the batters x rotation @ 0 so its always level.
 		// TODO: make dynamic.
 		Vector3 batterRotation = batter.eulerAngles;
+		Vector3 batterScale = batter.localScale;
 
 		batterRotation.x = 0;
 		batter.eulerAngles = batterRotation;
+
+		batterScale.y = batter_yScale_pour.GetValue( minMaxInputValue.Precent );
+
+		batter.localScale = batterScale;
 
 	}
 
