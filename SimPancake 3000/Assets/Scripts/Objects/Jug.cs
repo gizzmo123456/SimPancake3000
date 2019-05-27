@@ -22,10 +22,16 @@ public class Jug : MonoBehaviour
 	[SerializeField] private float batterTrail_spwIntervals = 0.25f;
 	private float batter_nextSpwTime = 0;
 
-	[Header("Position")]
+	[Header( "Position" )]
+	private int currentPosition = -1; // <0 is difault position.
+
 	[SerializeField] private Vector3 defaultPosition = Vector3.zero;
 	[SerializeField] private Transform[] fryingPans;
 	[SerializeField] private Vector3 fryingPanOffset;
+
+	private float panToggle_releaseTime = -1;
+	[SerializeField] private float panToggle_thresshold = 0.5f;
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -38,6 +44,11 @@ public class Jug : MonoBehaviour
     {
 
 		InputValues inputs = InputHandler.GetInputs();
+
+		SelectPan( inputs.panToggle );
+
+		// we can not pour when in the default postion
+		if ( currentPosition < 0 ) return;
 
 		Vector3 rotation = transform.eulerAngles;
 
@@ -67,6 +78,39 @@ public class Jug : MonoBehaviour
 			batter_nextSpwTime = Time.time + batterTrail_spwIntervals;
 		}
 
+	}
+
+	private void SelectPan(float selectPan_input)
+	{
+		selectPan_input = 1f - selectPan_input;
+		print( selectPan_input );
+
+		if ( selectPan_input > 0 && ( Time.time <  panToggle_releaseTime + panToggle_thresshold ||															// cycel through pans, be pressed befor the end of the thresshold
+									( Time.time >= panToggle_releaseTime + panToggle_thresshold && currentPosition == -1 ) ))	// or we're in the default position and pressed after the thresshold
+		{                                                                                                                       
+
+			currentPosition++;
+
+			if ( currentPosition >= fryingPans.Length )
+				currentPosition = 0;
+
+			panToggle_releaseTime = -1;	
+		}
+		else if(selectPan_input == 0 && panToggle_releaseTime < 0)																// toggle released
+		{
+			panToggle_releaseTime = Time.time;
+		}
+		else if( currentPosition != -1 && selectPan_input == 0 && Time.time >= panToggle_releaseTime + panToggle_thresshold )	// reset to default be release for longer than thresshold
+		{
+			currentPosition = -1;
+		}
+
+
+		if ( currentPosition < 0 )
+			transform.position = defaultPosition;
+		else
+			transform.position = fryingPans[ currentPosition ].position + fryingPanOffset;
+		
 	}
 
 	public float GetCurrentXRotation()
