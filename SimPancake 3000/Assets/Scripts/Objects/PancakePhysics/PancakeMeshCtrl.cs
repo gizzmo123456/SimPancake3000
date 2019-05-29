@@ -133,52 +133,52 @@ public class PancakeMeshCtrl : MonoBehaviour
         //mesh.RecalculateNormals();
     }
 
-    [System.Serializable]
-    public struct VerticeGroup
-    {
-        private float x, z;   // we dont need the Y asix since we only need to change the shape of its face and the top will have a matching bottom.
-        private List<int> verticesIDs;
-        public PancakePhysicsBall physicsBall;
+}
 
-        public VerticeGroup( int vertID, float xAxis, float zAxis, PancakePhysicsBall pb)
-        {
-            x = xAxis;
-            z = zAxis;
-            physicsBall = pb;
-            verticesIDs = new List<int>();
-            verticesIDs.Add( vertID );
-        }
+[System.Serializable]
+public struct VerticeGroup
+{
+	private float x, z;   // we dont need the Y asix since we only need to change the shape of its face and the top will have a matching bottom.
+	private List<int> verticesIDs;
+	public PancakePhysicsBall physicsBall;
 
-        public void Update( ref Vector3[] verts, float xAxis, float yAxis, float zAxis )
-        {
+	public VerticeGroup( int vertID, float xAxis, float zAxis, PancakePhysicsBall pb )
+	{
+		x = xAxis;
+		z = zAxis;
+		physicsBall = pb;
+		verticesIDs = new List<int>();
+		verticesIDs.Add( vertID );
+	}
 
-            x = xAxis;
-            z = zAxis;
+	public void Update( ref Vector3[] verts, float xAxis, float yAxis, float zAxis )
+	{
 
-            foreach ( int vid in verticesIDs )
-            {
-                verts[ vid ].x  = x;
-                verts[ vid ].z = z;
-                verts[ vid ].y = yAxis;
-            }
+		x = xAxis;
+		z = zAxis;
 
-        }
+		foreach ( int vid in verticesIDs )
+		{
+			verts[ vid ].x = x;
+			verts[ vid ].z = z;
+			verts[ vid ].y = yAxis;
+		}
 
-        public void AddVertID( int id )
-        {
-            verticesIDs.Add( id );
-        }
+	}
 
-        public Vector3 GetAsVector3()
-        {
-            return new Vector3( x, 0, z );
-        }
+	public void AddVertID( int id )
+	{
+		verticesIDs.Add( id );
+	}
 
-        public bool Compare( float xAxis, float zAxis )
-        {
-            return x == xAxis && z == zAxis;
-        }
+	public Vector3 GetAsVector3()
+	{
+		return new Vector3( x, 0, z );
+	}
 
-    }
+	public bool Compare( float xAxis, float zAxis )
+	{
+		return x == xAxis && z == zAxis;
+	}
 
 }
