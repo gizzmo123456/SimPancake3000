@@ -1692,6 +1692,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5691382860961177342, guid: be015a5d4e21fc145bc13ea9e532e110,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.147
+      objectReference: {fileID: 0}
+    - target: {fileID: 5691382860961177342, guid: be015a5d4e21fc145bc13ea9e532e110,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0069999993
+      objectReference: {fileID: 0}
+    - target: {fileID: 5691382860961177342, guid: be015a5d4e21fc145bc13ea9e532e110,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.5559998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5691382860961177342, guid: be015a5d4e21fc145bc13ea9e532e110,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -1729,16 +1744,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5691382860961177342, guid: be015a5d4e21fc145bc13ea9e532e110,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.147
-      objectReference: {fileID: 0}
-    - target: {fileID: 2685030099870555632, guid: be015a5d4e21fc145bc13ea9e532e110,
-        type: 3}
-      propertyPath: TriggerModule.collisionShape0
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be015a5d4e21fc145bc13ea9e532e110, type: 3}
@@ -2516,10 +2521,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 378098380, guid: dfe55ac4909513f45bf62b74dbc3a989, type: 3}
-      propertyPath: m_Layer
-      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfe55ac4909513f45bf62b74dbc3a989, type: 3}
