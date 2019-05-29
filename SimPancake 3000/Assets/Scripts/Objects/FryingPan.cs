@@ -32,7 +32,10 @@ public class FryingPan : MonoBehaviour
 	[Header( "Pan Temperture" )]
 	[SerializeField] private float currentTemperture = 0;   // max temp is defined by curve.
 	[SerializeField] private AnimationCurve tempertureCurve = new AnimationCurve();
+	[SerializeField] private float maxTempture = 200;
 	[SerializeField] private float coolDownRate = 1f;
+
+	public bool debug = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -153,16 +156,27 @@ public class FryingPan : MonoBehaviour
 	public void AddTempture(float tempPerSec)
 	{
 
-		float addAmountMulti = tempertureCurve.Evaluate(currentTemperture);
+		float addAmountMulti = 0;
 		//center the value so we get it in the range of -1 to 1 so we can cool the pan down when its to far away.
 		// < 0 is cool down >= 0 is heat up.
-		float panDistanceMulti = ( 1 - ( ( -0.5f + pan_OffHob_minMaxInputValue.ClampedPrecent ) / 0.5f ) );
+		float panDistanceMulti = ( ( -0.5f + pan_OffHob_minMaxInputValue.ClampedPrecent ) / 0.5f ) ;
 		float tempToAdd = 0;
 
 		if ( panDistanceMulti < 0 )
-			tempToAdd = coolDownRate * Mathf.Abs( panDistanceMulti ) * Time.deltaTime;
+		{
+			addAmountMulti = tempertureCurve.Evaluate( 1f - Mathf.Clamp01(currentTemperture / maxTempture) );
+			tempPerSec = coolDownRate;
+		}
 		else
-			tempToAdd = ( tempPerSec * Time.deltaTime ) * panDistanceMulti * addAmountMulti;
+		{
+			addAmountMulti = tempertureCurve.Evaluate( Mathf.Clamp01( currentTemperture / maxTempture ) );
+		//	panDistanceMulti = 1 - panDistanceMulti;
+		}
+
+		tempToAdd = ( tempPerSec * Time.deltaTime ) * panDistanceMulti * addAmountMulti;
+
+		if ( debug )
+			print( panDistanceMulti +" ## "+ tempToAdd +" ### "+ addAmountMulti +" ### "+ Mathf.Clamp01( currentTemperture / maxTempture ) );
 
 		currentTemperture += tempToAdd;
 
