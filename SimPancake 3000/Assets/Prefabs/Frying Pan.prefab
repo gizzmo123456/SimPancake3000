@@ -165,8 +165,38 @@ MonoBehaviour:
     type: 3}
   forceMuti: 45
   pan_OffHob_YPositionOffset: 0.35
-  pan_OffHob_minInputValue: 230
-  pan_OffHob_maxInputValue: 1023
+  pan_OffHob_minMaxInputValue:
+    min: 230
+    max: 1023
+    current: 0
+  currentTemperture: 0
+  tempertureCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.0037601895
+      outSlope: 0.0037601895
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 0.005
+      inSlope: 0.09277198
+      outSlope: 0.09277198
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.53078985
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxTempture: 200
+  coolDownRate: 15
+  debug: 0
 --- !u!1001 &7401672384957927618
 PrefabInstance:
   m_ObjectHideFlags: 0
