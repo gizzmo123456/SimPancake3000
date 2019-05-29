@@ -16,6 +16,7 @@ public class BatterTrail : MonoBehaviour
 	[SerializeField] private float pourTrail_rotationThresshold = 10;
 	[SerializeField] private float pourTrail_rotationLerpRange = 30;
 
+	private float batterQuantity = 0;
 	private bool batterPoured = false;
 
 	// Start is called before the first frame update
@@ -25,11 +26,15 @@ public class BatterTrail : MonoBehaviour
 		spwanTime = Time.time;
     }
 
-	public void Init( Jug j, Transform startLerpPosition, Transform endLerpPosition )
+	public void Init( Jug j, Transform startLerpPosition, Transform endLerpPosition, float batterQt )
 	{
 		jug = j;
 		pourTrail_startPosition = startLerpPosition;
 		pourTrail_lerpEndPosition = endLerpPosition;
+
+		batterQuantity = batterQt;
+		//TODO: change the size of the trail depending on the qt.
+
 	}
 
 	// Update is called once per frame
@@ -47,7 +52,6 @@ public class BatterTrail : MonoBehaviour
 			if ( lerpPercentage >= 0.9f )
 				batterPoured = true;
 
-			print( "!Boo ## "+lerpPercentage );
 		}
 		else if(batterPoured && Mathf.Abs( jug.GetCurrentXRotation() ) < pourTrail_rotationThresshold )
 		{
@@ -58,4 +62,18 @@ public class BatterTrail : MonoBehaviour
 			Destroy(gameObject);
 
 	}
+
+	// Tell the pan to start spwaning a pancake, if it hasent already :)
+	private void OnCollisionEnter( Collision collision )
+	{
+		print("Im In the pan :)");
+
+		if( collision.gameObject.CompareTag("fryingPan") )
+		{
+			// start to creat our pancake in the frying pan
+			collision.gameObject.GetComponentInParent<FryingPan>().BatterCollision( collision.contacts[0].point, batterQuantity );
+		}
+
+	}
+
 }

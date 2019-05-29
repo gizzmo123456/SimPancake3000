@@ -12,10 +12,13 @@ public class FryingPan : MonoBehaviour
 	private float last_z_deltaRotation;
 	private float last_y_position;
 
-    private Pancake currentPancake;
+	[Header( "Pancake" )]
+	private Pancake currentPancake;				// <-- this will have to be a list to support mutiple pancakes :)
 
-	private float acumalatedPancakeForce = 0; // <-- it might be better if this was in the pancake itself. :)
+	private float acumalatedPancakeForce = 0;	// <-- it might be better if this was in the pancake itself. :)
 	private int acumPancakeForce_frameCount = 0;
+
+	[SerializeField] private Pancake pancake_prefab;
 
 	[SerializeField]
 	private float forceMuti = 5f;
@@ -107,5 +110,31 @@ public class FryingPan : MonoBehaviour
 		currentPancake.transform.parent = null;
 		currentPancake = null;
     }
+
+	// called from the batter when it collides with the fryingPan.
+	public void BatterCollision(Vector3 collisionPosition, float batterQt)
+	{
+		Quaternion quaternion = new Quaternion();
+		quaternion.eulerAngles = new Vector3( 0, 90, 0 );
+
+		// create a new pancake if we are not already reciving batter :)
+		if ( !currentPancake )
+		{
+			currentPancake = Instantiate( pancake_prefab, collisionPosition, quaternion );
+			currentPancake.SetStartPosition( collisionPosition );
+		}
+		else if( currentPancake && currentPancake.GetCurrentState() != PancakeState.Raw )	// consume any current pancakes in the pan that are not raw.
+		{
+			Pancake oldPancake = currentPancake;
+			currentPancake = Instantiate( pancake_prefab, collisionPosition, quaternion );
+			currentPancake.SetStartPosition( collisionPosition );
+			oldPancake.transform.parent = currentPancake.transform;
+		}
+
+		currentPancake.transform.parent = transform;
+		currentPancake.AddBatter( batterQt, 0.25f );	// 0.25f is the spwan intervals of batter from jug. 
+
+	}
+
 
 }

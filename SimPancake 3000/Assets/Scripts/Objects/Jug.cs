@@ -21,6 +21,7 @@ public class Jug : MonoBehaviour
 	[SerializeField] private Transform pourTrail_lerpEndPosition;
 	[SerializeField] private float batterTrail_spwIntervals = 0.25f;
 	private float batter_nextSpwTime = 0;
+	private float batterTrail_pourAmount = 0f;			// the total amount of batter that has been paourd within the spwan intervals.
 
 	[Header( "Position" )]
 	private int currentPosition = -1; // <0 is difault position.
@@ -74,8 +75,13 @@ public class Jug : MonoBehaviour
 		if(Mathf.Abs(rotation.x) > 10 && Time.time >= batter_nextSpwTime)
 		{
 			BatterTrail bTrail = Instantiate( batterTrail , pourTrail_startPosition.position, Quaternion.identity );
-			bTrail.Init(this, pourTrail_startPosition, pourTrail_lerpEndPosition);
+			bTrail.Init(this, pourTrail_startPosition, pourTrail_lerpEndPosition, batterTrail_pourAmount);
 			batter_nextSpwTime = Time.time + batterTrail_spwIntervals;
+			batterTrail_pourAmount = 0;
+		}
+		else if( Mathf.Abs( rotation.x ) > 10 && Time.time < batter_nextSpwTime )
+		{
+			batterTrail_pourAmount += (batter_maxPourRate * minMaxInputValue.Precent) * Time.deltaTime;
 		}
 
 	}
