@@ -141,6 +141,7 @@ public struct VerticeGroup
 	private float x, z;   // we dont need the Y asix since we only need to change the shape of its face and the top will have a matching bottom.
 	private List<int> verticesIDs;
 	public PancakePhysicsBall physicsBall;
+	public bool isCenter;
 
 	public VerticeGroup( int vertID, float xAxis, float zAxis, PancakePhysicsBall pb )
 	{
@@ -149,6 +150,7 @@ public struct VerticeGroup
 		physicsBall = pb;
 		verticesIDs = new List<int>();
 		verticesIDs.Add( vertID );
+		isCenter = false;
 	}
 
 	public void Update( ref Vector3[] verts, float xAxis, float yAxis, float zAxis )
@@ -174,6 +176,11 @@ public struct VerticeGroup
 	public Vector3 GetAsVector3()
 	{
 		return new Vector3( x, 0, z );
+	}
+
+	public void SetCenter(bool b)
+	{
+		isCenter = b;
 	}
 
 	public bool Compare( float xAxis, float zAxis )
