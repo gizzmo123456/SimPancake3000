@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class HobFire : MonoBehaviour
 {
-    [SerializeField]
-    private int hobID = 0;
-    [SerializeField]
-    private Vector3 minScale = new Vector3(0.4f, 0.4f, 0.4f);
-    [SerializeField]
-    private Vector3 scaleDif = new Vector3(0.5f, 0.5f, 0.5f);
+    [SerializeField] private int hobID = 0;
+    [SerializeField] private Vector3 minScale = new Vector3(0.4f, 0.4f, 0.4f);
+    [SerializeField] private Vector3 scaleDif = new Vector3(0.5f, 0.5f, 0.5f);
 
-    // Start is called before the first frame update
-    void Start()
+	[SerializeField] private FryingPan fryingPan;
+	[SerializeField] private float minTemperture = 25f;
+	[SerializeField] private float maxTemperture = 150f;
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
@@ -30,9 +31,16 @@ public class HobFire : MonoBehaviour
             return;
         }
 
-        Vector3 newScale = minScale + (scaleDif * (inputs.hobs[hobID] / 1023f));
+		float hobPercent = ( inputs.hobs[ hobID ] / 1023f );
+		Vector3 newScale = minScale + (scaleDif * hobPercent);
+		
 
         transform.localScale = newScale;
+
+		// send temp to pan.
+		float temperureDif = maxTemperture - minTemperture;
+		float temp = minTemperture + ( temperureDif * hobPercent );
+		fryingPan.AddTempture( temp );
 
     }
 }
