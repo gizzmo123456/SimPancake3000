@@ -26,8 +26,7 @@ public class FryingPan : MonoBehaviour
 	[ Header("Off Hob Distacne.")]
 
     [SerializeField] private float pan_OffHob_YPositionOffset = 10f;
-    [SerializeField] private float pan_OffHob_minInputValue = 230;
-    [SerializeField] private float pan_OffHob_maxInputValue = 1023f;
+    [SerializeField] private MinMax pan_OffHob_minMaxInputValue = new MinMax(230f, 1023f);
 
     // Start is called before the first frame update
     void Start()
