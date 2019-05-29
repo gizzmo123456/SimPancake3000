@@ -1220,7 +1220,7 @@ MonoBehaviour:
     max: 20
     current: 0
   batter: {fileID: 1926650435}
-  batter_maxPourRate: 0.2
+  batter_maxPourRate: 1
   batter_yScale_pour:
     min: 0.2
     max: 1
