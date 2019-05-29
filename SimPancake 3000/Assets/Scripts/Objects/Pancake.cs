@@ -20,6 +20,7 @@ public class Pancake : MonoBehaviour
 	[Range( 0.0f, 0.5f )]
 	[SerializeField] private float defaultSpreadRate = 0.25f;   //Per Second
 	[SerializeField] private MinMax pancakeHeight_spreadRate = new MinMax( 0.1f, 0.25f );
+	[SerializeField] private Vector3 maxLocalScale = Vector3.one;	//Local to the frying pan.
 
 	private void Awake()
 	{
@@ -48,6 +49,8 @@ public class Pancake : MonoBehaviour
 
 	private void SpreadPancakeBatter()
 	{
+		if ( targetScale.x >= maxLocalScale.x || targetScale.z > maxLocalScale.z ) return;
+
 		pancakeHeight_spreadRate.current = targetScale.y;
 
 		float amountToSpread = targetScale.y * (defaultSpreadRate * pancakeHeight_spreadRate.Precent) * Time.deltaTime;
