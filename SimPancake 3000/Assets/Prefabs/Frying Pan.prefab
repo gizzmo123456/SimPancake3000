@@ -161,6 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panID: 2
+  pancake_prefab: {fileID: 1571630102001874943, guid: 349a8309e27871f49b137d57a32611b6,
+    type: 3}
   forceMuti: 45
   pan_OffHob_YPositionOffset: 0.35
   pan_OffHob_minInputValue: 230
