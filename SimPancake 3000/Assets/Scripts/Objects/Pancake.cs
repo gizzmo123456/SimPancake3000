@@ -11,7 +11,7 @@ public class Pancake : MonoBehaviour
     private FryingPan currentPan;   //null if its not in a pan
 
 	private Vector3 startPosition;
-	private PancakeState currentPancakeState = PancakeState.Raw;
+	private PancakeState currentPancakeState = PancakeState.Mixture;
 
 	private Vector3 startLerpScale = Vector3.zero;
 	private Vector3 targetScale = Vector3.zero;
@@ -30,16 +30,16 @@ public class Pancake : MonoBehaviour
 	void Start()
     {
         rb = GetComponent<Rigidbody>();
-		currentPancakeState = PancakeState.Raw;
+		currentPancakeState = PancakeState.Mixture;
 	}
 
     void Update()
     {
         WakeUp();
 
-		if( currentPancakeState == PancakeState.Raw )
+		if( currentPancakeState == PancakeState.Mixture )
 		{
-			transform.position = startPosition + new Vector3(0, transform.localScale.y/2f ,0);
+			transform.position = startPosition + new Vector3(0, 0.01f + (transform.localScale.y/2f) , 0);
 			transform.eulerAngles = new Vector3( 0, 90, 0 );
 			SpreadPancakeBatter();
 			LerpPancakeSize();
@@ -93,7 +93,7 @@ public class Pancake : MonoBehaviour
 	{
 
 		//check we are in a raw state.
-		if( currentPancakeState != PancakeState.Raw )
+		if( currentPancakeState != PancakeState.Mixture )
 		{
 			Debug.LogError( "Can only add batter to a raw pancake." );
 			return;
@@ -119,6 +119,7 @@ public class Pancake : MonoBehaviour
 
 public enum PancakeState	//Use State?
 {
+	Mixture,
 	Raw,
 	Cooked,
 	Burnt,

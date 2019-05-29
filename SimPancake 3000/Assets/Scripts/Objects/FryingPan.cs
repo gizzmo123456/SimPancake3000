@@ -102,7 +102,7 @@ public class FryingPan : MonoBehaviour
     public void RegisterPancake(Pancake pancakeToReg)
     {
 		// can not reg a raw pancake. this is delta with in batterCollision.
-		if ( pancakeToReg.GetCurrentState() == PancakeState.Raw )
+		if ( pancakeToReg.GetCurrentState() == PancakeState.Mixture )
 			return;
 
 		currentPancake = pancakeToReg;
@@ -112,7 +112,7 @@ public class FryingPan : MonoBehaviour
     public void UnregisterPancake( Pancake pancakeToUnreg )
     {
 		//can not remove a pan if its raw or not there :)
-		if ( !currentPancake || currentPancake && currentPancake.GetCurrentState() == PancakeState.Raw )
+		if ( !currentPancake || currentPancake && currentPancake.GetCurrentState() == PancakeState.Mixture )
 			return;
 
 		currentPancake.transform.parent = null;
@@ -131,7 +131,7 @@ public class FryingPan : MonoBehaviour
 			currentPancake = Instantiate( pancake_prefab, collisionPosition, quaternion );
 			currentPancake.SetStartPosition( collisionPosition );
 		}
-		else if( currentPancake && currentPancake.GetCurrentState() != PancakeState.Raw )	// consume any current pancakes in the pan that are not raw.
+		else if( currentPancake && currentPancake.GetCurrentState() != PancakeState.Mixture )	// consume any current pancakes in the pan that are not raw.
 		{
 			Pancake oldPancake = currentPancake;
 			currentPancake = Instantiate( pancake_prefab, collisionPosition, quaternion );
