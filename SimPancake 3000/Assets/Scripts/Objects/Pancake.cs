@@ -17,7 +17,7 @@ public class Pancake : MonoBehaviour
 	private Vector3 targetScale = Vector3.zero;
 	private float targetLerpLength = 0.5f;
 	private float targetLerpTime = 0f;
-	[Range( 0.0f, 0.5f )]
+	[Range( 0.1f, 1.5f )]
 	[SerializeField] private float defaultSpreadRate = 0.25f;   //Per Second
 	[SerializeField] private MinMax pancakeHeight_spreadRate = new MinMax( 0.1f, 0.25f );
 	[SerializeField] private Vector3 maxLocalScale = Vector3.one;	//Local to the frying pan.
