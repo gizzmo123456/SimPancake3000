@@ -160,7 +160,7 @@ public class InputHandler : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(useSerial)   // TODO: check if its open?? 
+        if(useSerial && serial != null)   // TODO: check if its open?? 
             serial.Close();
     }
 
