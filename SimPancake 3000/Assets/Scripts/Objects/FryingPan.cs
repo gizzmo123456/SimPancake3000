@@ -101,12 +101,20 @@ public class FryingPan : MonoBehaviour
 
     public void RegisterPancake(Pancake pancakeToReg)
     {
+		// can not reg a raw pancake. this is delta with in batterCollision.
+		if ( pancakeToReg.GetCurrentState() == PancakeState.Raw )
+			return;
+
 		currentPancake = pancakeToReg;
 		currentPancake.transform.parent = transform;
     }
 
     public void UnregisterPancake( Pancake pancakeToUnreg )
     {
+		//can not remove a pan if its raw or not there :)
+		if ( !currentPancake || currentPancake && currentPancake.GetCurrentState() == PancakeState.Raw )
+			return;
+
 		currentPancake.transform.parent = null;
 		currentPancake = null;
     }
