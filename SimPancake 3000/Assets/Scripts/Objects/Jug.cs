@@ -89,7 +89,6 @@ public class Jug : MonoBehaviour
 	private void SelectPan(float selectPan_input)
 	{
 		selectPan_input = 1f - selectPan_input;
-		print( selectPan_input );
 
 		if ( selectPan_input > 0 && ( Time.time <  panToggle_releaseTime + panToggle_thresshold ||															// cycel through pans, be pressed befor the end of the thresshold
 									( Time.time >= panToggle_releaseTime + panToggle_thresshold && currentPosition == -1 ) ))	// or we're in the default position and pressed after the thresshold
