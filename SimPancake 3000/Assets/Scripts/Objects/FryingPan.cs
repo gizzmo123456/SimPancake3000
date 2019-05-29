@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AMS_Helpers;
 
 public class FryingPan : MonoBehaviour
 {
@@ -28,8 +29,13 @@ public class FryingPan : MonoBehaviour
     [SerializeField] private float pan_OffHob_YPositionOffset = 10f;
     [SerializeField] private MinMax pan_OffHob_minMaxInputValue = new MinMax(230f, 1023f);
 
-    // Start is called before the first frame update
-    void Start()
+	[Header( "Pan Temperture" )]
+	[SerializeField] private float currentTemperture = 0;   // max temp is defined by curve.
+	[SerializeField] private AnimationCurve tempertureCurve = new AnimationCurve();
+	[SerializeField] private float coolDownRate = 1f;
+
+	// Start is called before the first frame update
+	void Start()
     {
         startYPosition = transform.position.y;
     }
@@ -46,12 +52,13 @@ public class FryingPan : MonoBehaviour
         }
 
         InputValues inputs = InputHandler.GetInputs();
+		pan_OffHob_minMaxInputValue.current = inputs.panDistances[ panID ];
 
-        Vector3 position = transform.position;
+		Vector3 position = transform.position;
 		Vector3 rotation = transform.eulerAngles;
 
-        // Update the Y position of the pan when it has moved on the hob
-        position.y = startYPosition + (pan_OffHob_YPositionOffset * (1f - ((inputs.panDistances[panID] - pan_OffHob_minInputValue) / (pan_OffHob_maxInputValue - pan_OffHob_minInputValue))));
+		// Update the Y position of the pan when it has moved on the hob
+		position.y = startYPosition + (pan_OffHob_YPositionOffset * (1f - pan_OffHob_minMaxInputValue.ClampedPrecent));
 
 		// get the current pan rotation from inputs 
 		rotation.x = -inputs.pans_x[ panID ];
@@ -143,5 +150,21 @@ public class FryingPan : MonoBehaviour
 
 	}
 
+	public void AddTempture(float tempPerSec)
+	{
 
+		float addAmountMulti = tempertureCurve.Evaluate(currentTemperture);
+		//center the value so we get it in the range of -1 to 1 so we can cool the pan down when its to far away.
+		// < 0 is cool down >= 0 is heat up.
+		float panDistanceMulti = ( 1 - ( ( -0.5f + pan_OffHob_minMaxInputValue.ClampedPrecent ) / 0.5f ) );
+		float tempToAdd = 0;
+
+		if ( panDistanceMulti < 0 )
+			tempToAdd = coolDownRate * Mathf.Abs( panDistanceMulti ) * Time.deltaTime;
+		else
+			tempToAdd = ( tempPerSec * Time.deltaTime ) * panDistanceMulti * addAmountMulti;
+
+		currentTemperture += tempToAdd;
+
+	}
 }
