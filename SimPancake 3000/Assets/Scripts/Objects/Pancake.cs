@@ -60,14 +60,15 @@ public class Pancake : MonoBehaviour
 	private void SpreadPancakeBatter() 
 	{
 		
-		radius += 0.1f * Height * Time.deltaTime;
+		if(targetScale.y > minHeight)
+			radius += 0.1f * Height * Time.deltaTime;
 		
 		if ( radius > maxRadius ) radius = maxRadius;
 
-			//float amountToSpread = targetScale.y * (defaultSpreadRate * pancakeHeight_spreadRate.Precent) * Time.deltaTime;
-		targetScale.y = Height;
+		targetScale.y = Height > minHeight ? Height : minHeight;
 		targetScale.x = radius;// / 2f;
 		targetScale.z = radius;// / 2f;
+
 	}
 
 	private void LerpPancakeSize()
