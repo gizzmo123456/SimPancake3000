@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class tiltBall : MonoBehaviour
 {
+	[SerializeField] private int panId = 0;
 	[SerializeField] private Transform pan;
 	[SerializeField] private float range = 2; 
 
@@ -13,8 +14,8 @@ public class tiltBall : MonoBehaviour
 
 		InputValues inputs = InputHandler.GetInputs();
 
-		float x_pos = /*pan.position.x + */(( inputs.pans_x[ 0 ] / 180f ) * range);
-		float z_pos = /*pan.position.z + */(( inputs.pans_y[ 0 ] / 180f ) * range);
+		float x_pos = /*pan.position.x + */(( inputs.pans_x[ panId ] / 180f ) * range);
+		float z_pos = /*pan.position.z + */(( inputs.pans_y[ panId ] / 180f ) * range);
 
 		transform.localPosition = new Vector3( z_pos, x_pos, 0 );
 
