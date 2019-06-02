@@ -17,11 +17,21 @@ public class Pancake : MonoBehaviour
 	private Vector3 targetScale = Vector3.zero;
 	private float targetLerpLength = 0.5f;
 	private float targetLerpTime = 0f;
+
+	private float volume = 0;
+	private float radius = 0.01f;
+	[SerializeField] private float maxRadius = 1f;
+	[SerializeField] private float minHeight = 0.1f;
+	private float Height
+	{
+		get{ return volume / ( Mathf.PI * Mathf.Pow( radius, 2 ) ); }
+	}
+/*
 	[Range( 0.1f, 1.5f )]
 	[SerializeField] private float defaultSpreadRate = 0.25f;   //Per Second
 	[SerializeField] private MinMax pancakeHeight_spreadRate = new MinMax( 0.1f, 0.25f );
 	[SerializeField] private Vector3 maxLocalScale = Vector3.one;	//Local to the frying pan.
-
+*/
 	private void Awake()
 	{
 		transform.localScale = Vector3.zero;	//New pancakes should have a size of zero :).	
@@ -47,21 +57,23 @@ public class Pancake : MonoBehaviour
 
     }
 
-	private void SpreadPancakeBatter()
+	private void SpreadPancakeBatter() 
 	{
-		if ( targetScale.x >= maxLocalScale.x || targetScale.z > maxLocalScale.z ) return;
+		
+		radius += 0.1f * Height * Time.deltaTime;
+		
+		if ( radius > maxRadius ) radius = maxRadius;
 
-		pancakeHeight_spreadRate.current = targetScale.y;
-
-		float amountToSpread = targetScale.y * (defaultSpreadRate * pancakeHeight_spreadRate.Precent) * Time.deltaTime;
-		targetScale.y -= amountToSpread;
-		targetScale.x += amountToSpread / 2f;
-		targetScale.z += amountToSpread / 2f;
+			//float amountToSpread = targetScale.y * (defaultSpreadRate * pancakeHeight_spreadRate.Precent) * Time.deltaTime;
+		targetScale.y = Height;
+		targetScale.x = radius;// / 2f;
+		targetScale.z = radius;// / 2f;
 	}
 
 	private void LerpPancakeSize()
 	{
 		targetLerpTime += Time.deltaTime;
+
 		if ( targetLerpTime > targetLerpLength )
 			targetLerpTime = targetLerpLength;
 
@@ -100,7 +112,7 @@ public class Pancake : MonoBehaviour
 		}
 
 		startLerpScale = transform.localScale;
-		targetScale.y += batterQt;
+		volume += batterQt;
 		targetLerpLength = intervalLength;
 		targetLerpTime = 0;
 
