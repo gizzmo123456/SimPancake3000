@@ -122,9 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d91426ced911146aa24e1f2cfa8d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSpreadRate: 1
-  pancakeHeight_spreadRate:
-    min: 0.025
-    max: 0.15
-    current: 0
-  maxLocalScale: {x: 4, y: 0.3, z: 4}
+  maxRadius: 6
