@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PhysicsBall : MonoBehaviour
 {
-
+	// i am think that i might need to ref the cloest ball on the next ring in
 	private PhysicsBall rightBall;
 	private PhysicsBall leftBall;
 
