@@ -49,7 +49,7 @@ public class Pancake : MonoBehaviour
 
 		if( currentPancakeState == PancakeState.Mixture )
 		{
-			transform.position = startPosition + new Vector3(0, 0.01f + (transform.localScale.y/2f) , 0);
+			transform.position = startPosition + new Vector3(0, 0.01f, 0);// new Vector3(0, 0.01f + ((transform.localScale.y/2f) * transform.parent.localScale.y) , 0);
 			transform.eulerAngles = new Vector3( 0, 90, 0 );
 			SpreadPancakeBatter();
 			LerpPancakeSize();
@@ -119,9 +119,9 @@ public class Pancake : MonoBehaviour
 
 	}
 
-	public void SetStartPosition(Vector3 startPos)
+	public void SetStartPosition(Vector3 worldStartPos)
 	{
-		startPosition = startPos;
+		startPosition = worldStartPos;
 	}
 
 	public PancakeState GetCurrentState()
