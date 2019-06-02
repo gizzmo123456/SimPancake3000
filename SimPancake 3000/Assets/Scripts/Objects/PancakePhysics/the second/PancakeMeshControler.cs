@@ -122,6 +122,11 @@ public class PancakeMeshControler : MonoBehaviour
 
 	}
 
+	public VerticeGroup[] GetVertGroups()
+	{
+		return vertGroups.ToArray();
+	}
+
 	[System.Serializable]
 	public struct VerticeGroup
 	{
