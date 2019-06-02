@@ -66,7 +66,6 @@ public class BatterTrail : MonoBehaviour
 	// Tell the pan to start spwaning a pancake, if it hasent already :)
 	private void OnCollisionEnter( Collision collision )
 	{
-		print("Im In the pan :)");
 
 		if( collision.gameObject.CompareTag("fryingPan") )
 		{
