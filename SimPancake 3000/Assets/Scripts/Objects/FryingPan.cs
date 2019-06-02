@@ -181,4 +181,13 @@ public class FryingPan : MonoBehaviour
 		currentTemperture += tempToAdd;
 
 	}
+
+	/// <summary>
+	/// Get an array of all the current pancakes avable in the pan.
+	/// </summary>
+	// TODO: Update to array once i have added muti pancake support.
+	public Pancake GetCurrentPancakes()
+	{
+		return currentPancake;
+	}
 }
