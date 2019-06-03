@@ -19,19 +19,17 @@ public class Pancake : MonoBehaviour
 	private float targetLerpTime = 0f;
 
 	private float volume = 0;
-	private float radius = 0.01f;
+	private float radius = 0.1f;
 	[SerializeField] private float maxRadius = 1f;
-	[SerializeField] private float minHeight = 0.1f;
+	[SerializeField] private MinMax heightRange = new MinMax(0.1f, 1f);
+
 	private float Height
 	{
 		get{ return volume / ( Mathf.PI * Mathf.Pow( radius, 2 ) ); }
 	}
-/*
-	[Range( 0.1f, 1.5f )]
-	[SerializeField] private float defaultSpreadRate = 0.25f;   //Per Second
-	[SerializeField] private MinMax pancakeHeight_spreadRate = new MinMax( 0.1f, 0.25f );
-	[SerializeField] private Vector3 maxLocalScale = Vector3.one;	//Local to the frying pan.
-*/
+
+	[SerializeField] private float spreadRate = 0.2f;
+
 	private void Awake()
 	{
 		transform.localScale = Vector3.zero;	//New pancakes should have a size of zero :).	
@@ -64,15 +62,17 @@ public class Pancake : MonoBehaviour
 
 	private void SpreadPancakeBatter() 
 	{
-		
-		if(targetScale.y > minHeight)
-			radius += 0.1f * Height * Time.deltaTime;
+
+		heightRange.current = Height;
+
+		if(targetScale.y > heightRange.min)
+			radius += spreadRate * heightRange.Precent * Time.deltaTime;
 		
 		if ( radius > maxRadius ) radius = maxRadius;
 
-		targetScale.y = Height > minHeight ? Height : minHeight;
-		targetScale.x = radius;// / 2f;
-		targetScale.z = radius;// / 2f;
+		targetScale.y = Height > heightRange.min ? Height : heightRange.min;
+		targetScale.x = radius / 2f;
+		targetScale.z = radius / 2f;
 
 	}
 

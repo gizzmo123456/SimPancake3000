@@ -124,6 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d91426ced911146aa24e1f2cfa8d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRadius: 8
-  minHeight: 0.1
-  spreadRate: 0.2
+  maxRadius: 24
+  heightRange:
+    min: 0.1
+    max: 2
+    current: 0
+  spreadRate: 3
