@@ -49,11 +49,15 @@ public class Pancake : MonoBehaviour
 
 		if( currentPancakeState == PancakeState.Mixture )
 		{
-			transform.eulerAngles = new Vector3( 0, 90, 0 );
-			float yPositionOffset = ( ( transform.localScale.y / 2f ) * transform.parent.localScale.y );
-			transform.localPosition = startPosition + new Vector3(0, yPositionOffset, 0);
+
 			SpreadPancakeBatter();
 			LerpPancakeSize();
+
+			//since we're in the mixture state we can assume that the frying pan is the parent of the pancake :)
+			float yPositionOffset = ( ( transform.localScale.y / 2f ) * transform.parent.localScale.y );
+			transform.localPosition = startPosition + new Vector3( 0, yPositionOffset, 0 );
+
+			transform.localEulerAngles = new Vector3( 0, 90, 0 );
 		}
 
     }
