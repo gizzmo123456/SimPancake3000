@@ -138,17 +138,18 @@ public class FryingPan : MonoBehaviour
 		if ( !currentPancake )
 		{
 			currentPancake = Instantiate( pancake_prefab, collisionPosition, quaternion );
+			currentPancake.transform.parent = transform;
 			currentPancake.SetStartPosition( collisionPosition );
 		}
 		else if( currentPancake && currentPancake.GetCurrentState() != PancakeState.Mixture )	// consume any current pancakes in the pan that are not raw.
 		{
 			Pancake oldPancake = currentPancake;
 			currentPancake = Instantiate( pancake_prefab, collisionPosition, quaternion );
+			currentPancake.transform.parent = transform;
 			currentPancake.SetStartPosition( collisionPosition );
 			oldPancake.transform.parent = currentPancake.transform;
 		}
 
-		currentPancake.transform.parent = transform;
 		currentPancake.AddBatter( batterQt, 0.25f );	// 0.25f is the spwan intervals of batter from jug. 
 
 	}
