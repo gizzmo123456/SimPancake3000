@@ -27,6 +27,7 @@ public class Jug : MonoBehaviour
 	private int currentPosition = -1; // <0 is difault position.
 
 	[SerializeField] private Vector3 defaultPosition = Vector3.zero;
+	[SerializeField] private Vector3 defaultRotation = new Vector3(0, -280, 0);
 	[SerializeField] private Transform[] fryingPans;
 	[SerializeField] private Vector3 fryingPanOffset;
 
@@ -110,12 +111,16 @@ public class Jug : MonoBehaviour
 			currentPosition = -1;
 		}
 
-
 		if ( currentPosition < 0 )
+		{
 			transform.position = defaultPosition;
+			transform.eulerAngles = defaultRotation;
+		}
 		else
+		{
 			transform.position = fryingPans[ currentPosition ].position + fryingPanOffset;
-		
+		}
+
 	}
 
 	public float GetCurrentXRotation()
