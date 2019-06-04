@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8545657991006190566}
   - component: {fileID: 8618452001961948767}
   - component: {fileID: 6773371648600181902}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Pancake 2.0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
