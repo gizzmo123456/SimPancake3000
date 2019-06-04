@@ -1302,6 +1302,7 @@ MonoBehaviour:
   pourTrail_lerpEndPosition: {fileID: 856754696}
   batterTrail_spwIntervals: 0.25
   defaultPosition: {x: 1.5, y: 0.15, z: -6.5}
+  defaultRotation: {x: 0, y: -280, z: 0}
   fryingPans:
   - {fileID: 750100201}
   - {fileID: 789977020}
