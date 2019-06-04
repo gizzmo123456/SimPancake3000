@@ -93,7 +93,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
@@ -130,3 +130,20 @@ MonoBehaviour:
     max: 2
     current: 0
   spreadRate: 3
+  idealCookingTemperature: 150
+  cookingStates:
+  - pancakeState: 0
+    stateLength: 10
+    endColor: {r: 1, g: 0.9421804, b: 0.75, a: 1}
+  - pancakeState: 1
+    stateLength: 10
+    endColor: {r: 1, g: 0.757544, b: 0.2783019, a: 1}
+  - pancakeState: 2
+    stateLength: 15
+    endColor: {r: 0.8773585, g: 0.58172685, b: 0, a: 1}
+  - pancakeState: 3
+    stateLength: 20
+    endColor: {r: 0.2830189, g: 0.07918541, b: 0, a: 1}
+  - pancakeState: 4
+    stateLength: 30
+    endColor: {r: 0, g: 0, b: 0, a: 0}

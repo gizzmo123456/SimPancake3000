@@ -82,6 +82,8 @@ public class FryingPan : MonoBehaviour
 
 		last_y_position = position.y;
 
+		SetPancakeTemperture();
+
     }
 
 	private void ApplyForceToPancakes( float zRotationDelta )
@@ -116,6 +118,8 @@ public class FryingPan : MonoBehaviour
 
 		currentPancake = pancakeToReg;
 		currentPancake.transform.parent = transform;
+		currentPancake.SetCurrentPan( this );
+
     }
 
     public void UnregisterPancake( Pancake pancakeToUnreg )
@@ -124,8 +128,11 @@ public class FryingPan : MonoBehaviour
 		if ( !currentPancake || currentPancake && currentPancake.GetCurrentState() == PancakeState.Mixture )
 			return;
 
+		//Set the temperature back to 0, sinc it is no longer in the pan
+		currentPancake.SetTemperature(0);
 		currentPancake.transform.parent = null;
 		currentPancake = null;
+
     }
 
 	// called from the batter when it collides with the fryingPan.
@@ -140,6 +147,7 @@ public class FryingPan : MonoBehaviour
 			currentPancake = Instantiate( pancake_prefab, collisionPosition, quaternion );
 			currentPancake.transform.parent = transform;
 			currentPancake.SetStartPosition( collisionPosition );
+			currentPancake.SetCurrentPan( this );
 		}
 		else if( currentPancake && currentPancake.GetCurrentState() != PancakeState.Mixture )	// consume any current pancakes in the pan that are not raw.
 		{
@@ -148,6 +156,7 @@ public class FryingPan : MonoBehaviour
 			currentPancake.transform.parent = transform;
 			currentPancake.SetStartPosition( collisionPosition );
 			oldPancake.transform.parent = currentPancake.transform;
+			currentPancake.SetCurrentPan( this );
 		}
 
 		currentPancake.AddBatter( batterQt, 0.25f );	// 0.25f is the spwan intervals of batter from jug. 
@@ -190,5 +199,14 @@ public class FryingPan : MonoBehaviour
 	public Pancake GetCurrentPancakes()
 	{
 		return currentPancake;
+	}
+
+	private void SetPancakeTemperture()
+	{
+
+		if ( currentPancake == null ) return;
+
+		currentPancake.SetTemperature( currentTemperture );
+
 	}
 }

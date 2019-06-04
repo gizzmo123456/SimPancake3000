@@ -9,7 +9,12 @@ using UnityEngine;
  * Note:
  * we are using the VerticeGroup Struct from the org PancakeMeshContr for this :)
  */
-
+ public enum UpdateMeshMode
+{
+	None,
+	Once,
+	Allways
+}
 public class PancakeMeshControler : MonoBehaviour
 {
 
@@ -21,6 +26,9 @@ public class PancakeMeshControler : MonoBehaviour
 	private int centerId = -1;
 
 	[SerializeField] private PhysicsBall physicsBall;
+
+
+	private UpdateMeshMode updateMeshMode = UpdateMeshMode.None;
 
 	// Some form of physic ball, i still need to work it out :)
 
@@ -110,6 +118,17 @@ public class PancakeMeshControler : MonoBehaviour
 
 	}
 
+	private void Update()
+	{
+
+		if ( updateMeshMode != UpdateMeshMode.None )
+			mesh.vertices = vertices;
+
+		if ( updateMeshMode == UpdateMeshMode.Once )
+			SetUpdateMode( UpdateMeshMode.None );
+
+	}
+
 	// returns vert gorup Id, -1 if not found.
 	private int FindExistingVertGroup(float x, float z)
 	{
@@ -125,6 +144,21 @@ public class PancakeMeshControler : MonoBehaviour
 	public VerticeGroup[] GetVertGroups()
 	{
 		return vertGroups.ToArray();
+	}
+
+	public void UpdateVertPosition(int vertId, float x_pos, float z_pos)
+	{
+
+		vertGroups[ vertId ].Update( ref vertices, x_pos, 0, z_pos, true );
+
+		if(updateMeshMode != UpdateMeshMode.Allways)
+			SetUpdateMode( UpdateMeshMode.Once );
+
+	}
+
+	public void SetUpdateMode(UpdateMeshMode updateMode)
+	{
+		updateMeshMode = updateMode;
 	}
 
 	[System.Serializable]
@@ -145,17 +179,25 @@ public class PancakeMeshControler : MonoBehaviour
 			isCenter = false;
 		}
 
-		public void Update( ref Vector3[] verts, float xAxis, float yAxis, float zAxis )
+		public void Update( ref Vector3[] verts, float xAxis, float yAxis, float zAxis, bool add = false )
 		{
 
-			x = xAxis;
-			z = zAxis;
+			if ( !add )
+			{
+				x = xAxis;
+				z = zAxis;
+			}
+			else
+			{
+				x += xAxis;
+				x += zAxis;
+			}
 
 			foreach ( int vid in verticesIDs )
 			{
 				verts[ vid ].x = x;
 				verts[ vid ].z = z;
-				verts[ vid ].y = yAxis;
+			//	verts[ vid ].y = yAxis; //TODO: uncomment me.
 			}
 
 		}
