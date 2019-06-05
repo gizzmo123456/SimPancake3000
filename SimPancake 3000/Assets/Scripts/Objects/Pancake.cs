@@ -146,13 +146,15 @@ public class Pancake : MonoBehaviour
             rb.WakeUp();
         }
     }
-
+/*
 	public void AddForce(float force)
 	{
-		rb.AddForce( new Vector3( 0, force, 0 ) );
+		//rb.velocity = new Vector3( 0, force, 0 );// AddForce( new Vector3( 0, force, 0 ) );
+		//SendMessage( "SetTorque", force );
 		//rb.AddTorque(new Vector3(-1500f * force, 0, 0) );
+		rb.AddForce( currentPan.transform.right * force * 2f, ForceMode.VelocityChange);
 	}
-
+*/
 	public void AddBatter( float batterQt, float intervalLength )
 	{
 

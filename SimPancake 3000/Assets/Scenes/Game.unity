@@ -1376,36 +1376,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5488447594179734589, guid: 1f31bf58776c9fc428bbc6867f34867c,
-        type: 3}
-      propertyPath: moveWithTransform
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5488447594179734589, guid: 1f31bf58776c9fc428bbc6867f34867c,
-        type: 3}
-      propertyPath: VelocityModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5488447594179734589, guid: 1f31bf58776c9fc428bbc6867f34867c,
-        type: 3}
-      propertyPath: ForceModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5488447594179734589, guid: 1f31bf58776c9fc428bbc6867f34867c,
-        type: 3}
-      propertyPath: SubModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5488447594179734589, guid: 1f31bf58776c9fc428bbc6867f34867c,
-        type: 3}
-      propertyPath: NoiseModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5488447594179734589, guid: 1f31bf58776c9fc428bbc6867f34867c,
-        type: 3}
-      propertyPath: ExternalForcesModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8689941046899505753, guid: 1f31bf58776c9fc428bbc6867f34867c,
         type: 3}
       propertyPath: fryingPan

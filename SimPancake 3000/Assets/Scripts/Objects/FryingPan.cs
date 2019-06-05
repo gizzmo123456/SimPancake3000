@@ -93,12 +93,14 @@ public class FryingPan : MonoBehaviour
 		{
 			acumalatedPancakeForce += zRotationDelta;
 			acumPancakeForce_frameCount++;
+
+			currentPancake.SendMessage( "AddPancakeForce", (zRotationDelta * forceMuti) * transform.right );	// TODO: i think this is the only thing we usin in this function. so remove all the bs
 		}
 		else if ( acumPancakeForce_frameCount > 0 )
 		{
 			if ( currentPancake )
 			{
-				currentPancake.AddForce( (acumalatedPancakeForce / (float)acumPancakeForce_frameCount ) * forceMuti );
+			//	currentPancake.AddForce( (acumalatedPancakeForce / (float)acumPancakeForce_frameCount ) * forceMuti );
 			}
 
 			acumalatedPancakeForce = 0;

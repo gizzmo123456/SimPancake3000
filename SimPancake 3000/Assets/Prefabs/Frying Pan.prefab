@@ -163,7 +163,7 @@ MonoBehaviour:
   panID: 2
   pancake_prefab: {fileID: 6773371648600181902, guid: fd3c97cb21963bd4394bc949f08317db,
     type: 3}
-  forceMuti: 10
+  forceMuti: 0.5
   pan_OffHob_YPositionOffset: 0.35
   pan_OffHob_minMaxInputValue:
     min: 230
