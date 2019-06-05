@@ -134,8 +134,9 @@ public class FryingPan : MonoBehaviour
 		currentPancake.SetTemperature(0);
 		currentPancake.transform.parent = null;
 		currentPancake = null;
+		currentPancake.SetCurrentPan( null );
 
-    }
+	}
 
 	// called from the batter when it collides with the fryingPan.
 	public void BatterCollision(Vector3 collisionPosition, float batterQt)

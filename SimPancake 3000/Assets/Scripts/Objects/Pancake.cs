@@ -75,7 +75,6 @@ public class Pancake : MonoBehaviour
 		SetNextState( 1, 0 );
 		UpdatePancakeColor( 1 );
 
-
 	}
 
 	void Start()
@@ -136,9 +135,10 @@ public class Pancake : MonoBehaviour
     public void SetCurrentPan(FryingPan fryingPan)
     {
         currentPan = fryingPan;
-    }
+		GetComponent<PancakeFlip>().SetFryingPan( currentPan );
+	}
 
-    public void WakeUp()
+	public void WakeUp()
     {
         if (rb.IsSleeping())
         {
