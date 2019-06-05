@@ -133,8 +133,8 @@ public class FryingPan : MonoBehaviour
 		//Set the temperature back to 0, sinc it is no longer in the pan
 		currentPancake.SetTemperature(0);
 		currentPancake.transform.parent = null;
-		currentPancake = null;
 		currentPancake.SetCurrentPan( null );
+		currentPancake = null;
 
 	}
 
