@@ -103,6 +103,10 @@ public class Pancake : MonoBehaviour
 			transform.localEulerAngles = new Vector3( 0, 90, 0 );
 		}
 
+		// destroy if out of bounds :)
+		if ( transform.position.y < -100 )
+			Destroy(gameObject);
+
     }
 
 	private void SpreadPancakeBatter() 
