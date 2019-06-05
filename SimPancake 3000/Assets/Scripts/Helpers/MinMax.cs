@@ -22,7 +22,7 @@ namespace AMS_Helpers {
 		}
 
 		public float Precent {
-			get { return (current - min) / Range; }
+			get { return (current - min) / Range;    }
 		}
 
 		public float PrecentValue {

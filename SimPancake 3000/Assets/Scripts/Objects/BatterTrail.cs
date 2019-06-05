@@ -19,11 +19,23 @@ public class BatterTrail : MonoBehaviour
 	private float batterQuantity = 0;
 	private bool batterPoured = false;
 
+	[Header( "Batter Colour" )]
+	[SerializeField] private Color batterColor_a;
+	[SerializeField] private Color batterColor_b;
+
 	// Start is called before the first frame update
 	private void Start()
     {
 		trailRenderer = GetComponent<TrailRenderer>();
 		spwanTime = Time.time;
+
+		Color col;
+
+		col = Color.Lerp( batterColor_a, batterColor_b, Random.value );
+		trailRenderer.material.SetColor( "_Color", col );
+
+		col = Color.Lerp( batterColor_a, batterColor_b, Random.value );
+		trailRenderer.material.SetColor( "_EmissionColor", col );
     }
 
 	public void Init( Jug j, Transform startLerpPosition, Transform endLerpPosition, float batterQt )

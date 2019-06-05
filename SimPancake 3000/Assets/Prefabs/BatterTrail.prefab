@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5019446189347574308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.14, y: 0.234, z: -0.114}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,7 +72,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 2
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -194,3 +194,5 @@ MonoBehaviour:
   pourTrail_lerpEndPosition: {fileID: 0}
   pourTrail_rotationThresshold: 10
   pourTrail_rotationLerpRange: 30
+  batterColor_a: {r: 1, g: 0.9104237, b: 0.6367924, a: 1}
+  batterColor_b: {r: 1, g: 0.70835686, b: 0.33490568, a: 1}
