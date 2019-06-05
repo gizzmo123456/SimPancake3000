@@ -18,10 +18,11 @@ public class PancakeFlip : MonoBehaviour
 
 	public bool debug = false;
 
-	private Vector3 forceToAdd = Vector3.zero;
 	private Vector3 velocity = Vector3.zero;
 
-	private float fryingPan_lastZRotation;
+	[SerializeField] private float z_transferRate = 2;
+	[SerializeField] private float z_counter = 2;
+	private bool zReturn = false;
 
 	private void Awake()
 	{
@@ -38,36 +39,45 @@ public class PancakeFlip : MonoBehaviour
 	void FixedUpdate()
     {
 
-		if ( fryingPan == null ) return;
+		if ( /*fryingPan == null ||*/ velocity == Vector3.zero )
+		{
+			//transform.eulerAngles = new Vector3( 0, 90, 0 );
+			return;
+		}
+		float rbVel_y = rigid.velocity.y;
 
-		// project the current velocity to corrospond to the frying pans new rotation since the last frame.
-		// befor adding any new force :)
-		float fryingPan_deltaZRotation = fryingPan.transform.eulerAngles.z - fryingPan_lastZRotation;
+		if ( velocity.y < 0 )
+			velocity.y = rbVel_y;
 
-		float sin = Mathf.Sin( fryingPan_deltaZRotation );
-		float cos = Mathf.Cos( fryingPan_deltaZRotation );
+		rigid.velocity = new Vector3(0, velocity.y, velocity.z * 0.2f);
+		transform.LookAt( transform.position + velocity );
 
-		float y = velocity.y;
-		float z = velocity.z;
+		if ( velocity.z > 0 )
+			velocity.y += z_transferRate * Time.deltaTime;
 
-		velocity.y = y * cos + z * sin;
-		velocity.z = z * cos - y * sin;
+		/*
+		else
+			velocity.y -= z_transferRate * Time.deltaTime;
+		*/
+		if(!zReturn)
+			velocity.z -= z_transferRate * Time.deltaTime;
+		else
+			velocity.z += z_counter * Time.deltaTime;
 
-		velocity += forceToAdd;
+		velocity.y += Physics.gravity.y * Time.deltaTime;
 
-		rigid.velocity = velocity;
+		if ( velocity.z < -50 && !zReturn )
+			zReturn = true;
+		else if ( zReturn & velocity.z > 0 )
+			velocity = Vector3.zero;
 
-		//velocity -= Physics.gravity * Time.deltaTime;
 
-		forceToAdd = Vector3.zero;
-		fryingPan_lastZRotation = fryingPan.transform.eulerAngles.z;
-
+		velocity.x = 0;
     }
 
 	public void AddPancakeForce(Vector3 force)
 	{
-
-		forceToAdd = force;
+		velocity += force;
 
 	}
 
