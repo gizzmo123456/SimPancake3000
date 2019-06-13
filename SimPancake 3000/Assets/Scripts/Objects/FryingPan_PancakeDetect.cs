@@ -15,9 +15,10 @@ public class FryingPan_PancakeDetect : MonoBehaviour
         if(fryingPan && other.CompareTag("pancake"))
         {
             fryingPan.RegisterPancake( other.GetComponent<Pancake>() );
-        }
+			other.SendMessage( "SetPan", true );
+		}
 
-    }
+	}
 
     private void OnTriggerExit( Collider other )
     {
@@ -26,6 +27,7 @@ public class FryingPan_PancakeDetect : MonoBehaviour
         if ( fryingPan && other.CompareTag( "pancake" ) )
         {
             fryingPan.UnregisterPancake( other.GetComponent<Pancake>() );
+			other.SendMessage("SetPan", false);
         }
 
     }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8545657991006190566}
   - component: {fileID: 8618452001961948767}
   - component: {fileID: 6773371648600181902}
+  - component: {fileID: 4579543972164077561}
   - component: {fileID: 3652391356046387127}
   - component: {fileID: 3759922219561487939}
   m_Layer: 14
@@ -149,6 +150,24 @@ MonoBehaviour:
   - pancakeState: 4
     stateLength: 30
     endColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &4579543972164077561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4371470289502874967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e81a09c6252374c8bd6ea19a032c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  rayDistance: 1
+  directionTransform: {fileID: 0}
+  direction: {x: 1, y: 0, z: 0}
 --- !u!114 &3652391356046387127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,8 +180,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157a7c2f9aa34664783dda6b48041a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetReturnPosition: {x: 0, y: 0, z: 0}
+  frw_panDetect: {fileID: 4579543972164077561}
   debug: 0
+  counterForce: 2
   z_transferRate: 12
+  z_counter: 8
+  yVelMutiply: 0.75
+  zVelMutiply: 5.81
+  upDistance: 0.4
+  upCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0
+      outSlope: -0
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 0.20147255
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.004410823
+      outSlope: -0.004410823
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.8587684
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!65 &3759922219561487939
 BoxCollider:
   m_ObjectHideFlags: 0

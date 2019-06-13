@@ -8,6 +8,7 @@ public class Pancake : MonoBehaviour
 {
 
     private Rigidbody rb;
+	[SerializeField] private Renderer mesh;
 	private Material[] materials;	// there should be a material for each side.
     private FryingPan currentPan;   //null if its not in a pan
 
@@ -43,14 +44,16 @@ public class Pancake : MonoBehaviour
 	
 	//Debug and errors
 	private bool error = false;
-	private bool debug = false;
+	[SerializeField] private bool debug = false;
+	[SerializeField] private bool debug_skipMixture = false;
 
 	private void Awake()
 	{
 
-		materials = GetComponent<MeshRenderer>().materials;
+		materials = mesh.materials;
 
-		transform.localScale = Vector3.zero;    //New pancakes should have a size of zero :).
+		if(!debug_skipMixture)
+			transform.localScale = Vector3.zero;    //New pancakes should have a size of zero :).
 
 		if( cookingStates.Length == 0 )
 		{
@@ -67,12 +70,14 @@ public class Pancake : MonoBehaviour
 		 * affter that both sides of the pancake become inderpendent of each other.
 		 * 
 		 */
+		int startId = debug_skipMixture ? 1 : 0;
+
 		currentCookingStates[ 0 ].NewTimer();
-		SetNextState( 0, 0 );
+		SetNextState( 0, startId );
 		UpdatePancakeColor( 0 );
 
 		currentCookingStates[ 1 ].NewTimer();
-		SetNextState( 1, 0 );
+		SetNextState( 1, startId );
 		UpdatePancakeColor( 1 );
 
 	}
@@ -140,6 +145,10 @@ public class Pancake : MonoBehaviour
     {
         currentPan = fryingPan;
 		GetComponent<PancakeFlip>().SetFryingPan( currentPan );
+
+		if (fryingPan != null)
+			SendMessage( "SetDirectionTransform", fryingPan.transform );
+
 	}
 
 	public void WakeUp()
@@ -233,6 +242,9 @@ public class Pancake : MonoBehaviour
 
 	private void UpdatePancakeColor(int side)
 	{
+
+		if ( side < 0 || side >= materials.Length ) return;
+
 		int stateId = currentCookingStates[ side ].currentCookingStateId;
 
 		Color startColor =  stateId == 0 ? cookingStates[ 0 ].endColor : cookingStates[ stateId - 1 ].endColor;

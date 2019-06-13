@@ -30,4 +30,17 @@ public class PhysicsBall : MonoBehaviour
 		return Mathf.Atan2( position.z - transform.position.z, position.y - transform.position.y ) < 0;
 	}
 
+	private void Update()
+	{
+		return;
+		// make shore that the ball are always have a scale of 1, 1, 1 in worldSpace.
+		Vector3 currentWorldScale = transform.lossyScale;
+
+		if ( transform.parent == null || currentWorldScale.x < 0.05f || currentWorldScale.y < 0.05f || currentWorldScale.z < 0.5f ) return;
+
+		Vector3 newScale = new Vector3(1f / currentWorldScale.x, 1f / currentWorldScale.y, 1f / currentWorldScale.z);
+		transform.localScale = newScale;
+		
+	}
+
 }

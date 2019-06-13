@@ -44,7 +44,7 @@ public class FryingPan : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         //TODO: check that the panID is in range of pan count once we have a Static Game Class
@@ -94,7 +94,7 @@ public class FryingPan : MonoBehaviour
 			acumalatedPancakeForce += zRotationDelta;
 			acumPancakeForce_frameCount++;
 
-			currentPancake.SendMessage( "AddPancakeForce", (zRotationDelta * forceMuti) * transform.right );	// TODO: i think this is the only thing we usin in this function. so remove all the bs
+			currentPancake.SendMessage( "AddPancakeForce", new Vector2(zRotationDelta * forceMuti, (( zRotationDelta * forceMuti ) * transform.right ).y )/* * transform.right */);	// TODO: i think this is the only thing we usin in this function. so remove all the bs
 		}
 		else if ( acumPancakeForce_frameCount > 0 )
 		{
