@@ -14,6 +14,6 @@ public static class GameGlobals
 	public static int buildId = 0;
 
 	// static store
-
+	public static int fryingpanCount = 3;
 
 }
