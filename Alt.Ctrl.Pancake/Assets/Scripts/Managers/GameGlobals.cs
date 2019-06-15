@@ -14,6 +14,6 @@ public static class GameGlobals
 	public static int buildId = 0;
 
 	// static store
-	public static int fryingpanCount = 3;
+	public const int fryingpanCount = 3;	// aparently in c# if a var is a const it is also static, i did not know that :)
 
 }
