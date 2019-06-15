@@ -5183,10 +5183,20 @@ MonoBehaviour:
   liveMaterial: {fileID: 0}
   searchColor:
     serializedVersion: 2
-    rgba: 4285363933
-  thresshold: 0.2
-  debugColor: {r: 0.99178326, g: 1, b: 0, a: 1}
+    rgba: 4281532414
+  thresshold: 0.15
+  testRange: 6
+  thressholdTestMode: 0
+  thressholdMode: 0
+  maxCount: 3
+  size: 4
+  debugColor: {r: 1, g: 0.030960351, b: 0, a: 1}
   debugPause: 0
+  debugSkipSizeCheck: 0
+  debugDraw: 0
+  debugDraw_XXYY_box: 0
+  yy: 0
+  xx: 0
 --- !u!64 &1248725510
 MeshCollider:
   m_ObjectHideFlags: 0

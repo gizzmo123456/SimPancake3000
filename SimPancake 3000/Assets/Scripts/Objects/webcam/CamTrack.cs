@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class CamTrack : MonoBehaviour
 {
+	/*
+	 * Single test a single px @ xy
+	 * half will do 5 px, so px @ xy, then the above, below, left and right
+	 * full will do all 9, same as half and does the ones on the angles (topLeft ect)
+	 */
+	public enum ThressholdTestMode { Single, Half, Full}		
+	public enum ThressholdMode { Fast, Distance }		
+
 	public WebCamTexture wct;
 	public Renderer renderer;
 	public Material liveMaterial;
@@ -13,6 +21,9 @@ public class CamTrack : MonoBehaviour
 	[Range(0.01f, 0.75f)]
 	public float thresshold = 0.1f;
 	public int testRange = 3; //amount of px to test that are not in the thresshold
+	public ThressholdTestMode thressholdTestMode = ThressholdTestMode.Single;
+	public ThressholdMode thressholdMode = ThressholdMode.Fast;
+	public int maxCount = 3;
 	Color32[] image;
 
 	private bool canUpdate = false;
@@ -25,6 +36,10 @@ public class CamTrack : MonoBehaviour
 	public bool debugPause = false;
 	public bool debugSkipSizeCheck = false;
 	public bool debugDraw = false;
+
+	public bool debugDraw_XXYY_box = false;
+	public int yy = 0;
+	public int xx = 0;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -67,17 +82,18 @@ public class CamTrack : MonoBehaviour
 		canUpdate = true;
 	}
 
-	private void Update() //not working :|
+	private void Update() //flakey :|
 	{
 
 		if ( !canUpdate ) return;
-
+		
 		trackingData.Clear();
 
 		int foundX_ID = 0;
 
 		image = wct.GetPixels32( image );
 
+	
 		for (int y = 0; y < wct.height; y++ )
 		{
 			foundX_ID = 0;
@@ -94,6 +110,9 @@ public class CamTrack : MonoBehaviour
 					{
 						trackingData.Add( td );
 						DrawDebugBox( trackPosition[ 0 ], trackPosition[ 1 ] );
+
+						if ( trackingData.Count >= maxCount )
+							break;
 					}
 
 					foundX_ID = td.bottomRight_position.x;
@@ -103,11 +122,17 @@ public class CamTrack : MonoBehaviour
 
 		}
 
+		//yy++;
+		if(debugDraw_XXYY_box)
+			DrawDebugBox( new Vector2(xx, yy), new Vector2(xx+10, yy+10) );
+
+		if ( yy >= wct.height )
+			yy = 0;
 	}
 
 
 
-	private void Update__()//_old_1()
+	private void Update_()//_old_1()
 	{
 
 		if ( !wct.didUpdateThisFrame ) return;
@@ -207,7 +232,8 @@ public class CamTrack : MonoBehaviour
 		{
 			Color32 pxCol = GetPixleAt( x, y );
 
-			if ( InThresshold( pxCol ) )
+			//if ( InThresshold( pxCol ) )
+			if ( InThresshold(thressholdTestMode, x, y, thressholdMode ) )
 			{
 			//	print( "hello #" + x + "#" + y + " # Col: " + pxCol );
 
@@ -240,34 +266,37 @@ public class CamTrack : MonoBehaviour
 		else
 			testingNext++;
 
-		//if ( testNext )
-		//	doFuckAll();
-			
 
-			if ( ( position[ 0 ].x != -1 || position[ 1 ].x != -1 ) && y + 1 < wct.height || ( testingNext < testRange && y + 1 < wct.height ) )
-			{
-		
-				// Get next row.
-				Vector2Int[] nextRowPosition = TraceRow_getMinMax( position[ 0 ].x, y + 1, false, testingNext );
+		if ( ( position[ 0 ].x != -1 || position[ 1 ].x != -1 ) && y + 1 < wct.height || ( testingNext < testRange && y + 1 < wct.height ) )
+		{
 
-				if ( nextRowPosition[ 0 ].x != -1 && nextRowPosition[ 0 ].x < position[ 0 ].x )
-					position[ 0 ].x = nextRowPosition[ 0 ].x;
+			//TODO: some comment is needed here
+			if ( position[ 0 ].x == -1 ) position[ 0 ].x = x;
+			//if ( position[ 1 ].x == -1 ) position[ 1 ].x = x;
 
-				if ( nextRowPosition[ 1 ].x > position[ 1 ].x )
-					position[ 1 ].x = nextRowPosition[ 1 ].x;
+			// Get next row.
+			Vector2Int[] nextRowPosition = TraceRow_getMinMax( position[ 0 ].x, y + 1, false, testingNext );
 
-				if ( nextRowPosition[ 0 ].x != -1 || nextRowPosition[ 1 ].x != -1)
-					position[ 0 ].y = nextRowPosition[ 0 ].y;
+			if ( nextRowPosition[ 0 ].x != -1 && nextRowPosition[ 0 ].x < position[ 0 ].x )
+				position[ 0 ].x = nextRowPosition[ 0 ].x;
 
-			}
+			if ( nextRowPosition[ 1 ].x > position[ 1 ].x )
+				position[ 1 ].x = nextRowPosition[ 1 ].x;
+
+			if ( nextRowPosition[ 0 ].x != -1 || nextRowPosition[ 1 ].x != -1)
+				position[ 0 ].y = nextRowPosition[ 0 ].y;
+
+		}
 					
 
 		return position;
 
 	}
-	void doFuckAll() { }
+
 	int TraceRow_max(int x, int y)
 	{
+
+		if ( !PixelExist( x, y ) ) return -1;
 
 		int foundCount = 0;
 		int outOfRangeCount = 0;
@@ -277,7 +306,8 @@ public class CamTrack : MonoBehaviour
 		{
 
 			Color32 pxCol = GetPixleAt( x, y );
-			inThress = InThresshold( pxCol );
+			//inThress = InThresshold( pxCol );
+			inThress = InThresshold( thressholdTestMode, x, y, thressholdMode );
 
 			if ( inThress )
 			{
@@ -304,6 +334,8 @@ public class CamTrack : MonoBehaviour
 	int TraceRow_min( int x, int y )
 	{
 
+		if ( !PixelExist( x, y ) ) return -1;
+
 		int foundCount = 0;
 		int outOfRangeCount = 0;
 		bool inThress = false;
@@ -311,7 +343,8 @@ public class CamTrack : MonoBehaviour
 		for ( ; x >= 0; x-- )
 		{
 			Color32 pxCol = GetPixleAt( x, y );
-			inThress = InThresshold( pxCol );
+			//inThress = InThresshold( pxCol );
+			inThress = InThresshold( thressholdTestMode, x, y, thressholdMode );
 
 			if(inThress)
 			{
@@ -394,8 +427,27 @@ public class CamTrack : MonoBehaviour
 
 	}
 
+	bool PixelExist(int x, int y, bool logError = true)
+	{
+
+		if ( logError )
+		{
+			// check the x and y is in range
+			//FFS unity why is not already in GetPixle
+			if ( x < 0 ) Debug.Log( "x must be >= 0" );
+			else if ( x >= wct.width ) Debug.Log( "x must be < image width" );
+
+			if ( y < 0 ) Debug.Log( "y must be >= 0" );
+			else if ( y >= wct.height ) Debug.Log( "y must be < image width" );
+
+		}
+
+		return !(x < 0 || x >= wct.width || y < 0 || y >= wct.height);
+
+	}
+
 	//Here we should really get its distance.
-	bool InThresshold_(Color32 color)
+	bool InThresshold(Color32 color)
 	{
 
 		if ( color.r < searchColor.r - ( 255f * thresshold ) || color.r > searchColor.r + ( 255f * thresshold ) )
@@ -408,7 +460,89 @@ public class CamTrack : MonoBehaviour
 		return true;
 	}
 
-	bool InThresshold(Color32 color)
+	bool InThresshold(ThressholdTestMode testMode, int x, int y, ThressholdMode mode = ThressholdMode.Fast)
+	{
+		// get the avg of all the px around the the x, y px
+
+		Color32 pxCol = GetPixleAt( x, y );
+
+		if ( testMode == ThressholdTestMode.Single )
+			return mode == ThressholdMode.Fast ? InThresshold( pxCol ) : ( ColorDistance( pxCol ) <= (thresshold*250f) );
+
+		int found = 1;	// start an 1, to count the center px (or incoming px)
+		int r = pxCol.r;
+		float g = pxCol.g;
+		float b = pxCol.b;
+
+		if ( testMode == ThressholdTestMode.Half )
+		{
+			// test pixel on left/right of X
+			// and above/below Y
+			for ( int i = -1; i < 2; i++ )
+			{
+				int testX = x + i;
+				int testY = y + i;
+
+				if ( PixelExist(testX, y, false) && testX != x )
+				{
+					pxCol = GetPixleAt( testX, y );
+					r += pxCol.r;
+					g += pxCol.g;
+					b += pxCol.b;
+					found++;
+				}
+
+				if ( PixelExist(x, testY, false) && testY != y )
+				{
+					pxCol = GetPixleAt( x, testY );
+					r += pxCol.r;
+					g += pxCol.g;
+					b += pxCol.b;
+					found++;
+				}
+
+			}
+
+		}
+		else if( testMode == ThressholdTestMode.Full)
+		{
+			// Test all 8 px around x, y
+			for( int i = -1; i < 2; i++ )
+			{
+				for( int j = -1; j < 2; j++ )
+				{
+					int testX = x + i;
+					int testY = y + j;
+
+					if (PixelExist(testX, testY, false) && testX != x && testY != y)
+					{
+						pxCol = GetPixleAt( testX, testY );
+						r += pxCol.r;
+						g += pxCol.g;
+						b += pxCol.b;
+						found++;
+					}
+
+				}
+			}
+
+		}
+
+		r /= found;
+		g /= found;
+		b /= found;
+
+		Color32 avgColor = new Color32( (byte)r, (byte)g, (byte)b, 255);
+
+		if ( mode == ThressholdMode.Distance )
+			return ColorDistance( avgColor ) <= (thresshold * 250f);
+		else
+			return InThresshold( avgColor );
+
+
+	}
+
+	bool InThresshold_(Color32 color)
 	{
 		return ColorDistance( color ) <= thresshold;
 	}
@@ -416,9 +550,9 @@ public class CamTrack : MonoBehaviour
 	float ColorDistance(Color32 color)
 	{
 
-		float r = ( searchColor.r - color.r ) ^ 2;
-		float g = ( searchColor.g - color.g ) ^ 2;
-		float b = ( searchColor.b - color.b ) ^ 2;
+		float r = Mathf.Pow( searchColor.r - color.r, 2 );
+		float g = Mathf.Pow( searchColor.g - color.g, 2 );
+		float b = Mathf.Pow( searchColor.b - color.b, 2 );
 
 		return Mathf.Sqrt(r + g + b);
 
