@@ -69,3 +69,4 @@ crashlytics-build.properties
 # ignore ext app diectroy
 /Maya Files/
 /ps/
+/exported Assets/
