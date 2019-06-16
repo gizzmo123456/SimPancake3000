@@ -224,7 +224,7 @@ public class InputHandler : MonoBehaviour
 
 		}
 
-		return string.Empty;
+		return line;
 	}
 
 	private void Serial_writeLine(string line)
