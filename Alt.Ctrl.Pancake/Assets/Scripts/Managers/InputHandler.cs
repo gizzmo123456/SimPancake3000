@@ -312,7 +312,7 @@ public class InputHandler : MonoBehaviour
 		// make shore the the thread is stoped :)
 		// if the thread is alive stop it and wait for it to die.
 
-		if(usingSerial)
+		if ( usingSerial && serial_thread != null )
 			while ( serial_thread.IsAlive )			// could this break every thing?? ... Lets find out :D 
 				if ( SerialThread_isRunning )
 					SerialThread_isRunning = false;
