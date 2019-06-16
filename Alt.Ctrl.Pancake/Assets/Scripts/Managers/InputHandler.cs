@@ -18,8 +18,8 @@ public class InputHandler : MonoBehaviour
 	//Mouse/Keyboard inputs
 
 	// Serial inputs
-	[Header("Serial")]
-	private bool usingSerial = false;					// auto detected, if we are able to get a connect to the serial device
+	private bool usingSerial = false;                   // auto detected, if we are able to get a connect to the serial device
+	[Header( "Serial" )]
 	[SerializeField] private int portNumber = 1;
 	[SerializeField] private int baudRate = 9600;
 	[SerializeField] private int readTimeout = 100;     // ms
@@ -58,7 +58,7 @@ public class InputHandler : MonoBehaviour
 		if ( usingSerial )
 		{
 			SetupThread();
-			Serial_queueWriteLine("N"); //Normlize the serial device :)
+			Serial_queueWriteLine( "N" ); //Normlize the serial device :)
 		}
 
 
@@ -72,6 +72,7 @@ public class InputHandler : MonoBehaviour
 		// ...Get set...
 		serial_thread = new Thread( SerialThread );
 		// GO!
+		SerialThread_isRunning = true;
 		serial_thread.Start();
 	}
 
@@ -79,7 +80,7 @@ public class InputHandler : MonoBehaviour
     void Update()
     {
 		//Manually normlize the serial device
-		if ( Input.GetKeyDown( "n" ))
+		if ( usingSerial && Input.GetKeyDown( "n" ))
 			Serial_queueWriteLine( "N" );
 
 
@@ -96,37 +97,41 @@ public class InputHandler : MonoBehaviour
 
 	private void SerialInputs()
 	{
-
+		print( serial_inputQueue.Count );
 		if ( serial_inputQueue.Count == 0 ) return;
 
 		//Right, let make them serial inputs available to the rest of the game :)
-		int[] inputValues = Serial_splitInputs( (string)serial_inputQueue.Dequeue() );
+		int[] inputVal = Serial_splitInputs( (string)serial_inputQueue.Dequeue() );
 		int currentInputId = 0;
 
 		for ( int i = 0; i < GameGlobals.fryingpanCount; i++ )
 		{
 
-			UpdateInputValue( "panX_" + i, inputValues[currentInputId] );
+			UpdateInputValue( "panX_" + i, inputVal[currentInputId] );
 			currentInputId++;
 
-			UpdateInputValue( "panY_" + i, inputValues[ currentInputId ] );
+			UpdateInputValue( "panY_" + i, inputVal[ currentInputId ] );
 			currentInputId++;
 
-			UpdateInputValue( "panDistance_" + i, inputValues[ currentInputId ] );
+			UpdateInputValue( "panDistance_" + i, inputVal[ currentInputId ] );
 			currentInputId++;
 
-			UpdateInputValue( "panHob_" + i, inputValues[ currentInputId ] );
+			UpdateInputValue( "panHob_" + i, inputVal[ currentInputId ] );
 			currentInputId++;
 		}
 
-		UpdateInputValue( "jug", inputValues[ currentInputId ] );
+		UpdateInputValue( "jug", inputVal[ currentInputId ] );
 		currentInputId++;
 
-		UpdateInputValue( "whisk", inputValues[ currentInputId ] );
+		UpdateInputValue( "whisk", inputVal[ currentInputId ] );
 		currentInputId++;
 
-		UpdateInputValue( "panToggle", inputValues[ currentInputId ] );
+		UpdateInputValue( "panToggle", inputVal[ currentInputId ] );
 		currentInputId++;
+
+		// request the next inputs, ready for the next update
+
+		print( inputValues[ "panX_0" ] );
 
 	}
 
@@ -171,6 +176,7 @@ public class InputHandler : MonoBehaviour
 	{
 
 		string serialReadData = string.Empty;
+		
 
 		while (SerialThread_isRunning)
 		{
@@ -207,7 +213,10 @@ public class InputHandler : MonoBehaviour
 
 		try
 		{
+			Serial_writeLine( "i" );
+			serialConnection.BaseStream.Flush();
 			line = serialConnection.ReadLine();
+
 		}
 		catch(System.Exception e)
 		{
@@ -220,6 +229,7 @@ public class InputHandler : MonoBehaviour
 
 	private void Serial_writeLine(string line)
 	{
+
 		try
 		{
 			serialConnection.WriteLine( line );
@@ -274,9 +284,10 @@ public class InputHandler : MonoBehaviour
 		// make shore the the thread is stoped :)
 		// if the thread is alive stop it and wait for it to die.
 
-		while ( serial_thread.IsAlive )			// could this break every thing?? ... Lets find out :D 
-			if ( SerialThread_isRunning )
-				SerialThread_isRunning = false;
+		if(usingSerial)
+			while ( serial_thread.IsAlive )			// could this break every thing?? ... Lets find out :D 
+				if ( SerialThread_isRunning )
+					SerialThread_isRunning = false;
 		
 	}
 
