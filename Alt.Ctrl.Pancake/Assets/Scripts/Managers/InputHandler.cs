@@ -277,7 +277,7 @@ public class InputHandler : MonoBehaviour
 
 	/// <summary>
 	/// <para>Gets the input value for input name</para>
-	/// <para>Inputs: name[prefix] </para> 
+	/// <para>Inputs: name[prefix]</para> 
 	/// <para>panX_[0 - 2], panY_[0 - 2], panDistance_[0 - 2], hobKnob[0 - 2], jug, whisk, panToggle, webcamX, webcamY</para>
 	/// </summary>
 	/// <param name="inputName">Name of input</param>
@@ -289,6 +289,21 @@ public class InputHandler : MonoBehaviour
 		if( !inputValues.ContainsKey(inputName) )
 		{
 			Debug.LogError("Input value for "+inputName+" does not exist");
+			return false;
+		}
+
+		value = inputValues[ inputName ];
+
+		return true;
+
+	}
+
+	public bool GetInputValue( string inputName, ref float value )
+	{
+
+		if ( !inputValues.ContainsKey( inputName ) )
+		{
+			Debug.LogError( "Input value for " + inputName + " does not exist" );
 			return false;
 		}
 
