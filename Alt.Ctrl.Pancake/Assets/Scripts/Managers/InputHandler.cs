@@ -47,6 +47,11 @@ public class InputHandler : MonoBehaviour
 		}
 	}
 
+	private void Awake()
+	{
+		GameGlobals.inputs = this;
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
