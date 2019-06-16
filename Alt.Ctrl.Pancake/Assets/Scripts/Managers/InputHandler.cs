@@ -25,7 +25,6 @@ public class InputHandler : MonoBehaviour
 	[SerializeField] private int readTimeout = 100;     // ms
 	[SerializeField] private int inputLength = 5;  
 
-
 	private SerialPort serialConnection;
 
 	private Thread serial_thread;
@@ -60,7 +59,6 @@ public class InputHandler : MonoBehaviour
 			SetupThread();
 			Serial_queueWriteLine( "N" ); //Normlize the serial device :)
 		}
-
 
     }
 
@@ -97,7 +95,7 @@ public class InputHandler : MonoBehaviour
 
 	private void SerialInputs()
 	{
-		print( serial_inputQueue.Count );
+
 		if ( serial_inputQueue.Count == 0 ) return;
 
 		//Right, let make them serial inputs available to the rest of the game :)
@@ -130,8 +128,6 @@ public class InputHandler : MonoBehaviour
 		currentInputId++;
 
 		// request the next inputs, ready for the next update
-
-		print( inputValues[ "panX_0" ] );
 
 	}
 
