@@ -257,8 +257,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portNumber: 3
   baudRate: 250000
-  readTimeout: 100
+  readTimeout: 1000
   inputLength: 5
+  webcamInputFile:
+    fullFilePath: D:\Ashley Sands\Amstrike Software\imageTracking2\test
+    debug: 0
 --- !u!1 &395872687
 GameObject:
   m_ObjectHideFlags: 0

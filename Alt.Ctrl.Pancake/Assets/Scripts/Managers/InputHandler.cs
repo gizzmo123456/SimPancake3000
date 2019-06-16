@@ -47,6 +47,9 @@ public class InputHandler : MonoBehaviour
 		}
 	}
 
+	[Header( "WebCam" )]
+	[SerializeField] private FileHelper webcamInputFile;
+
 	private void Awake()
 	{
 		GameGlobals.inputs = this;
@@ -91,6 +94,8 @@ public class InputHandler : MonoBehaviour
 			MouseAndKeyboardInputs();
 		else
 			SerialInputs();
+
+		WebcamInput();
     }
 
 	private void MouseAndKeyboardInputs()
@@ -133,6 +138,28 @@ public class InputHandler : MonoBehaviour
 		currentInputId++;
 
 		// request the next inputs, ready for the next update
+
+	}
+
+	private void WebcamInput()
+	{
+
+		if( webcamInputFile.FileExist() )
+		{
+
+			string webcamInputStr = webcamInputFile.ReadLine(0);
+			string[] webcamInputs = webcamInputStr.Split( ',' );
+			int valueX = Mathf.FloorToInt( float.Parse(webcamInputs[0]) );
+			int valueY = Mathf.FloorToInt( float.Parse(webcamInputs[1]) );
+
+			UpdateInputValue("webcamX", valueX); 
+			UpdateInputValue("webcamY", valueY); 
+
+			webcamInputFile.DeleteFile();
+
+			print( inputValues[ "webcamX" ]+", "+ inputValues[ "webcamY" ] );
+
+		}
 
 	}
 
