@@ -124,7 +124,7 @@ public class InputHandler : MonoBehaviour
 			UpdateInputValue( "panDistance_" + i, inputVal[ currentInputId ] );
 			currentInputId++;
 
-			UpdateInputValue( "panHob_" + i, inputVal[ currentInputId ] );
+			UpdateInputValue( "hobKnob_" + i, inputVal[ currentInputId ] );
 			currentInputId++;
 		}
 
