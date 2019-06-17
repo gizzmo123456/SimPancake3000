@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class BasePanGroup : MonoBehaviour
 {
 	
-	public virtual int PanGroupId { get; set; }
+	public virtual int HobGroupId { get; set; }
 	protected InputHandler Inputs { get { return GameGlobals.inputs; } }
 	//protected ... HobGroupManager { get {GameGlobals.hobManager;} }	//TODO: 
 

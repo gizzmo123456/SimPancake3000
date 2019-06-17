@@ -17,7 +17,7 @@ public abstract class BasePanGroup_multipleInput : BasePanGroup
 
 	protected string GetInputName( int inputId )
 	{
-		return inputNames[inputId] + ( addPanId_prefix ? "_" + PanGroupId : "" );
+		return inputNames[inputId] + ( addPanId_prefix ? "_" + HobGroupId : "" );
 	}
 
 	protected virtual void Awake()

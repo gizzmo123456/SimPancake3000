@@ -14,7 +14,7 @@ public abstract class BasePanGroup_singleInput : BasePanGroup
 	[SerializeField] private bool addPanId_prefix = false;
 
 	protected string InputName {
-		get { return inputName + ( addPanId_prefix ? "_" + PanGroupId : "" ); }
+		get { return inputName + ( addPanId_prefix ? "_" + HobGroupId : "" ); }
 	}
 	[SerializeField] protected MinMax inputValue = new MinMax( 0, 1010 );
 
