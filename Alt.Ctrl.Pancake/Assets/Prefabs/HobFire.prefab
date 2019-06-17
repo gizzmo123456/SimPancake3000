@@ -5772,6 +5772,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4941486667814095577}
+  - component: {fileID: 7027641136244241322}
   m_Layer: 0
   m_Name: HobFire
   m_TagString: Untagged
@@ -5798,6 +5799,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7027641136244241322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3424718013091531339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2155f029f5b344dafb135f075bb7f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputName: hobKnob
+  addPanId_prefix: 1
+  inputValue:
+    min: 0
+    max: 1010
+    current: 0
+  particleSys: {fileID: 5488447594179734589}
+  lifetime:
+    min: 0.5
+    max: 0.8
+    current: 0
+  yForce:
+    min: 50
+    max: 25
+    current: 0
+  emissions:
+    min: 125
+    max: 225
+    current: 0
 --- !u!1 &4562385834731021212
 GameObject:
   m_ObjectHideFlags: 0
