@@ -118,7 +118,7 @@ public class InputHandler : MonoBehaviour
 			UpdateInputValue( "panX_" + i, inputVal[currentInputId] );
 			currentInputId++;
 
-			UpdateInputValue( "panY_" + i, inputVal[ currentInputId ] );
+			UpdateInputValue( "panZ_" + i, inputVal[ currentInputId ] );
 			currentInputId++;
 
 			UpdateInputValue( "panDistance_" + i, inputVal[ currentInputId ] );
@@ -278,7 +278,7 @@ public class InputHandler : MonoBehaviour
 	/// <summary>
 	/// <para>Gets the input value for input name</para>
 	/// <para>Inputs: name[prefix]</para> 
-	/// <para>panX_[0 - 2], panY_[0 - 2], panDistance_[0 - 2], hobKnob[0 - 2], jug, whisk, panToggle, webcamX, webcamY</para>
+	/// <para>panX_[0 - 2], panZ_[0 - 2], panDistance_[0 - 2], hobKnob[0 - 2], jug, whisk, panToggle, webcamX, webcamY</para>
 	/// </summary>
 	/// <param name="inputName">Name of input</param>
 	/// <param name="value">REF Value of input</param>
