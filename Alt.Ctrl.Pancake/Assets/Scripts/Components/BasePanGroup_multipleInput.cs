@@ -9,11 +9,14 @@ using AMS_Helpers;
 /// </summary>
 public abstract class BasePanGroup_multipleInput : BasePanGroup
 {
+	protected abstract int RequiredInputs { get; }
+	protected bool error = false;
 
 	[Header( "Inputs" )]
 	[SerializeField] private string[] inputNames;
 	[SerializeField] private bool addPanId_prefix = false;
 	[SerializeField] protected MinMax[] inputValues;
+
 
 	protected string GetInputName( int inputId )
 	{
@@ -22,15 +25,26 @@ public abstract class BasePanGroup_multipleInput : BasePanGroup
 
 	protected virtual void Awake()
 	{
-		if ( inputValues.Length == inputNames.Length )
-			Debug.LogError( GameGlobals.GetLogPrefix(name, GetType().ToString())+"Input put values and input names must be the same size" );
+		if (inputNames.Length != RequiredInputs )
+		{
+			error = true;
+			Debug.LogError( GameGlobals.GetLogPrefix( name, GetType().ToString() ) + " Component Requires exactly "+RequiredInputs+" Inputs ", this );
+		}
+
+		if ( inputValues.Length != RequiredInputs )
+		{
+			error = true;
+			Debug.LogError( GameGlobals.GetLogPrefix( name, GetType().ToString() ) + "Input put values and input names must be the same size", this );
+		}
+
 	}
 
 	protected virtual void Update()
 	{
-
-		for ( int i = 0; i < inputNames.Length; i++ )
-			Inputs.GetInputValue( GetInputName( i ), ref inputValues[ i ].current );
+		// update inputs if no error :)
+		if( !error )
+			for ( int i = 0; i < inputNames.Length; i++ )
+				Inputs.GetInputValue( GetInputName( i ), ref inputValues[ i ].current );
 
 	}
 
