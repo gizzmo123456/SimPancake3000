@@ -146,10 +146,10 @@ MonoBehaviour:
   - panX
   addPanId_prefix: 1
   inputValues:
-  - min: -85
-    max: 70
+  - min: -90
+    max: 90
     current: 0
-  - min: 65
+  - min: 90
     max: -90
     current: 0
   inputId_xRotation: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
     max: 90
     current: 0
   zRotationRange:
-    min: -85
+    min: -90
     max: 90
     current: 0
 --- !u!114 &4434017629603165370
