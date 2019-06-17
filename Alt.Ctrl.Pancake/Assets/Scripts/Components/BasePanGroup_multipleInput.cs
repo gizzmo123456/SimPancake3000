@@ -7,7 +7,7 @@ using AMS_Helpers;
 /// Base class for components that have multiple inputs.
 /// 
 /// </summary>
-public class BasePanGroup_multipleInput : BasePanGroup
+public abstract class BasePanGroup_multipleInput : BasePanGroup
 {
 
 	[Header( "Inputs" )]
@@ -33,5 +33,6 @@ public class BasePanGroup_multipleInput : BasePanGroup
 			Inputs.GetInputValue( GetInputName( i ), ref inputValues[ i ].current );
 
 	}
+
 
 }

@@ -6,7 +6,7 @@ using AMS_Helpers;
 /// <summary>
 /// Base class for components that have a single input value
 /// </summary>
-public class BasePanGroup_singleInput : BasePanGroup
+public abstract class BasePanGroup_singleInput : BasePanGroup
 {
 
 	[Header( "Input" )]
