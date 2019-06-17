@@ -19,4 +19,9 @@ public static class GameGlobals
 	// Constants
 	public const int fryingpanCount = 3;	// aparently in c# if a var is a const it is also static, i did not know that :)
 
+	// Silly helpers i cant be asked to put somwhere else :|
+	public static string GetLogPrefix(string objectName, string className = "", string functName = "")
+	{
+		return "[" + objectName + "::" + className + "::" + functName + "] ";
+	}
 }
