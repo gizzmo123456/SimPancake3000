@@ -86,9 +86,11 @@ public class InputHandler : MonoBehaviour
     void Update()
     {
 		//Manually normlize the serial device
-		if ( usingSerial && Input.GetKeyDown( "n" ))
+		if ( usingSerial && Input.GetKeyDown( "n" ) )
+		{
 			Serial_queueWriteLine( "N" );
-
+			print( "Normalizing..." );
+		}
 
 		if ( !usingSerial )
 			MouseAndKeyboardInputs();
@@ -225,7 +227,7 @@ public class InputHandler : MonoBehaviour
 			while(serial_outputQueue.Count > 0)
 			{
 				string dataToSend = (string)serial_outputQueue.Dequeue();
-				Serial_writeLine(string.Empty);
+				Serial_writeLine(dataToSend);
 			}
 
 		}
@@ -267,6 +269,8 @@ public class InputHandler : MonoBehaviour
 		{
 			Debug.LogError( "Failed to write line to serial (" + e + ")" );
 		}
+
+		print( "Normalize sent" );
 	}
 
 	public void Serial_queueWriteLine(string line)
