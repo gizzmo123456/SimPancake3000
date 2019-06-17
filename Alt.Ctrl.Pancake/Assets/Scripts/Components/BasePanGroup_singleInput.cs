@@ -16,7 +16,7 @@ public class BasePanGroup_singleInput : BasePanGroup
 	protected string InputName {
 		get { return inputName + ( addPanId_prefix ? "_" + PanGroupId : "" ); }
 	}
-	protected MinMax inputValue = new MinMax( 0, 1010 );
+	[SerializeField] protected MinMax inputValue = new MinMax( 0, 1010 );
 
 	protected virtual void Update()
 	{
