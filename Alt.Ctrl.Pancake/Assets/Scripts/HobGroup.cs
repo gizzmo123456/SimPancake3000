@@ -13,7 +13,6 @@ public struct HobGroup
 	public GameObject fryingPan;
 	public GameObject hobKnob;
 	public GameObject hobFire;
-	public GameObject jug;
 	
 	public void SetHobGroupId(int groupId)
 	{
@@ -24,7 +23,6 @@ public struct HobGroup
 		panGroup.AddRange( fryingPan.GetComponents<BasePanGroup>() );
 		panGroup.AddRange( hobKnob.GetComponents<BasePanGroup>()   );
 		panGroup.AddRange( hobFire.GetComponents<BasePanGroup>()   );
-		panGroup.AddRange( jug.GetComponents<BasePanGroup>()	   );
 
 		for(int i = 0; i < panGroup.Count; i++ )
 			panGroup[i].HobGroupId = groupId;
