@@ -270,7 +270,6 @@ public class InputHandler : MonoBehaviour
 			Debug.LogError( "Failed to write line to serial (" + e + ")" );
 		}
 
-		print( "Normalize sent" );
 	}
 
 	public void Serial_queueWriteLine(string line)
