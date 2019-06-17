@@ -104,6 +104,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1730138566134352441}
+  - component: {fileID: 7462452636176695252}
+  - component: {fileID: 4434017629603165370}
   m_Layer: 0
   m_Name: fryingPan
   m_TagString: fryingpan
@@ -127,6 +129,61 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7462452636176695252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730138566134322713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633ef6c7c08121a4dbb5f26131f0f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputNames:
+  - panZ
+  - panX
+  addPanId_prefix: 1
+  inputValues:
+  - min: -85
+    max: 70
+    current: 0
+  - min: 65
+    max: -90
+    current: 0
+  inputId_xRotation: 0
+  inputId_zRotation: 1
+  xRotationRange:
+    min: -90
+    max: 90
+    current: 0
+  zRotationRange:
+    min: -85
+    max: 90
+    current: 0
+--- !u!114 &4434017629603165370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730138566134322713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49b05f00e5c0ae43ba036d8cff75782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputName: panDistance
+  addPanId_prefix: 1
+  inputValue:
+    min: 650
+    max: 1024
+    current: 0
+  yPositionRange:
+    min: 0.2
+    max: 0
+    current: 0
 --- !u!1 &1730138566134322715
 GameObject:
   m_ObjectHideFlags: 0
