@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &281139631234350791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 561632531151797388}
+  m_Layer: 0
+  m_Name: BatterSpawn end
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &561632531151797388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281139631234350791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1161, y: 0.1735, z: 0.4351}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2389801163431789470}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2389801163431789469
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,9 +39,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2389801163431789470}
+  - component: {fileID: 4101752900241208785}
   - component: {fileID: 2389801163431789471}
+  - component: {fileID: 3370155405448675619}
   m_Layer: 0
-  m_Name: Jug Hold
+  m_Name: Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,10 +61,25 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2389801163225213725}
+  - {fileID: 561632531151797388}
   - {fileID: 2389801163452133083}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &4101752900241208785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389801163431789469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3765d971e576a044ea0791dbb90b273a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBatterQuantity: 100
+  setMaxOnStart: 1
 --- !u!114 &2389801163431789471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,6 +102,34 @@ MonoBehaviour:
     min: 110
     max: -40
     current: 0
+--- !u!114 &3370155405448675619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389801163431789469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9ea8ff904438544b34075085395c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputName: jug
+  addPanId_prefix: 0
+  inputValue:
+    min: -250
+    max: -40
+    current: 0
+  jugBatterQuantity: {fileID: 4101752900241208785}
+  minSpwanLocation: {fileID: 2389801163452133083}
+  maxSpwanLocation: {fileID: 561632531151797388}
+  spwanFrequency:
+    min: 0.5
+    max: 2
+    current: 0
+  maxPourRate: 6
+  batterBallPrefab: {fileID: 2605783790778035676, guid: 74e7890825eb69f45b947688e8df47fc,
+    type: 3}
 --- !u!1 &2389801163452133082
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2389801163452133083}
   m_Layer: 0
-  m_Name: BatterSpawn
+  m_Name: BatterSpawn start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,12 +153,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2389801163452133082}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1037, y: 0.1043, z: 0.3119}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1161, y: 0.0793, z: 0.299}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2389801163431789470}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2389801163493601598
 MonoBehaviour:
@@ -237,16 +312,12 @@ PrefabInstance:
       value: 1.2500648
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e46690ad9fe1464881dee7f5b705a9d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.2500648
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 0e46690ad9fe1464881dee7f5b705a9d, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.25
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 0e46690ad9fe1464881dee7f5b705a9d, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 1
+    - target: {fileID: 400000, guid: 0e46690ad9fe1464881dee7f5b705a9d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2500648
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e46690ad9fe1464881dee7f5b705a9d, type: 3}
@@ -311,29 +382,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[0]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[1]
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
       propertyPath: m_AABB.m_Center.x
@@ -359,32 +410,7 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.00000087748145
       objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_DirtyAABB
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[4]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[5]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[6]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[2]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[3]
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9500000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
 --- !u!1 &2389801165119501743 stripped
 GameObject:
