@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5019446189347574311}
   - component: {fileID: 5019446189347574360}
   - component: {fileID: 5019446189347574361}
+  - component: {fileID: 2605783790778035676}
+  - component: {fileID: 2222822000234081118}
   m_Layer: 12
   m_Name: BatterTrail
   m_TagString: Untagged
@@ -71,7 +73,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -175,3 +177,30 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.015
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2605783790778035676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019446189347574308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3765d971e576a044ea0791dbb90b273a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBatterQuantity: 5
+  setMaxOnStart: 0
+--- !u!114 &2222822000234081118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019446189347574308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a4649ae8c36f948adcc47bed3f24da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  widthMutilplier: 2
