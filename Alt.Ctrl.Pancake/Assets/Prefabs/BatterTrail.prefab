@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5019446189347574311}
   - component: {fileID: 5019446189347574360}
   - component: {fileID: 5019446189347574361}
+  - component: {fileID: 3680523199210354931}
+  - component: {fileID: 7207474423110201483}
   - component: {fileID: 2605783790778035676}
   - component: {fileID: 2222822000234081118}
   m_Layer: 12
@@ -82,7 +84,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0.007938385
-        value: 0.03
+        value: 0.044984132
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -90,22 +92,22 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.3
-        value: 0.05
-        inSlope: 0.30596465
-        outSlope: 0.30596465
+        time: 0.3508423
+        value: 0.06797485
+        inSlope: 0.090959825
+        outSlope: 0.090959825
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.23380457
+        outWeight: 0.109116785
       - serializedVersion: 3
-        time: 0.9867725
-        value: 0.075
-        inSlope: 0.68253016
-        outSlope: 0.68253016
+        time: 0.9938088
+        value: 0.036070358
+        inSlope: 0.16305906
+        outSlope: 0.16305906
         tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.23420644
+        weightedMode: 1
+        inWeight: 0.5040885
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -145,7 +147,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.025
   m_Autodestruct: 1
   m_Emitting: 1
 --- !u!54 &5019446189347574360
@@ -177,6 +179,33 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.015
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3680523199210354931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019446189347574308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d911ea56a0d5cc48a6585bb19ac56ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyName: _EmissionColor
+  colorA: {r: 1, g: 0.91549295, b: 0.75, a: 1}
+  colorB: {r: 1, g: 0.7811484, b: 0.4481132, a: 1}
+--- !u!114 &7207474423110201483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019446189347574308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ff8b78bb0213f48ab101b84b79682f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2605783790778035676
 MonoBehaviour:
   m_ObjectHideFlags: 0
