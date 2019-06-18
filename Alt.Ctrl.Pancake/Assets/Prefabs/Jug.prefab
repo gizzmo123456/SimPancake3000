@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281139631234350791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1161, y: 0.1735, z: 0.4351}
+  m_LocalPosition: {x: 0.1161, y: 0.1434, z: 0.4205}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2389801163431789470}
@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4101752900241208785}
   - component: {fileID: 2389801163431789471}
   - component: {fileID: 3370155405448675619}
+  - component: {fileID: 680959882}
   m_Layer: 0
   m_Name: Jug
   m_TagString: Untagged
@@ -130,6 +131,21 @@ MonoBehaviour:
   maxPourRate: 6
   batterBallPrefab: {fileID: 2605783790778035676, guid: 74e7890825eb69f45b947688e8df47fc,
     type: 3}
+  batterBall_trail_minLife: 0.75
+--- !u!114 &680959882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389801163431789469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69362717d932ab84dbcd5612147a5373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxYScale: 1
+  scaleObj: {fileID: 2389801165119596943}
 --- !u!1 &2389801163452133082
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +431,12 @@ PrefabInstance:
 --- !u!1 &2389801165119501743 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 3035ad548a901c4499c9a7bc719d6ddc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2389801165119468303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2389801165119596943 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 3035ad548a901c4499c9a7bc719d6ddc,
     type: 3}
   m_PrefabInstance: {fileID: 2389801165119468303}
   m_PrefabAsset: {fileID: 0}
