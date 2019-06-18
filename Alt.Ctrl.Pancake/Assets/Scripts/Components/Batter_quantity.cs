@@ -5,9 +5,8 @@ using UnityEngine;
 public class Batter_quantity : BasePanGroup
 {
 
-	public delegate void OnBatter( float amount );
-	public event OnBatter OnBatterAdded;
-	public event OnBatter OnBatterUsed;
+	public delegate void OnBatter( float batterPrecentage );
+	public event OnBatter OnBatterChanged;
 
 	[SerializeField] private float maxBatterQuantity = 100;
 	[SerializeField] private bool setMaxOnStart = true;
@@ -38,7 +37,7 @@ public class Batter_quantity : BasePanGroup
 			currentBatterQuantity = maxBatterQuantity;
 		}
 
-		OnBatterAdded?.Invoke( amountOfBatterToAdd );
+		OnBatterChanged?.Invoke( GetBatterPrecent() );
 
 		return remainingBatter;
 
@@ -66,7 +65,7 @@ public class Batter_quantity : BasePanGroup
 			currentBatterQuantity = 0;
 		}
 
-		OnBatterUsed?.Invoke( amountOfBatterToUse );
+		OnBatterChanged?.Invoke( GetBatterPrecent() );
 
 		return amountOfBatterToUse;
 
