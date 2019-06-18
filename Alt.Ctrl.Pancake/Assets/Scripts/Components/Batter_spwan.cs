@@ -22,7 +22,7 @@ public class Batter_spwan : BasePanGroup_singleInput
 
 	[SerializeField] private Batter_quantity batterBallPrefab;   //this will need to be change to a batter ball call, i still need to do it.
 	private Batter_quantity currentBatterBall;
-	//private float currentBallQuantity = 0f;
+	[SerializeField] private float batterBall_trail_minLife = 0.75f;
 
 	void Start()
     {
@@ -36,7 +36,11 @@ public class Batter_spwan : BasePanGroup_singleInput
 
 		if ( inputValue.ClampedPrecent == 1f )	//hmm this -1 ant good. it it cuz the min value is the max, but its not a grantee
 		{
-			if ( currentBatterBall != null ) currentBatterBall = null;
+			if ( currentBatterBall != null )
+			{
+				currentBatterBall.SendMessage( "OnRelease" );
+				currentBatterBall = null;
+			}
 
 			return;
 		}
@@ -46,16 +50,24 @@ public class Batter_spwan : BasePanGroup_singleInput
 		if (Time.time >= nextSpwanTime)		// spwan a new batter ball 
 		{
 
+			// Let the current ball know its being released from the jug.
+			currentBatterBall?.SendMessage("OnRelease");
+
 			currentBatterBall = Instantiate(batterBallPrefab, minSpwanLocation.position, Quaternion.identity);
 			lastSpwanTime = Time.time;
+
+			// set batter ball trails lifetime :)
+			float batterTrailLife = spwanInterval < batterBall_trail_minLife ? batterBall_trail_minLife : spwanInterval;
+			currentBatterBall.SendMessage( "SetTime", batterTrailLife );
 
 		}
 		else if(currentBatterBall != null)	//move the batter closer to the edge of the jug.
 		{
+
 			currentBatterBall.transform.position = Vector3.Lerp( minSpwanLocation.position, maxSpwanLocation.position, 1f - (nextSpwanTime - Time.time) / spwanInterval );
 
 			float remainingBatter = currentBatterBall.AddBatter( jugBatterQuantity.UseBatter( maxPourRate * (1f - inputValue.ClampedPrecent) * Time.deltaTime ) );
-			jugBatterQuantity.AddBatter(remainingBatter);
+			jugBatterQuantity.AddBatter(remainingBatter);	// return any batter that could not be added to the ball back to the jug :P
 
 		}
 
