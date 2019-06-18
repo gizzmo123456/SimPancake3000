@@ -309,7 +309,7 @@ public class InputHandler : MonoBehaviour
 			Debug.LogError( "Input value for " + inputName + " does not exist" );
 			return false;
 		}
-
+		
 		value = inputValues[ inputName ];
 
 		return true;
