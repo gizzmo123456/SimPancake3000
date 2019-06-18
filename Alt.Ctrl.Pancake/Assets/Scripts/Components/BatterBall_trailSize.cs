@@ -17,14 +17,14 @@ public class BatterBall_trailSize : MonoBehaviour
 		batterBallQuantity = GetComponent<Batter_quantity>();
 		trailRenderer = GetComponent<TrailRenderer>();
 
-		batterBallQuantity.OnBatterAdded += OnBatterAdded;
+		batterBallQuantity.OnBatterChanged += OnBatterAdded;
 
     }
 
-	private void OnBatterAdded( float amountAdded )
+	private void OnBatterAdded( float batterprecent )
 	{
 
-		trailRenderer.widthMultiplier = batterBallQuantity.GetBatterPrecent() * widthMutilplier;
+		trailRenderer.widthMultiplier = batterprecent * widthMutilplier;
 
 	}
 }
