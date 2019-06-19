@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 606039913553687492}
-  - component: {fileID: 5470967043122737735}
-  - component: {fileID: 5704446749819241322}
   - component: {fileID: 6838375274826001029}
   m_Layer: 8
   m_Name: Pan Collider
@@ -33,54 +31,6 @@ Transform:
   m_Father: {fileID: 1730138566134352443}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5470967043122737735
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607604263518068695}
-  m_Mesh: {fileID: 4300002, guid: a505f799181c3bb41b8a33b0434ac4f7, type: 3}
---- !u!23 &5704446749819241322
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607604263518068695}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100002, guid: a505f799181c3bb41b8a33b0434ac4f7, type: 3}
-  - {fileID: 2100004, guid: a505f799181c3bb41b8a33b0434ac4f7, type: 3}
-  - {fileID: 2100006, guid: a505f799181c3bb41b8a33b0434ac4f7, type: 3}
-  - {fileID: 2100008, guid: a505f799181c3bb41b8a33b0434ac4f7, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!64 &6838375274826001029
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -196,7 +146,7 @@ GameObject:
   - component: {fileID: 1730138566133025305}
   - component: {fileID: 1730138566132058329}
   m_Layer: 0
-  m_Name: Pan
+  m_Name: Pan (0)
   m_TagString: fryingpan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
