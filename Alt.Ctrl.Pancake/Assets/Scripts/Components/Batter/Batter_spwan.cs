@@ -24,15 +24,19 @@ public class Batter_spwan : BasePanGroup_singleInput
 	private Batter_quantity currentBatterBall;
 	[SerializeField] private float batterBall_trail_minLife = 0.75f;
 
-	void Start()
-    {
-        
-    }
+	bool active = false;
 
-    protected override void Update()
+	private void Start()
+	{
+		GetComponent<Jug_panSellect>().OnPanChanged += OnPanChanged;
+	}
+
+	protected override void Update()
     {
 
 		base.Update();
+
+		if ( !active ) return;
 
 		if ( inputValue.ClampedPrecent == 1f )	//hmm this -1 ant good. it it cuz the min value is the max, but its not a grantee
 		{
@@ -74,4 +78,10 @@ public class Batter_spwan : BasePanGroup_singleInput
 		nextSpwanTime = lastSpwanTime +spwanInterval;
 
 	}
+
+	private void OnPanChanged( int id )
+	{
+		active = id > -1;
+	}
+
 }
