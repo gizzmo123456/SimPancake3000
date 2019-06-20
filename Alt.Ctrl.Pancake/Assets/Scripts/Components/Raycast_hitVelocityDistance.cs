@@ -32,7 +32,7 @@ public class Raycast_hitVelocityDistance : Raycast_hit
 		NextPosition = transform.position + velocity;
 
 		distance = Vector3.Distance(transform.position, velocity);
-		print( "NP: "+NextPosition +" vel: "+rigid.velocity+" t: "+velocity );
+
 	}
 
 }
