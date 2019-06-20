@@ -17,11 +17,14 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 
 	[SerializeField] private float spreadRate = 1f;
 	[SerializeField] private MinMax heightRange = new MinMax(0.1f, 1f);
+	[Range( 0f, 100f ), Tooltip("ie. if 10 then 10 quantitys == 1 volume :D (ratio 10:1)")]
+	[SerializeField] private float quantityToVolumRatio = 10;
+	private float volume = 0;
 	private float radius = 0.05f;
 	[SerializeField] private float maxRadius = 1.6f;
 
 	private float Height {
-		get { return batterQuantity.GetBatterQuantity() / ( Mathf.PI * Mathf.Pow( radius, 2 ) ); }
+		get { return volume / ( Mathf.PI * Mathf.Pow( radius, 2 ) ); }
 	}
 
 	private Vector3 startLerpScale;
@@ -35,13 +38,16 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 
 		GetComponent<Pancake_state>().OnStateChanged += OnPancakeStateChanged;
 		batterQuantity = GetComponent<Batter_quantity>();
+		batterQuantity.OnBatterChanged += OnBatterChanged;
+
+		lerpTimer.SetTimer( lerpIntervals, true );
 
 		//NOTE: just for now.
 		// I WILL NOT be using scale but just to get it working.
 		// insted i should move the bones/joints of the pnacake.
 		// (cuz pancakes have bones now :D)
 		transform.localScale = startLerpScale = targetScale = Vector3.zero;
-
+		volume = batterQuantity.GetBatterQuantity() / quantityToVolumRatio;
     }
 
     void Update()
@@ -90,6 +96,6 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 
 		startLerpScale = transform.localScale;
 		lerpTimer.SetTimer( lerpIntervals, true );
-
+		volume = batterQuantity.GetBatterQuantity() / quantityToVolumRatio;
 	}
 }
