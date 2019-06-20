@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(TrailRenderer))]
-public class BatterBall_timeCorrection_onRelease : MonoBehaviour
+public class BatterBall_timeCorrection_onRelease : MonoBehaviour, IBatterRelease
 {
 
-	float spwanTime;
+	private float spwanTime;
+	private TrailRenderer trail;
 
-    void Awake()
+	void Awake()
     {
+		trail = GetComponent<TrailRenderer>();
 		spwanTime = Time.time;
     }
 
 	public void OnBatterRelease()
 	{
 
-		float timeDif = Time.time - spwanTime;
+		float timeDif = trail.time - (Time.time - spwanTime);
 
-		GetComponent<TrailRenderer>().time -= timeDif;
+		if (timeDif > 0)
+			trail.time -= timeDif;
 
 	}
 
 	public void SetTime( float length)
 	{
-		GetComponent<TrailRenderer>().time = length;
+		trail.time = length;
 
 	}
 
