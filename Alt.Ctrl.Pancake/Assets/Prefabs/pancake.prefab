@@ -755,8 +755,9 @@ GameObject:
   - component: {fileID: 8788358049964350873}
   - component: {fileID: 6301033112038942644}
   - component: {fileID: 6854528439022990961}
+  - component: {fileID: 8941027948113905812}
   m_Layer: 0
-  m_Name: pancakeSkl (1)
+  m_Name: pancake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -804,6 +805,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89facffa5cc91c4e8cef0db32b66bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8941027948113905812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788358049964638713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f313fbfe7a5a64cbc6a32f7550859b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spreadRate: 1
+  heightRange:
+    min: 0.1
+    max: 1
+    current: 0
+  maxRadius: 1.6
+  lerpIntervals: 0.5
 --- !u!1 &8788358049964638717
 GameObject:
   m_ObjectHideFlags: 0
