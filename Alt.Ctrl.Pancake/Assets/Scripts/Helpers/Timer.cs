@@ -26,7 +26,7 @@ namespace AMS_Helpers
 		/// <param name="reset">Can the timer be reset? if false, if ther has already been set it will not get set agen</param>
 		public void SetTimer(float len, bool reset) {
 
-			if (CurrentTime < 0 || CurrentTime > 0 && reset) {
+			if (CurrentTime <= 0 || CurrentTime > 0 && reset) {
 				CurrentTime = 0;
 				TimerLength = len;
 			}
