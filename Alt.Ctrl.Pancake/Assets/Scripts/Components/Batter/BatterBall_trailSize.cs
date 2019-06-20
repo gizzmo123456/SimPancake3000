@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Batter_quantity)), RequireComponent(typeof(TrailRenderer))]
-public class BatterBall_trailSize : MonoBehaviour
+public class BatterBall_trailSize : MonoBehaviour, IBatterChanged
 {
 
 	private Batter_quantity batterBallQuantity;
@@ -17,11 +17,11 @@ public class BatterBall_trailSize : MonoBehaviour
 		batterBallQuantity = GetComponent<Batter_quantity>();
 		trailRenderer = GetComponent<TrailRenderer>();
 
-		batterBallQuantity.OnBatterChanged += OnBatterAdded;
+		batterBallQuantity.OnBatterChanged += OnBatterChanged;
 
     }
 
-	private void OnBatterAdded( float batterprecent )
+	public void OnBatterChanged( float batterprecent )
 	{
 
 		trailRenderer.widthMultiplier = batterprecent * widthMutilplier;
