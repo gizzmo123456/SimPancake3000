@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Raycast_hit : MonoBehaviour
 {
-
-	public delegate void onRayHit( Vector3 hitLocation, Collider collider );
+/*	// On a reflection this seems a lil over enginered, insead i thin we should devive for this or the RB version.
+	public delegate void onRayHit( Vector3 hitLocation, GameObject obj );
 	public event onRayHit OnRayHit;
-
-	[SerializeField] private RaycastHit rayHit;
+*/
+	[SerializeField] protected RaycastHit rayHit;
 	[SerializeField] private LayerMask hitLayers;
 
 	[SerializeField] private Vector3 direction = Vector3.up;
@@ -20,16 +20,6 @@ public class Raycast_hit : MonoBehaviour
 	[Header("Debug")]
 	[SerializeField] private bool debug = false;
 	[SerializeField] private Color debug_lineColor = Color.red;
-
-
-
-	protected virtual void FixedUpdate()
-    {
-
-		if ( CastRay() )
-			OnRayHit?.Invoke( rayHit.point, rayHit.collider );
-
-    }
 
 	protected virtual bool CastRay()
 	{
