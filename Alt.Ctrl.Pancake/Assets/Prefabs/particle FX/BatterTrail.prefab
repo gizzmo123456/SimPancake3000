@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 7207474423110201483}
   - component: {fileID: 2605783790778035676}
   - component: {fileID: 2222822000234081118}
-  m_Layer: 12
+  - component: {fileID: 6058328897115715871}
+  m_Layer: 0
   m_Name: BatterTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,3 +234,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   widthMutilplier: 2
+--- !u!114 &6058328897115715871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019446189347574308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19de50b1100c2614aa4c96831be87c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  direction: {x: 0, y: -1, z: 0}
+  useLocalDirection: 0
+  distance: 1
+  debug: 1
+  debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
