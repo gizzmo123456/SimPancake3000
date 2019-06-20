@@ -30,6 +30,7 @@ public class BatterBall_panHit : Raycast_hitVelocityDistance, IBatterRelease
 		// correct it position, turn off gravity and the raycast since we have now reached the pan, and we wont be colliding with anythink else.
 		updating = false;
 		GetComponent<Rigidbody>().useGravity = false;
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
 		transform.position = rayHit.point;
 
 
@@ -42,6 +43,7 @@ public class BatterBall_panHit : Raycast_hitVelocityDistance, IBatterRelease
 		Batter_quantity quantity = GetComponent<Batter_quantity>();
 
 		panPancake.AddBatter( quantity.GetBatterQuantity(), rayHit.point );
+		transform.position = rayHit.point;
 
 	}
 
