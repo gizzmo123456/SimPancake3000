@@ -12,8 +12,14 @@ public class Pancake_state : MonoBehaviour
 
 	private PancakeState pancakeState = PancakeState.Mixture;
 
+	private void Start()
+	{
+		//
+		OnStateChanged?.Invoke(pancakeState);
 
-    void Update()
+	}
+
+	void Update()
     {
         // state logic?
     }
