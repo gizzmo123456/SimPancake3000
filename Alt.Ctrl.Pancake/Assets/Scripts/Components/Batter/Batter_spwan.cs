@@ -42,7 +42,7 @@ public class Batter_spwan : BasePanGroup_singleInput
 		{
 			if ( currentBatterBall != null )
 			{
-				currentBatterBall.SendMessage( "OnRelease" );
+				currentBatterBall.SendMessage( "OnBatterRelease" );
 				currentBatterBall = null;
 			}
 
@@ -55,7 +55,8 @@ public class Batter_spwan : BasePanGroup_singleInput
 		{
 
 			// Let the current ball know its being released from the jug.
-			currentBatterBall?.SendMessage("OnRelease");
+			if( currentBatterBall != null)
+				currentBatterBall.SendMessage("OnBatterRelease");
 
 			currentBatterBall = Instantiate(batterBallPrefab, minSpwanLocation.position, Quaternion.identity);
 			lastSpwanTime = Time.time;
