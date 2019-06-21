@@ -26,7 +26,7 @@ public class FryingPan_pancake : BasePanGroup
 		{
 			Pancake_state pancake = Instantiate( pancakePrefab, hitLocaltion, Quaternion.identity );
 			pancake.GetComponent<Batter_quantity>().AddBatter(qt);
-			pancake.GetComponent<Pancake_panCollision>().SetPanCollider(panColliderObj);
+			pancake.GetComponent<Pancake_jointSetup>().SetPanCollider(panColliderObj);
 
 			// if there are already pancake in the pan combine them into the new pancake.
 			// TODO: this should only be if the mixture coms into contact this a non mixture pancake.
