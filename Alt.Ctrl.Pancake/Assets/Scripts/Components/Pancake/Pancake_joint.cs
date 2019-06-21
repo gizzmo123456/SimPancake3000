@@ -76,9 +76,10 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		maxDistanceFromCenter = maxDistance;
 	}
 
-	public void SetupJointData( float curveRotation )
+	public void SetupJointData( float curveRotation, float positionOffset)
 	{
 		// ...
 		maxCurveRotation = curveRotation;
+		maxPositionOffset = positionOffset;
 	}
 }
