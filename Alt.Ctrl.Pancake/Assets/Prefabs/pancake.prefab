@@ -756,6 +756,7 @@ GameObject:
   - component: {fileID: 6301033112038942644}
   - component: {fileID: 6854528439022990961}
   - component: {fileID: 8941027948113905812}
+  - component: {fileID: 229308301458046363}
   m_Layer: 0
   m_Name: pancake
   m_TagString: Untagged
@@ -825,6 +826,67 @@ MonoBehaviour:
   quantityToVolumRatio: 15
   maxRadius: 1.6
   lerpIntervals: 0.5
+--- !u!114 &229308301458046363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788358049964638713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3817eabd3ec96364f9a1c4aa418ec8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.55
+      value: 0
+      inSlope: -0
+      outSlope: 0.024907967
+      tangentMode: 5
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 0.6083
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 24.48889
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 3
+      inWeight: 0.059705496
+      outWeight: 0.9464524
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0
+      outSlope: -41.634796
+      tangentMode: 5
+      weightedMode: 1
+      inWeight: 0.18741603
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxDistanceFromCenter: 0.43
+  maxJointRotation: -90
+  jointDepthWeight:
+  - 0
+  - 1
+  - 1
+  - 0
 --- !u!1 &8788358049964638717
 GameObject:
   m_ObjectHideFlags: 0
