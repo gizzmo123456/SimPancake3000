@@ -882,6 +882,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxDistanceFromCenter: 0.43
   maxJointRotation: -90
+  maxPositionOffset: 0.05
   jointDepthWeight:
   - 0
   - 1

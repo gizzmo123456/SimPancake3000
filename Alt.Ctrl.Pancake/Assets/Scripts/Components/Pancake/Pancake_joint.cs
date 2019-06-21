@@ -43,8 +43,8 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 		// Get the rotation from the colliderCurve.
 		Vector3 rotation = transform.eulerAngles;
-
 		float curveValue = colliderCurve.Evaluate( distancePercent );
+
 		rotation.z = curveValue * maxCurveRotation;
 
 		transform.eulerAngles = rotation;
