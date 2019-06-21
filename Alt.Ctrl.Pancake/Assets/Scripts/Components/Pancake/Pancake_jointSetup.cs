@@ -8,7 +8,7 @@ using UnityEngine;
 public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 {
 
-	private Transform panColliderObj;							// NOTE: On a reflection i this should just be a transform, i dont think it needs its own class class or anythink :)
+	private Transform panColliderObj;
 	private Pancake_joint[] joints;
 
 	[SerializeField] private AnimationCurve colliderCurve;
