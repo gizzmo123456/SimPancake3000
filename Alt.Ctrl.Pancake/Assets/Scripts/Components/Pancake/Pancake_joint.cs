@@ -47,12 +47,12 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		float distancePercent = distanceFromCenter / maxDistanceFromCenter;
 
 		// Get the rotation from the colliderCurve.
-		Vector3 rotation = transform.eulerAngles;
+		Vector3 rotation = transform.localEulerAngles;
 		float curveValue = colliderCurve.Evaluate( distancePercent );
 
 		rotation.z = curveValue * maxCurveRotation;
 
-		transform.eulerAngles = rotation;
+		transform.localEulerAngles = rotation;
 
 		// update the position offset.
 		// local
