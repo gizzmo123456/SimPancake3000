@@ -10,5 +10,5 @@ public interface IPanChanged
 
 public interface IPanCollider
 {
-	void SetPanCollider(GameObject gameObj);
+	void SetPanCollider(Transform gameObj);
 }
