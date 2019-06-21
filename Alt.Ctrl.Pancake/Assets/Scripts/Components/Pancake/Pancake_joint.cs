@@ -23,10 +23,15 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 	private float maxPositionOffset = 0.05f;
 	// ...
 
-	private Vector3 TEMP_pos;
+	private Vector3 startLocalPosition;
 	private float TEMP_DIST;
 
-    private void Update()
+	private void Start()
+	{
+		startLocalPosition = transform.localPosition;
+	}
+
+	private void Update()
     {
 		if ( panColliderObj == null ) return;
 
@@ -51,7 +56,7 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 		// update the position offset.
 		// local
-		Vector3 lPos = TEMP_pos;
+		Vector3 lPos = startLocalPosition;
 		lPos.y +=  curveValue * maxPositionOffset ;
 	
 		transform.localPosition = lPos;
@@ -67,7 +72,6 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 	public void SetPanCollider( Transform panColl )
 	{
 		panColliderObj = panColl;
-		TEMP_pos = transform.localPosition;
 	}
 
 	public void SetupColliderData( AnimationCurve collCurve, float maxDistance )
@@ -78,7 +82,6 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 	public void SetupJointData( float curveRotation, float positionOffset)
 	{
-		// ...
 		maxCurveRotation = curveRotation;
 		maxPositionOffset = positionOffset;
 	}
