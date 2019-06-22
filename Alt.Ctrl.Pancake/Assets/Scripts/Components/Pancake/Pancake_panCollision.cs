@@ -36,7 +36,9 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	private void a()
 	{
 		transform.eulerAngles = panColliderObj.eulerAngles;
+		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
 		transform.position = panColliderObj.TransformPoint( positionInPan );
+
 	}
 
 	//TODO: can i also get a real name. (awwwwwwwwwwww, im falling...)
