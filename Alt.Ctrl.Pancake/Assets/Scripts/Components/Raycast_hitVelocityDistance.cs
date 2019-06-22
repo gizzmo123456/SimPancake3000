@@ -31,7 +31,9 @@ public class Raycast_hitVelocityDistance : Raycast_hit
 		// work out the max distance that are are going to move in in the next update
 		NextPosition = transform.position + velocity;
 
-		distance = Vector3.Distance(transform.position, velocity);
+		distance = Vector3.Distance( transform.position, NextPosition );
+
+						
 
 	}
 
