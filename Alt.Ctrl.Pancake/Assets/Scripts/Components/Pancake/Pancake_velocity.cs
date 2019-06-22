@@ -103,15 +103,15 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 			if ( velocity.x < 0 ) velocity.x = 0;
 		}
 
-		if ( velocity.y < 0 )
+		if ( velocity.z < 0 )
 		{
-			velocity.y += friction * Time.deltaTime;
-			if ( velocity.y > 0 ) velocity.y = 0;
+			velocity.z += friction * Time.deltaTime;
+			if ( velocity.z > 0 ) velocity.z = 0;
 		}
-		else if ( velocity.y > 0 )
+		else if ( velocity.z > 0 )
 		{
-			velocity.y -= friction * Time.deltaTime;
-			if ( velocity.y < 0 ) velocity.y = 0;
+			velocity.z -= friction * Time.deltaTime;
+			if ( velocity.z < 0 ) velocity.z = 0;
 		}
 
 	}
