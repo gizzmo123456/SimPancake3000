@@ -44,7 +44,7 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 	public Vector3 GetTravleDistance(float delta)
 	{
 
-		return velocity * delta;
+		return GetVelocity() * delta;
 
 	}
 
