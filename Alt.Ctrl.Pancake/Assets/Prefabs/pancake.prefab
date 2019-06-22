@@ -757,6 +757,7 @@ GameObject:
   - component: {fileID: 6854528439022990961}
   - component: {fileID: 8941027948113905812}
   - component: {fileID: 229308301458046363}
+  - component: {fileID: 206765377953620407}
   - component: {fileID: 8356124402629225966}
   m_Layer: 0
   m_Name: pancake
@@ -889,6 +890,19 @@ MonoBehaviour:
   - 1
   - 1
   - 0
+--- !u!114 &206765377953620407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788358049964638713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2869e78bc2f2814396355c5ff44d51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateSpace: {fileID: 0}
 --- !u!114 &8356124402629225966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -901,6 +915,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c077d2cdd8f5854fba7c8f7e3bfdaaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  direction: {x: 0, y: -1, z: 0}
+  useLocalDirection: 0
+  distance: 1
+  debug: 0
+  debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
+  positionInPan: {x: 0, y: 0, z: 0}
 --- !u!1 &8788358049964638717
 GameObject:
   m_ObjectHideFlags: 0
