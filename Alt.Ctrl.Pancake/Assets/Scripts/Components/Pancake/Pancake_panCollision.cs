@@ -84,6 +84,10 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	{
 		pancake_velocity.PhysicsStep( Time.deltaTime );
 
+		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
+
+		transform.position = nextPosition;
+
 	}
 
 	public void SetPanCollider( Transform panColl )
