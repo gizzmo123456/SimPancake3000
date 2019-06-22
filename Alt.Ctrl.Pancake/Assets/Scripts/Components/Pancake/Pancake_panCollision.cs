@@ -13,6 +13,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	[Range(0f, 2f)]
 	[SerializeField] private float friction = 0.1f;
 
+	[SerializeField] private float upforceThresshold = 1f;
 
 	void Awake()
 	{
@@ -95,6 +96,20 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
 
 		transform.position = nextPosition;
+
+	}
+
+	public void TransformToUpforce(Vector3 forwardsDirection )
+	{
+
+		float vel = pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
+
+		if ( vel < upforceThresshold )
+			return;
+
+		SendMessage( null, null );		
+
+		pancake_velocity.SetVelocity( forwardsDirection * vel );
 
 	}
 
