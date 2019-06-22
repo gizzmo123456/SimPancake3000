@@ -9,6 +9,10 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	private Transform panColliderObj;
 	private Vector3 positionInPan;          // the local position of the pancake in the pan
 
+	[Header( "Collider things" )]
+	[Range(0f, 2f)]
+	[SerializeField] private float friction = 0.1f;
+
 
 	void Awake()
 	{
@@ -39,7 +43,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 		// TODO: Take off... 
 		// hmmm... i dont no where to do this.
-
+		pancake_velocity.AddFriction(friction);
 
 	}
 

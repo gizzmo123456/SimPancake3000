@@ -87,4 +87,33 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 		if ( updateSpace == null ) return worldPosition;
 		else return updateSpace.InverseTransformVector( worldPosition );
 	}
+
+	public void AddFriction( float friction )
+	{
+
+		// aka counter force x, z
+		if ( velocity.x < 0 )
+		{
+			velocity.x += friction * Time.deltaTime;
+			if ( velocity.x > 0 ) velocity.x = 0;
+		}
+		else if ( velocity.x > 0 )
+		{
+			velocity.x -= friction * Time.deltaTime;
+			if ( velocity.x < 0 ) velocity.x = 0;
+		}
+
+		if ( velocity.y < 0 )
+		{
+			velocity.y += friction * Time.deltaTime;
+			if ( velocity.y > 0 ) velocity.y = 0;
+		}
+		else if ( velocity.y > 0 )
+		{
+			velocity.y -= friction * Time.deltaTime;
+			if ( velocity.y < 0 ) velocity.y = 0;
+		}
+
+	}
+
 }
