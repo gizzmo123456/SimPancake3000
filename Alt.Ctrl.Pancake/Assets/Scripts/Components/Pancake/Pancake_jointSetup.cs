@@ -55,7 +55,7 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset);
 
 			Pancake_jointDistance distanceJoint = child.gameObject.AddComponent<Pancake_jointDistance>();
-			distanceJoint.Setup(transformForceDistance);
+			distanceJoint.Setup( transformForceDistance, GetComponent<Pancake_panCollision>() );
 
 			pancakeJoints.Add( childJoint );
 			
@@ -70,10 +70,13 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 
 		panColliderObj = gameObj;
 
+		//NOTE: it might be better if iv stored them all as IPanCollider.
 		//Update all the children joints
 		foreach ( Pancake_joint joint in joints )
+		{
 			joint.SetPanCollider( gameObj );
-
+			joint.GetComponent<Pancake_jointDistance>().SetPanCollider( gameObj );
+		}
 	}
 
 
