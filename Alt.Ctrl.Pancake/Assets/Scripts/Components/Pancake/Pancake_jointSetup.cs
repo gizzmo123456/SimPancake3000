@@ -19,6 +19,9 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 	[Range(0f, 1f), Tooltip("Only affects joint rotation")]
 	[SerializeField] private float[] jointDepthWeight;
 
+	[SerializeField] private float transformForceDistance;
+
+
 	private void Awake()
 	{
 
@@ -50,6 +53,9 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 			Pancake_joint childJoint = child.gameObject.AddComponent<Pancake_joint>();
 			childJoint.SetupColliderData(colliderCurve, maxDistanceFromCenter);
 			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset);
+
+			Pancake_jointDistance distanceJoint = child.gameObject.AddComponent<Pancake_jointDistance>();
+			distanceJoint.Setup(transformForceDistance);
 
 			pancakeJoints.Add( childJoint );
 			
