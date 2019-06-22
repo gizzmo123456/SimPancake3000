@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cec77cfa66cb4c498e462d4d7f3ad50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pancakePrefab: {fileID: 6854528439022990961, guid: 01d6384b4ac7f7d44bdc43baa691ac76,
+  pancakePrefab: {fileID: 1342944897696942893, guid: cbc81dba3116f58418c3481febdd2431,
     type: 3}
   panColliderObj: {fileID: 606039913553687492}
 --- !u!1 &1730138566134322715

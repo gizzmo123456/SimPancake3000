@@ -890,6 +890,7 @@ MonoBehaviour:
   - 1
   - 1
   - 0
+  transformForceDistance: 0.42
 --- !u!114 &206765377953620407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,6 +925,8 @@ MonoBehaviour:
   debug: 0
   debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
   positionInPan: {x: 0, y: 0, z: 0}
+  friction: 0.1
+  upforceThresshold: 1
 --- !u!1 &8788358049964638717
 GameObject:
   m_ObjectHideFlags: 0
