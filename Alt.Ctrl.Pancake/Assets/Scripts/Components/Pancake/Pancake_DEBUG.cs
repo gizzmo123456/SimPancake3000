@@ -7,8 +7,10 @@ public class Pancake_DEBUG : MonoBehaviour
 
 	public GameObject pancake;
 	public Transform panCollider;
+	public Vector3 velocity;
 	public bool setPanCollider = false;
 	public bool updatePosition = false;
+	public bool addVelocity = false;
 
     void Update()
     {
@@ -28,5 +30,12 @@ public class Pancake_DEBUG : MonoBehaviour
 			if( panColl.GetPanCollider() != null )
 				panColl.positionInPan = panColl.GetPanCollider().InverseTransformPoint(transform.position);
 		}
+
+		if( addVelocity )
+		{
+			pancake.SendMessage( "AddVelocity", velocity );
+			addVelocity = false;
+		}
+
     }
 }
