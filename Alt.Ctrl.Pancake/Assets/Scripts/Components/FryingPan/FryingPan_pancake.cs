@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FryingPan_pancake : BasePanGroup
+public class FryingPan_pancake : BasePanGroup, IReceivePancake
 {
 
 	protected List<Pancake_state> pancakes;	// all the pancakes that are current in this pan :)
@@ -59,6 +59,17 @@ public class FryingPan_pancake : BasePanGroup
 				return true;
 
 		return false;
+	}
+
+	public void AddPancake( Pancake_state pancake )
+	{
+		// TODO: if theres mixture in pan, combine. 
+		pancakes.Add( pancake );
+	}
+
+	public void RemovePancake ( Pancake_state pancake )
+	{
+		pancakes.Remove( pancake );
 	}
 
 }
