@@ -7,7 +7,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 {
 	Pancake_velocity pancake_velocity;
 	private Transform panColliderObj;
-	private Vector3 positionInPan;          // the local position of the pancake in the pan
+	/*private*/ public Vector3 positionInPan;          // the local position of the pancake in the pan
 
 	[Header( "Collider things" )]
 	[Range(0f, 2f)]
@@ -27,7 +27,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 		if ( panColliderObj != null )                       // in pan
 			a();
-		else if ( pancake_velocity.Velocity.y <= 0f )        // falling
+		else if ( pancake_velocity.Velocity.y <= 0f )       // falling
 			b();
 		else
 			c();                                            // not in pan and not falling, what ever that is
