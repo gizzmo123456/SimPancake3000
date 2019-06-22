@@ -34,7 +34,10 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 	public Vector3 GetVelocity()
 	{
 
-		return velocity;
+		if ( updateSpace )
+			return updateSpace.TransformDirection(velocity);	//mige be better to use Vector insted of direction
+		else
+			return velocity;
 
 	}
 
@@ -52,13 +55,13 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 	public void PhysicsStep(float delta)
 	{
 
-		velocity += TransformVectorToLocal(Physics.gravity) * delta;
+		velocity += Physics.gravity * delta;
 
 	}
 
 	public void SetUpdateSpace( Transform spaceTrans )
 	{
-
+/*
 		// convert from the current space to the new space.
 
 		// convert to world space if we are already in another objects local space
@@ -69,7 +72,7 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 		// convert from world to the new local space (if passed in).
 		if ( spaceTrans != null )
 			velocity = spaceTrans.InverseTransformVector( velocity );
-		
+*/		
 
 		updateSpace = spaceTrans;
 
