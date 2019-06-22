@@ -56,7 +56,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		// find if we collide with any objects
 		if ( CastRay() )
 		{
-			if ( nextPosition.y < rayHit.point.y )  // collided
+			if ( nextPosition.y <= rayHit.point.y )  // collided
 			{
 				nextPosition.y = rayHit.point.y;
 				pancake_velocity.SetVelocity( Vector3.zero );
