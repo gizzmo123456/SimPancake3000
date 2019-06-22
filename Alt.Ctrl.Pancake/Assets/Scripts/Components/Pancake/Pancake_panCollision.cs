@@ -7,9 +7,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 {
 	Pancake_velocity pancake_velocity;
 	private Transform panColliderObj;
-	/*private*/
-	public Vector3 positionInPan;          // the local position of the pancake in the pan
-
+	private Vector3 positionInPan;          // the local position of the pancake in the pan
 
 
 	void Awake()
@@ -38,6 +36,10 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		transform.eulerAngles = panColliderObj.eulerAngles;
 		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
 		transform.position = panColliderObj.TransformPoint( positionInPan );
+
+		// TODO: Take off... 
+		// hmmm... i dont no where to do this.
+
 
 	}
 
