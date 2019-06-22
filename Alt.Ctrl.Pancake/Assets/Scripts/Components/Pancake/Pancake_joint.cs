@@ -8,9 +8,6 @@ using UnityEngine;
 public class Pancake_joint : MonoBehaviour, IPanCollider
 {
 
-	// TODO: ...
-
-
 	// tracking object.
 	private Transform panColliderObj;
 
@@ -66,7 +63,7 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		wPos.y = curveValue * maxPositionOffset;
 
 		transform.position += wPos;
-		
+
 	}
 
 	public void SetPanCollider( Transform panColl )

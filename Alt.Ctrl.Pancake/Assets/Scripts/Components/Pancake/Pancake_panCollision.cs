@@ -81,8 +81,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		if( collision )
 		{
 			// Update pancake on pan and pan on pancake.
-			SendMessage( "SetPanCollider", rayHit.transform );
-			rayHit.transform.SendMessageUpwards( "AddPancake", GetComponent<Pancake_state>() );
+			SendMessage( rayHit.transform, GetComponent<Pancake_state>() );
+
 		}
 
 	}
@@ -109,6 +109,28 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	public Transform GetPanCollider()
 	{
 		return panColliderObj;
+	}
+
+	void SendMessage(Transform panCollider, Pancake_state state)
+	{
+
+		IPanCollider[] panCols = GetComponents<IPanCollider>();
+		IReceivePancake[] recivePancakes = GetComponentsInParent<IReceivePancake>();
+
+		int i = 0;
+
+		while ( i < panCols.Length || i < recivePancakes.Length)
+		{
+
+			if ( i < panCols.Length )
+				panCols[ i ].SetPanCollider( panCollider );
+
+			if ( i < recivePancakes.Length )
+				recivePancakes[ i ].AddPancake( state );
+
+			i++;
+		}
+
 	}
 
 }
