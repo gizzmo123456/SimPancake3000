@@ -69,7 +69,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 			}
 		}
 
-		// Apply out final position to the object
+		// Apply our final position to the object
 		transform.position = nextPosition;
 
 		// we must update the pan and pancake last so that the position has been updated.
