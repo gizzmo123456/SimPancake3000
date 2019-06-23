@@ -11,9 +11,8 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 
 	private Transform originTranform; // or top-most parent in prefab.
 	private Vector3 localOrigin;
-	private Vector3 WORLDorigin;
 
-	public float TEMPDIST = 0;
+	public float TEMPDIST = 0;	//DEBUG...
 
 	private void Update()
 	{
@@ -21,7 +20,7 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 		if ( panColliderObj == null ) return;
 
 		// find how far from the center we are
-		Vector3 originPosition = WORLDorigin = originTranform.TransformPoint( localOrigin ); //transform.position;
+		Vector3 originPosition = originTranform.TransformPoint( localOrigin ); //transform.position;
 		Vector3 panPosition = panColliderObj.transform.position;
 
 		originPosition.y = panPosition.y = 0;
