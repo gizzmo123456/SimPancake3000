@@ -14,6 +14,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	[SerializeField] private float friction = 0.1f;
 
 	[SerializeField] private float upforceThresshold = 1f;
+	private float transformUpforceDistance = 0;
+	private Vector3 transformedVelocity = Vector3.zero;
 
 	void Awake()
 	{
@@ -22,6 +24,14 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 	private void FixedUpdate()
 	{
+
+		// 
+		if(transformedVelocity != Vector3.zero)
+		{
+			pancake_velocity.SetVelocity( transformedVelocity );//*/
+			transformedVelocity = Vector3.zero;
+		}
+
 		// if there current no panColliderObj we need to be searching for it with the ray cast, if we are falling.
 		// else if there is panColliderObj we need to move with pan.
 		// also if we are in the pan we need to apply the velocity.
@@ -99,18 +109,22 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 	}
 
-	public void TransformToUpforce(Vector3 forwardsDirection )
+	public void TransformToUpforce(Vector3 forwardsDirection, float distance, string name__ )
 	{
+		// only want to transform to upforce for the point that is furthest away
+		if ( panColliderObj == null && distance < transformUpforceDistance ) return;
+
 
 		float vel = pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
+		print( "hi # "+name__+" #" + ( forwardsDirection * vel ) );
 
 		if ( vel < upforceThresshold )
 			return;
 
-		SendMessage( null, null );		
+		SendMessage( null, null );
 
-		pancake_velocity.SetVelocity( forwardsDirection * vel );
-
+		//pancake_velocity.SetVelocity( /*new Vector3(0, vel, 0) );/*/ forwardsDirection * vel );//*/
+		transformedVelocity = forwardsDirection * vel;
 	}
 
 	public void SetPanCollider( Transform panColl )
