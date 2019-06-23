@@ -92,7 +92,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		if( collision )
 		{
 			// Update pancake on pan and pan on pancake.
-			SendMessage( rayHit.transform, GetComponent<Pancake_state>() );
+			SendMessages( rayHit.transform, GetComponent<Pancake_state>() );
 
 		}
 
@@ -140,7 +140,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		return panColliderObj;
 	}
 
-	void SendMessage(Transform panCollider, Pancake_state state)
+	void SendMessages(Transform panCollider, Pancake_state state)
 	{
 
 		IPanCollider[] panCols = GetComponents<IPanCollider>();
