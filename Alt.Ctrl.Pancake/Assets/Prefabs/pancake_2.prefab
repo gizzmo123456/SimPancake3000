@@ -853,7 +853,7 @@ MonoBehaviour:
   - 1
   - 1
   - 0
-  transformForceDistance: 0.43
+  transformForceDistance: 0.51
 --- !u!114 &1342944897696942894
 MonoBehaviour:
   m_ObjectHideFlags: 0
