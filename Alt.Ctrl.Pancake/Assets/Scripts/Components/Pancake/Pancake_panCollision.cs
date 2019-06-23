@@ -109,20 +109,19 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 	}
 
-	public void TransformToUpforce(Vector3 forwardsDirection, float distance, string name__ )
+	public void TransformToUpforce(Vector3 forwardsDirection, float distance, float yRotation )
 	{
 		// only want to transform to upforce for the point that is furthest away
 		if ( panColliderObj == null && distance < transformUpforceDistance ) return;
 
 
 		float vel = pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
-		print( "hi # "+name__+" #" + ( forwardsDirection * vel ) );
 
 		if ( vel < upforceThresshold )
 			return;
 
-		SendMessage( null, null );
-
+		SendMessages( null, null );
+		SendMessage( "SetFlipRotation", yRotation );
 		//pancake_velocity.SetVelocity( /*new Vector3(0, vel, 0) );/*/ forwardsDirection * vel );//*/
 		transformedVelocity = forwardsDirection * vel;
 	}
