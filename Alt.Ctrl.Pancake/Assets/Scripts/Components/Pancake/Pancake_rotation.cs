@@ -41,7 +41,7 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		Vector3 currentRot = rotateObj.eulerAngles;
 		currentRot.z += flipSpeed * Time.deltaTime;
 
-		// make shore the rotateObj is in the same position as the pancake befor makeing the pancake a child
+		// make sure the rotateObj is in the same position as the pancake befor makeing the pancake a child
 		// so we always rotating from the center...
 		rotateObj.position = transform.position;
 
