@@ -11,6 +11,8 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 	private Transform panColliderObj;
 	private Pancake_joint[] joints;
 
+	[Header(" IMPORTENT: All joints must have 'joint' in there name!! :) ", order=0)]
+	[Header(" And anythink that not a joint MUST NOT have 'joint' in there name ", order=1)]
 	[SerializeField] private AnimationCurve colliderCurve;
 	[SerializeField] private float maxDistanceFromCenter;
 
