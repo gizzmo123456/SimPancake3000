@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PancakeState { Mixture, Raw }
+public enum PancakeState { Mixture, Raw, Cooked, Perfect, OverCooked, Burnt, Fire }
 
 public class Pancake_state : MonoBehaviour
 {
@@ -38,3 +38,4 @@ public class Pancake_state : MonoBehaviour
 	}
 
 }
+
