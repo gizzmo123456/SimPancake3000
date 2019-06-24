@@ -722,6 +722,7 @@ GameObject:
   - component: {fileID: 1342944897696942895}
   - component: {fileID: 1342944897696942894}
   - component: {fileID: 1342944897696942929}
+  - component: {fileID: 3677443432926609069}
   m_Layer: 0
   m_Name: pancake_2
   m_TagString: Untagged
@@ -890,6 +891,18 @@ MonoBehaviour:
   positionInPan: {x: 0, y: 0, z: 0}
   friction: 0.1
   upforceThresshold: 1
+--- !u!114 &3677443432926609069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342944897697041835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4338b41f666fb494da3c5d5c6481865a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1342944897697041841
 GameObject:
   m_ObjectHideFlags: 0
