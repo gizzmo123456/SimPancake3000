@@ -114,6 +114,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		// only want to transform to upforce for the point that is furthest away
 		if ( panColliderObj == null && distance < transformUpforceDistance ) return;
 
+		if ( Pancake_DEBUG.debug_joints )
+			print( "Accepting next..." );
 
 		float vel = pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
 

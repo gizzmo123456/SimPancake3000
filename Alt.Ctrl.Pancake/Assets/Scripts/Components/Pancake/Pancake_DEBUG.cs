@@ -5,6 +5,9 @@ using UnityEngine;
 public class Pancake_DEBUG : MonoBehaviour
 {
 
+	public bool debugJoints = false;
+	public static bool debug_joints = false;
+
 	public GameObject pancake;
 	public Transform panCollider;
 	public Vector3 velocity;
@@ -14,6 +17,9 @@ public class Pancake_DEBUG : MonoBehaviour
 
     void Update()
     {
+
+		if ( debugJoints != debug_joints )
+			debug_joints = debugJoints;
 
 		if ( pancake == null ) return;
 

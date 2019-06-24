@@ -12,13 +12,15 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 	private Transform originTranform; // or top-most parent in prefab.
 	private Vector3 localOrigin;
 
-	public float TEMPDIST = 0;	//DEBUG...
+	public float TEMPDIST = 0;  //DEBUG...
+
+	private int ii = 0;
 
 	private void Update()
 	{
-
+		
 		if ( panColliderObj == null ) return;
-
+		ii++;
 		// find how far from the center we are
 		Vector3 originPosition = originTranform.TransformPoint( localOrigin ); //transform.position;
 		Vector3 panPosition = panColliderObj.transform.position;
@@ -31,7 +33,9 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 		if ( distance > maxDistanceFromCenter )
 		{
 			panCollision.TransformToUpforce( -transform.right, distance, transform.eulerAngles.y );      //the joint have been orrentated so that left is forwards, not ideal but thats just how it is. my myay skills are not the best! :|
-			Debug.Log( "Trandform to up, name: " + name + " ## Dist: " + distance + " ## Frw: " + ( -transform.right ), gameObject );
+
+			if (Pancake_DEBUG.debug_joints)
+				Debug.Log( "["+ii+"] Trandform to up, name: " + name + " ## Dist: " + distance + " ## Frw: " + ( -transform.right )+" ## yRot: "+transform.eulerAngles.y, gameObject );
 		}
 	}
 
