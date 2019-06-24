@@ -59,7 +59,7 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 
 	}
 
-	public void SetUpdateSpace( Transform spaceTrans )
+	public void SetUpdateSpace( Transform spaceTrans )	//NOTE: dont know if this is being called from anywhere, but all seems to be working just fine :)
 	{
 /*
 		// convert from the current space to the new space.
