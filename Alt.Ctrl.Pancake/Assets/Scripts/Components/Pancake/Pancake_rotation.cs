@@ -38,7 +38,7 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		// this alows us to rotate the pancane in the same direction as the force when leaving the pan :)
 
 		Vector3 currentVelocity = velocity.GetVelocity();
-		float flipSpeed = ( ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) / currentVelocity.y) * rotateSpeed; //per sec;
+		float flipSpeed = ( currentVelocity.y / ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) ) * rotateSpeed; //per sec;
 
 		Vector3 currentRot = rotateObj.eulerAngles;
 		currentRot.z += flipSpeed * Time.deltaTime;
