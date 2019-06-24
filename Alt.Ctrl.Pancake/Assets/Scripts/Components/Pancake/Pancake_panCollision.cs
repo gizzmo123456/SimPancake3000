@@ -25,11 +25,12 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	private void FixedUpdate()
 	{
 
-		// 
+		// Apply Transformed upforce and send messages to clear it from the pan.
 		if(transformedVelocity != Vector3.zero)
 		{
 			pancake_velocity.SetVelocity( transformedVelocity );//*/
 			transformedVelocity = Vector3.zero;
+			SendMessages( null, null );
 		}
 
 		// if there current no panColliderObj we need to be searching for it with the ray cast, if we are falling.
@@ -112,17 +113,19 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	public void TransformToUpforce(Vector3 forwardsDirection, float distance, float yRotation )
 	{
 		// only want to transform to upforce for the point that is furthest away
-		if ( panColliderObj == null && distance < transformUpforceDistance ) return;
+		if ( transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
 
 		if ( Pancake_DEBUG.debug_joints )
-			print( "Accepting next..." );
+			print( "Accepting next..."+(panColliderObj == null)+" && "+(distance < transformUpforceDistance) );
 
+		
 		float vel = pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
 
 		if ( vel < upforceThresshold )
 			return;
 
-		SendMessages( null, null );
+		transformUpforceDistance = distance;
+
 		SendMessage( "SetFlipRotation", yRotation );
 		//pancake_velocity.SetVelocity( /*new Vector3(0, vel, 0) );/*/ forwardsDirection * vel );//*/
 		transformedVelocity = forwardsDirection * vel;
@@ -146,6 +149,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 		IPanCollider[] panCols = GetComponents<IPanCollider>();
 		IReceivePancake[] recivePancakes = GetComponentsInParent<IReceivePancake>();
+		// TODO: Remove from pan list.
 
 		int i = 0;
 
