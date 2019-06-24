@@ -149,7 +149,30 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 		IPanCollider[] panCols = GetComponents<IPanCollider>();
 		IReceivePancake[] recivePancakes = GetComponentsInParent<IReceivePancake>();
-		// TODO: Remove from pan list.
+		FryingPan_pancake fryingpan = null;
+
+		// add / remove pancake rom frying pan.
+		print( "Hwll" );
+		// if state is null then we are removing so we will need to get the pancake_state from this object. :)
+		if ( state == null )
+		{
+			// attamp to get the fryingpan_pancake from the pan that we are leaving
+			// befor it gets removed.
+			if ( panColliderObj )
+				fryingpan = panColliderObj.GetComponentInParent<FryingPan_pancake>();
+
+			fryingpan?.RemovePancake( GetComponent<Pancake_state>() );
+		}
+		else
+		{
+			// attamp to get the fryingpan_pancake from the pan that we are entering
+			// befor it gets added.
+			if ( panCollider )
+				fryingpan = panCollider.GetComponentInParent<FryingPan_pancake>();
+
+			fryingpan?.AddPancake( state );
+		}
+		
 
 		int i = 0;
 
