@@ -10,6 +10,8 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 
 	private Transform rotateObj;
 
+	[SerializeField] private float rotateSpeed = 180f; // per second
+
 	private void Awake()
 	{
 		rotateObj = new GameObject().transform;
@@ -29,14 +31,14 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 
 		if ( panColliderObj != null ) return;   // dont rotate if we are in the pan.
 
-		if ( velocity.GetVelocity().y < 0 ) return;
+		if ( velocity.GetVelocity().y <= 0 ) return;
 
 		// move the pancake into the rot object and rotate around the zAxis,
 		// and remove pancake from rotate object.
-		// this alows us to rotate the pancane in the same direction as the force :)
+		// this alows us to rotate the pancane in the same direction as the force when leaving the pan :)
 
 		Vector3 currentVelocity = velocity.GetVelocity();
-		float flipSpeed = currentVelocity.y / ( currentVelocity.x + currentVelocity.y ); //per sec;
+		float flipSpeed = ( ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) / currentVelocity.y) * rotateSpeed; //per sec;
 
 		Vector3 currentRot = rotateObj.eulerAngles;
 		currentRot.z += flipSpeed * Time.deltaTime;
@@ -50,6 +52,8 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 
 		transform.parent = null;
 		
+		// TODO: level flip off when below flipspeed thresshold??
+
     }
 
 	public void SetPanCollider( Transform panCollObj )
