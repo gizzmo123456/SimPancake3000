@@ -46,7 +46,7 @@ public abstract class BasePanGroup_multipleInput : BasePanGroup
 
 	}
 
-	protected override void UpdateInputValues()
+	protected virtual void UpdateInputValues()
 	{
 		// update inputs if no error :)
 		if ( !error )

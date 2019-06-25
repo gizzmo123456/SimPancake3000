@@ -10,7 +10,4 @@ public abstract class BasePanGroup : MonoBehaviour
 	[SerializeField] protected float inputValueOffset = 0;
 	//protected ... HobGroupManager { get {GameGlobals.hobManager;} }	//TODO: 
 
-	protected abstract void UpdateInputValues();
-
-
 }
