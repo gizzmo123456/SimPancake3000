@@ -33,9 +33,7 @@ public class FryingPan_pancake : BasePanGroup, IReceivePancake
 		{
 			Pancake_state pancake = Instantiate( pancakePrefab, hitLocaltion, Quaternion.identity );
 			pancake.GetComponent<Batter_quantity>().AddBatter(qt);
-			pancake.GetComponent<Pancake_jointSetup>().SetPanCollider( panColliderObj );
-			pancake.GetComponent<Pancake_panCollision>().SetPanCollider( panColliderObj );
-			pancake.GetComponent<Pancake_rotation>().SetPanCollider( panColliderObj );
+			SendPanMessage(pancake);
 
 			// if there are already pancake in the pan combine them into the new pancake.
 			// TODO: this should only be if the mixture coms into contact this a non mixture pancake.
@@ -67,6 +65,16 @@ public class FryingPan_pancake : BasePanGroup, IReceivePancake
 				return true;
 
 		return false;
+	}
+
+	private void SendPanMessage(Pancake_state pancake)
+	{
+
+		IPanCollider[] panCol = pancake.GetComponents<IPanCollider>();
+
+		foreach ( IPanCollider pan in panCol )
+			pan.SetPanCollider( panColliderObj );
+
 	}
 
 	public void AddPancake( Pancake_state pancake )
