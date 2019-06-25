@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 7462452636176695252}
   - component: {fileID: 4434017629603165370}
   - component: {fileID: 3369809952559602342}
+  - component: {fileID: 4953708216097187116}
   m_Layer: 0
   m_Name: fryingPan
   m_TagString: fryingpan
@@ -92,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633ef6c7c08121a4dbb5f26131f0f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputNames:
   - panZ
   - panX
@@ -125,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49b05f00e5c0ae43ba036d8cff75782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: panDistance
   addPanId_prefix: 1
   inputValue:
@@ -147,9 +150,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cec77cfa66cb4c498e462d4d7f3ad50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   pancakePrefab: {fileID: 1342944897696942893, guid: cbc81dba3116f58418c3481febdd2431,
     type: 3}
   panColliderObj: {fileID: 606039913553687492}
+--- !u!114 &4953708216097187116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730138566134322713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f83e7e4a05e79bc49bed7dd6faaab336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputValueOffset: 0
+  inputNames:
+  - panX
+  - panZ
+  addPanId_prefix: 1
+  inputValues:
+  - min: -90
+    max: 90
+    current: 0
+  - min: -90
+    max: 90
+    current: 0
+  maxVelocity: {x: 4, y: 0, z: -8}
+  inputId_xRotation: 0
+  inputId_zRotation: 1
 --- !u!1 &1730138566134322715
 GameObject:
   m_ObjectHideFlags: 0
