@@ -5,7 +5,14 @@ using UnityEngine;
 public class FryingPan_pancake : BasePanGroup, IReceivePancake
 {
 
-	protected List<Pancake_state> pancakes;	// all the pancakes that are current in this pan :)
+	protected List<Pancake_state> pancakes; // all the pancakes that are current in this pan :)
+	/// <summary>
+	/// Get the amount of pancakes that are in this pan.
+	/// </summary>
+	public int PancakeCount {
+		get { return pancakes.Count; }
+	}
+
 	[SerializeField] private Pancake_state pancakePrefab;
 	[SerializeField] private Transform panColliderObj;
 
@@ -22,7 +29,7 @@ public class FryingPan_pancake : BasePanGroup, IReceivePancake
 		// if there no pancakes with the state of mixture in the pan creat a new pancake.
 		// if there are pancakes but not in the state of mixture combine them into the new pancake.
 		// else add the batter to the current mixture pancake.
-		if ( !HasMixturePancake() )	// Create new pancake
+		if ( !IsMixturePancake() )	// Create new pancake
 		{
 			Pancake_state pancake = Instantiate( pancakePrefab, hitLocaltion, Quaternion.identity );
 			pancake.GetComponent<Batter_quantity>().AddBatter(qt);
@@ -52,7 +59,7 @@ public class FryingPan_pancake : BasePanGroup, IReceivePancake
 
 	}
 
-	private bool HasMixturePancake()
+	public bool IsMixturePancake()
 	{
 
 		for ( int i = 0; i < pancakes.Count; i++ )
@@ -71,6 +78,17 @@ public class FryingPan_pancake : BasePanGroup, IReceivePancake
 	public void RemovePancake ( Pancake_state pancake )
 	{
 		pancakes.Remove( pancake );
+	}
+
+	public Pancake_state GetPancake( int id )
+	{
+
+		return pancakes[ id ];
+	}
+
+	public Pancake_state[] GetPancakes()
+	{
+		return pancakes.ToArray();
 	}
 
 }
