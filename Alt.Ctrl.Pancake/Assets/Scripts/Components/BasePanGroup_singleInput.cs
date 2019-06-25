@@ -21,7 +21,15 @@ public abstract class BasePanGroup_singleInput : BasePanGroup
 	protected virtual void Update()
 	{
 
+		UpdateInputValues();
+
+	}
+
+	protected override void UpdateInputValues()
+	{
+
 		Inputs.GetInputValue( InputName, ref inputValue.current );
+		inputValue.current += inputValueOffset;
 
 	}
 

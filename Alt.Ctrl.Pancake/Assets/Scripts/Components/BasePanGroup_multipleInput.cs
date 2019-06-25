@@ -41,12 +41,20 @@ public abstract class BasePanGroup_multipleInput : BasePanGroup
 
 	protected virtual void Update()
 	{
-		// update inputs if no error :)
-		if( !error )
-			for ( int i = 0; i < inputNames.Length; i++ )
-				Inputs.GetInputValue( GetInputName( i ), ref inputValues[ i ].current );
+
+		UpdateInputValues();
 
 	}
 
+	protected override void UpdateInputValues()
+	{
+		// update inputs if no error :)
+		if ( !error )
+			for ( int i = 0; i < inputNames.Length; i++ )
+			{
+				Inputs.GetInputValue( GetInputName( i ), ref inputValues[ i ].current );
+				inputValues[ i ].current += inputValueOffset;
+			}
+	}
 
 }
