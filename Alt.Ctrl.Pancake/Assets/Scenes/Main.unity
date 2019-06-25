@@ -536,6 +536,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 963854055}
     m_Modifications:
+    - target: {fileID: 4953708216097187116, guid: e66926b63ce16e846aa520bd7aa93033,
+        type: 3}
+      propertyPath: maxVelocity.z
+      value: -6
+      objectReference: {fileID: 0}
     - target: {fileID: 1730138566134322713, guid: e66926b63ce16e846aa520bd7aa93033,
         type: 3}
       propertyPath: m_Name
@@ -1212,6 +1217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1d5653ee6849c46a4a17f094741b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: hobKnob
   addPanId_prefix: 1
   inputValue:
@@ -1240,6 +1246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1d5653ee6849c46a4a17f094741b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: hobKnob
   addPanId_prefix: 1
   inputValue:
@@ -1268,6 +1275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1d5653ee6849c46a4a17f094741b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: hobKnob
   addPanId_prefix: 1
   inputValue:
@@ -1921,6 +1929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342944897696942895, guid: cbc81dba3116f58418c3481febdd2431,
+        type: 3}
+      propertyPath: transformForceDistance
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc81dba3116f58418c3481febdd2431, type: 3}

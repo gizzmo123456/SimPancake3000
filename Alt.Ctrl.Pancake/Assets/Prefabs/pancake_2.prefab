@@ -758,6 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3765d971e576a044ea0791dbb90b273a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   maxBatterQuantity: 1000
   setMaxOnStart: 0
 --- !u!114 &1342944897696942893
@@ -890,7 +891,7 @@ MonoBehaviour:
   debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
   positionInPan: {x: 0, y: 0, z: 0}
   friction: 0.1
-  upforceThresshold: 1
+  upforceThresshold: 4
 --- !u!114 &3677443432926609069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338b41f666fb494da3c5d5c6481865a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: -20
+  rotateSpeed: -30
 --- !u!1 &1342944897697041841
 GameObject:
   m_ObjectHideFlags: 0
