@@ -71,4 +71,10 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 
 	}
 
+	private void OnDestroy()
+	{
+		// destroy rotate object, we dont want a scene full of empty GO's
+		Destroy(rotateObj.gameObject);
+	}
+
 }
