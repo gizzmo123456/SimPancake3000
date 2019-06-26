@@ -5,15 +5,18 @@ using UnityEngine;
 /// <summary>
 /// Class to manipulate the Z rotation of pancake joints.
 /// </summary>
+[RequireComponent(typeof(Pancake_jointDistance))]
 public class Pancake_joint : MonoBehaviour, IPanCollider
 {
 
+	private Pancake_jointDistance jointDistance;
 	// tracking object.
 	private Transform panColliderObj;
 
 	// collider set up.
 	private AnimationCurve colliderCurve;			// this should be in the range of X: 0,1; Y: 0,1;
 	private float maxDistanceFromCenter;            // X axis of curve
+	[SerializeField] private bool scaleJointPosition = false;
 
 	// joint constains
 	private float maxCurveRotation = 90f;            // y axis of curve.
@@ -35,12 +38,12 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		// rotate the joint based on the distance from the cneter of the panColliderObj.
 		// ignoreing the Y axis.
 
-		Vector3 position = transform.position;
-		Vector3 panPosition = panColliderObj.transform.position;
+	//	Vector3 position = transform.position;
+	//	Vector3 panPosition = panColliderObj.transform.position;
 
-		position.y = panPosition.y = 0;
+	//	position.y = panPosition.y = 0;
 
-		float distanceFromCenter = TEMP_DIST = Vector3.Distance( position, panPosition );
+		float distanceFromCenter = TEMP_DIST = scaleJointPosition ? jointDistance.GetDistanceScaled() : jointDistance.GetDistance();// Vector3.Distance( position, panPosition );
 		float distancePercent = distanceFromCenter / maxDistanceFromCenter;
 
 		// Get the rotation from the colliderCurve.
@@ -73,6 +76,7 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 	public void SetupColliderData( AnimationCurve collCurve, float maxDistance )
 	{
+		jointDistance = GetComponent<Pancake_jointDistance>();
 		colliderCurve = collCurve;
 		maxDistanceFromCenter = maxDistance;
 	}
