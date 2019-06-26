@@ -12,6 +12,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	[Header( "Collider things" )]
 	[Range(0f, 2f)]
 	[SerializeField] private float friction = 0.1f;
+	[SerializeField] private float panFriction = 0.25f;
+	[SerializeField] private float airFriction = 0.1f;
 
 	[SerializeField] private float upforceThresshold = 1f;
 	private float transformUpforceDistance = 0;
@@ -53,9 +55,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
 		transform.position = panColliderObj.TransformPoint( positionInPan );
 
-		// TODO: Take off... 
-		// hmmm... i dont no where to do this.
-		pancake_velocity.AddFriction(friction);
+		pancake_velocity.AddFriction(panFriction);
 
 	}
 
@@ -64,6 +64,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	{
 		// Apply the physic step now so we can work out where we will be at the end of this update.
 		pancake_velocity.PhysicsStep( Time.deltaTime );
+		pancake_velocity.AddFriction( airFriction );
 
 		// find the max distance that we are going to move during the update.
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
@@ -103,6 +104,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	private void c()
 	{
 		pancake_velocity.PhysicsStep( Time.deltaTime );
+		pancake_velocity.AddFriction( airFriction ); 
 
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
 
