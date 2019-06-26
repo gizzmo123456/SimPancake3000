@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Triggers the flip once a distance is reached.
+/// the distance is unaffected by scale
+/// </summary>
 public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 {
 
@@ -12,22 +16,12 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 	private Transform originTranform; // or top-most parent in prefab.
 	private Vector3 localOrigin;
 
-	public float TEMPDIST = 0;  //DEBUG...
-
-	private int ii = 0;
-
 	private void Update()
 	{
 		
 		if ( panColliderObj == null ) return;
-		ii++;
-		// find how far from the center we are
-		Vector3 originPosition = originTranform.TransformPoint( localOrigin ); //transform.position;
-		Vector3 panPosition = panColliderObj.transform.position;
 
-		originPosition.y = panPosition.y = 0;
-
-		float distance = TEMPDIST = Vector3.Distance( originPosition, panPosition );
+		float distance = GetDistance();
 
 		// if we are past the max distance attampt to apply upforce/flip :)
 		if ( distance > maxDistanceFromCenter )
@@ -35,8 +29,38 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 			panCollision.TransformToUpforce( -transform.right, distance, transform.eulerAngles.y );      //the joint have been orrentated so that left is forwards, not ideal but thats just how it is. my myay skills are not the best! :|
 
 			if (Pancake_DEBUG.debug_joints)
-				Debug.Log( "["+ii+"] Trandform to up, name: " + name + " ## Dist: " + distance + " ## Frw: " + ( -transform.right )+" ## yRot: "+transform.eulerAngles.y, gameObject );
+				Debug.Log( "Trandform to up, name: " + name + " ## Dist: " + distance + " ## Frw: " + ( -transform.right )+" ## yRot: "+transform.eulerAngles.y, gameObject );
 		}
+	}
+
+	/// <summary>
+	/// Get the distance from the center of the object unaffected by scale.
+	/// </summary>
+	public float GetDistance()
+	{
+		// find how far from the center we are
+		Vector3 originPosition = originTranform.TransformPoint( localOrigin );
+		Vector3 panPosition = panColliderObj.transform.position;
+
+		originPosition.y = panPosition.y = 0;
+
+		return Vector3.Distance( originPosition, panPosition );
+	}
+
+	/// <summary>
+	/// Get the distance scaled by it origin (top most parent)
+	/// </summary>
+	public float GetDistanceScaled()
+	{
+		// find how far from the center we are
+		Vector3 originPosition = originTranform.TransformPoint( localOrigin );
+		originPosition.Multiply( originTranform.localScale );
+
+		Vector3 panPosition = panColliderObj.transform.position;
+
+		originPosition.y = panPosition.y = 0;
+
+		return Vector3.Distance( originPosition, panPosition );
 	}
 
 	public void SetPanCollider( Transform panCollObj)
