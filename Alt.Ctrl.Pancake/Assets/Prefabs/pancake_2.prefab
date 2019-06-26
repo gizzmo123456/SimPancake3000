@@ -919,7 +919,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1342944897710637299}
-  panRadius: 0.55
+  panRadius: 0.575
+  correctionOffset: 0
 --- !u!1 &1342944897697041841
 GameObject:
   m_ObjectHideFlags: 0
