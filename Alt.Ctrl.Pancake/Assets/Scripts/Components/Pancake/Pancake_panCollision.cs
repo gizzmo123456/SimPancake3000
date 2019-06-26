@@ -11,7 +11,6 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 	[Header( "Collider things" )]
 	[Range(0f, 2f)]
-	[SerializeField] private float friction = 0.1f;
 	[SerializeField] private float panFriction = 0.25f;
 	[SerializeField] private float airFriction = 0.1f;
 
@@ -112,10 +111,19 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 	}
 
-	public void TransformToUpforce(Vector3 forwardsDirection, float distance, float yRotation )
+	/// <summary>
+	/// Transform the current velocity into flip velocity.
+	/// </summary>
+	/// <param name="forwardsDirection"> the direction to move forwards in </param>
+	/// <param name="distance"> distance from center of pan</param>
+	/// <param name="yRotation"> y rotation of point </param>
+	/// <param name="zPosition"> z position of point</param>
+	public void TransformToUpforce(Vector3 forwardsDirection, float distance, float yRotation, float zPosition )
 	{
 		// only want to transform to upforce for the point that is furthest away
-		if ( transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
+		// and it must be in the front of the pan (+z)
+		// you cant realy flip form the back of a frying pan, that would be black magic.
+		if ( zPosition > panColliderObj.position.z && transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
 
 		if ( Pancake_DEBUG.debug_joints )
 			print( "Accepting next..."+(panColliderObj == null)+" && "+(distance < transformUpforceDistance) );
