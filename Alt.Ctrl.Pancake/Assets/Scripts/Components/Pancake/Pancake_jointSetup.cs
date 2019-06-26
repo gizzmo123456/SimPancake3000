@@ -52,13 +52,14 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 
 			float jointWeight = nestedId < jointDepthWeight.Length ? jointDepthWeight[ nestedId ] : 1f;
 
-			Pancake_joint childJoint = child.gameObject.AddComponent<Pancake_joint>();
+			Pancake_jointDistance distanceJoint = child.gameObject.AddComponent<Pancake_jointDistance>();
+			distanceJoint.Setup( transform, transformForceDistance, GetComponent<Pancake_panCollision>() );
 
+			Pancake_joint childJoint = child.gameObject.AddComponent<Pancake_joint>();
 			childJoint.SetupColliderData(colliderCurve, maxDistanceFromCenter);
 			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset);
 
-			Pancake_jointDistance distanceJoint = child.gameObject.AddComponent<Pancake_jointDistance>();
-			distanceJoint.Setup( transform, transformForceDistance, GetComponent<Pancake_panCollision>() );
+			
 
 			pancakeJoints.Add( childJoint );
 			
