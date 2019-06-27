@@ -15,16 +15,17 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 	// collider set up.
 	private AnimationCurve colliderCurve;			// this should be in the range of X: 0,1; Y: 0,1;
-	private float maxDistanceFromCenter;            // X axis of curve
+	/*private*/public float maxDistanceFromCenter;            // X axis of curve
 	[SerializeField] private bool scaleJointPosition = false;
 
 	// joint constains
-	private float maxCurveRotation = 90f;            // y axis of curve.
-	private float maxPositionOffset = 0.05f;
+	/*private*/ public float maxCurveRotation = 90f;            // y axis of curve.
+	/*private*/ public float maxPositionOffset = 0.05f;
 	// ...
 
 	private Vector3 startLocalPosition;
 	private float TEMP_DIST;
+	private float TEMP_CV;
 
 	private void Start()
 	{
@@ -48,7 +49,7 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 		// Get the rotation from the colliderCurve.
 		Vector3 rotation = transform.localEulerAngles;
-		float curveValue = colliderCurve.Evaluate( distancePercent );
+		float curveValue = TEMP_CV = colliderCurve.Evaluate( distancePercent );
 
 		rotation.z = curveValue * maxCurveRotation;
 
