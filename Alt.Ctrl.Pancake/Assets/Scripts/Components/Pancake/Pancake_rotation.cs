@@ -61,13 +61,17 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		panColliderObj = panCollObj;
 	}
 
-	public void SetFlipRotation(float yRot)
+	public void SetFlipRotation()
 	{
 
-		Vector3 rot = Vector3.zero;
-		rot.y = yRot;
+		Vector3 velNorm = velocity.Velocity.normalized;
+		// flip the x/z axis since the bones are orineted so that x is forwards :|
+		// and set y to zero so we dont look up and down :)
+		velNorm.x = velocity.Velocity.normalized.z;
+		velNorm.y = 0;
+		velNorm.z = velocity.Velocity.normalized.x;
 
-		rotateObj.eulerAngles = rot;
+		rotateObj.LookAt( rotateObj.position + velNorm );
 
 	}
 

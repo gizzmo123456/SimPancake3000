@@ -26,7 +26,7 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 		// if we are past the max distance attampt to apply upforce/flip :)
 		if ( distance > maxDistanceFromCenter )
 		{
-			panCollision.TransformToUpforce( -transform.right, distance, transform.eulerAngles.y, transform.position.z );      //the joint have been orrentated so that left is forwards, not ideal but thats just how it is. my myay skills are not the best! :|
+			panCollision.TransformToUpforce( -transform.right, distance, transform.position.z );      //the joint have been orrentated so that left is forwards, not ideal but thats just how it is. my myay skills are not the best! :|
 
 			if (Pancake_DEBUG.debug_joints)
 				Debug.Log( "Trandform to up, name: " + name + " ## Dist: " + distance + " ## Frw: " + ( -transform.right )+" ## yRot: "+transform.eulerAngles.y, gameObject );

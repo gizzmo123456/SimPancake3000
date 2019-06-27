@@ -118,7 +118,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	/// <param name="distance"> distance from center of pan</param>
 	/// <param name="yRotation"> y rotation of point </param>
 	/// <param name="zPosition"> z position of point</param>
-	public void TransformToUpforce(Vector3 forwardsDirection, float distance, float yRotation, float zPosition )
+	public void TransformToUpforce(Vector3 forwardsDirection, float distance, float zPosition )
 	{
 		// only want to transform to upforce for the point that is furthest away
 		// and it must be in the front of the pan (+z)
@@ -136,7 +136,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 		transformUpforceDistance = distance;
 
-		SendMessage( "SetFlipRotation", yRotation );
+		SendMessage( "SetFlipRotation");
 		//pancake_velocity.SetVelocity( /*new Vector3(0, vel, 0) );/*/ forwardsDirection * vel );//*/
 		transformedVelocity = forwardsDirection * vel;
 	}
