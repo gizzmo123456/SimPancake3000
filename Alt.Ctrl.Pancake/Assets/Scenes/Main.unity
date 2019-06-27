@@ -1105,6 +1105,7 @@ MonoBehaviour:
   setPanCollider: 0
   updatePosition: 0
   addVelocity: 0
+  killVelocity: 0
 --- !u!4 &1051145234
 Transform:
   m_ObjectHideFlags: 0
@@ -1929,11 +1930,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1342944897696942895, guid: cbc81dba3116f58418c3481febdd2431,
-        type: 3}
-      propertyPath: transformForceDistance
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc81dba3116f58418c3481febdd2431, type: 3}
