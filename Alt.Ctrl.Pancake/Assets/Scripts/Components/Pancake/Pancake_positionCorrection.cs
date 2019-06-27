@@ -25,7 +25,8 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 	// its is the diferents between the pancake and pan radius.
 	private float maxDistanceFromCenter;
 	[SerializeField] private float correctionOffset = 0.01f;
-	
+	[SerializeField] private float yOffset = 0.05f;
+
     void Start()
     {
 		
@@ -72,10 +73,10 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		// Add the pans world position to the new position to get the final position of the pancake.
 		newPosition += panColliderObj.position;
+		newPosition.y -= yOffset;
 
 		transform.position = newPosition;
-
-
+		
     }
 
 	void UpdatePancakeRadius()
