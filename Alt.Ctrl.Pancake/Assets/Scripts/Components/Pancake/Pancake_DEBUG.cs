@@ -14,6 +14,7 @@ public class Pancake_DEBUG : MonoBehaviour
 	public bool setPanCollider = false;
 	public bool updatePosition = false;
 	public bool addVelocity = false;
+	public bool killVelocity = false;
 
     void Update()
     {
@@ -41,6 +42,12 @@ public class Pancake_DEBUG : MonoBehaviour
 		{
 			pancake.SendMessage( "AddVelocity", velocity );
 			addVelocity = false;
+		}
+
+		if (killVelocity)
+		{
+			pancake.SendMessage( "SetVelocity", Vector3.zero );
+			killVelocity = false;
 		}
 
     }
