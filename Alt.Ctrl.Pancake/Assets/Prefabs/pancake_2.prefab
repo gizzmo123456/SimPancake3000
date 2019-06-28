@@ -775,6 +775,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89facffa5cc91c4e8cef0db32b66bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pancakeFire_prefab: {fileID: 0}
+  idealCookingTemperature: 175
+  cookingStates:
+  - pancakeState: 0
+    stateLength: 10
+    endColor: {r: 1, g: 0.8051887, b: 0.504717, a: 1}
+  - pancakeState: 1
+    stateLength: 15
+    endColor: {r: 1, g: 0.7309749, b: 0.3160377, a: 1}
+  - pancakeState: 2
+    stateLength: 10
+    endColor: {r: 0.8396226, g: 0.6049221, b: 0.23366857, a: 1}
+  - pancakeState: 3
+    stateLength: 7.5
+    endColor: {r: 0.735849, g: 0.5167125, b: 0.17007832, a: 1}
+  - pancakeState: 4
+    stateLength: 10
+    endColor: {r: 0.5188679, g: 0.32151785, b: 0.11992703, a: 1}
+  - pancakeState: 5
+    stateLength: 12.5
+    endColor: {r: 0.33962262, g: 0.2182835, b: 0.09451762, a: 1}
+  - pancakeState: 6
+    stateLength: 5
+    endColor: {r: 0, g: 0, b: 0, a: 0}
+  pancakeRenderer: {fileID: 1342944897710637299}
 --- !u!114 &1342944897696942892
 MonoBehaviour:
   m_ObjectHideFlags: 0

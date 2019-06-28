@@ -1106,6 +1106,7 @@ MonoBehaviour:
   updatePosition: 0
   addVelocity: 0
   killVelocity: 0
+  changePancakeSide: 0
 --- !u!4 &1051145234
 Transform:
   m_ObjectHideFlags: 0
