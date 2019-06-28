@@ -43,9 +43,19 @@ namespace AMS_Helpers
 
 		}
 
-		public void Update(float deltaTime)
+		/// <summary>
+		/// Updates timer
+		/// </summary>
+		/// <param name="deltaTime">amount to update timer</param>
+		/// <returns>amount of timer over the length of the timer</returns>
+		public float Update(float deltaTime)
 		{
 			CurrentTime += deltaTime;
+
+			if ( CurrentTime > TimerLength )
+				return CurrentTime - TimerLength;
+			else
+				return 0;
 		}
 
 	}
