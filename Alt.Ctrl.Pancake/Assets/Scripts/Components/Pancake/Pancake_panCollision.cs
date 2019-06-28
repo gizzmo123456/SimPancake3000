@@ -50,7 +50,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	//TODO: give me a real name (HELP!, its hot in this pan)
 	private void a()
 	{
-		transform.eulerAngles = panColliderObj.eulerAngles;
+		transform.eulerAngles = panColliderObj.eulerAngles;							// TODO: needs to side from the state into acount
 		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
 		transform.position = panColliderObj.TransformPoint( positionInPan );
 
@@ -162,7 +162,6 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		FryingPan_pancake fryingpan = null;
 
 		// add / remove pancake rom frying pan.
-		print( "Hwll" );
 		// if state is null then we are removing so we will need to get the pancake_state from this object. :)
 		if ( state == null )
 		{
