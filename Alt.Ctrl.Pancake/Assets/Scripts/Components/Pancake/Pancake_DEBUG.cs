@@ -15,6 +15,7 @@ public class Pancake_DEBUG : MonoBehaviour
 	public bool updatePosition = false;
 	public bool addVelocity = false;
 	public bool killVelocity = false;
+	public bool changePancakeSide = false;
 
     void Update()
     {
@@ -48,6 +49,12 @@ public class Pancake_DEBUG : MonoBehaviour
 		{
 			pancake.SendMessage( "SetVelocity", Vector3.zero );
 			killVelocity = false;
+		}
+
+		if (changePancakeSide)
+		{
+			pancake.SendMessage("ChangeSide");
+			changePancakeSide = false;
 		}
 
     }
