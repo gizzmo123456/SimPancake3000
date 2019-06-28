@@ -57,6 +57,14 @@ public class FryingPan_pancake : BasePanGroup, IReceivePancake
 
 	}
 
+	public void CookPancakes( float panTempture )
+	{
+
+		foreach (Pancake_state pancake in pancakes)
+			pancake.UpdateState( panTempture );
+
+	}
+
 	public bool IsMixturePancake()
 	{
 
