@@ -161,11 +161,11 @@ public class Pancake_state : MonoBehaviour
 	/// </summary>
 	private void SetTimer()
 	{
-		// reset state length and add any ramining time for the last state.
+		// reset state length and add any ramining time from the last state.
 		float timerLength = cookingStates[ (int)pancakeStates[ currentSide ] ].stateLength;
-		timerLength += remainingTime;
 
 		stateTimer.SetTimer( timerLength, true );
+		stateTimer.Update( remainingTime );			// Add the remaing time from the last state :)
 
 		remainingTime = 0;
 
