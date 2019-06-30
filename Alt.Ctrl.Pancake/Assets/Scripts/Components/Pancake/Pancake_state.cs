@@ -14,7 +14,7 @@ public enum PancakeState {
 	Count		= 7		// count of elements in enum
 }
 
-public class Pancake_state : MonoBehaviour
+public class Pancake_state : MonoBehaviour, IBatterChanged
 {
 
 	public delegate void onStateChange( PancakeState state );
@@ -38,6 +38,10 @@ public class Pancake_state : MonoBehaviour
 	{
 
 		pancakeMaterials = pancakeRenderer.materials;
+
+		// Register onto the batter changed callback so we can reset the state timer 
+		// if batter is added while in a batter state.
+		GetComponent<Batter_quantity>().OnBatterChanged += OnBatterChanged;
 
 		// update both sides with a delta of 0 to make sure that the materials are up-to-date.
 		// change to state 0 and update
@@ -168,6 +172,16 @@ public class Pancake_state : MonoBehaviour
 		stateTimer.Update( remainingTime );			// Add the remaing time from the last state :)
 
 		remainingTime = 0;
+
+	}
+
+	public void OnBatterChanged( float batterPercentage )
+	{
+		// if in mixture state reset the state timer.
+		// we only have to check one side of the pancake 
+		// since there are both mixture or nither of are mixture (cant be mixture state and another state)
+		if ( pancakeStates[ 0 ] == PancakeState.Mixture )
+			SetTimer();
 
 	}
 
