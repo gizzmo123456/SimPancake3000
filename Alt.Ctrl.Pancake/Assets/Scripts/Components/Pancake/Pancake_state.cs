@@ -160,6 +160,15 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 
 	}
 
+	public void SetSide(int sideId)
+	{
+
+		if ( sideId == currentSide ) return; // nothing to update.
+
+		ChangeSide();
+
+	}
+
 	/// <summary>
 	/// Reset the state timer for the current state.
 	/// </summary>
