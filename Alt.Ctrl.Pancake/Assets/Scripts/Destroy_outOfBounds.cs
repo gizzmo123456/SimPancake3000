@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pancake_destroy : MonoBehaviour
+public class Destroy_outOfBounds : MonoBehaviour
 {
 
 	[SerializeField] private float minY_outOfRange = -10;
@@ -14,4 +14,5 @@ public class Pancake_destroy : MonoBehaviour
 			Destroy( gameObject );
 
     }
+
 }

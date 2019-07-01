@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2605783790778035676}
   - component: {fileID: 2222822000234081118}
   - component: {fileID: 6058328897115715871}
+  - component: {fileID: 4514869339159877293}
   m_Layer: 0
   m_Name: BatterTrail
   m_TagString: Untagged
@@ -219,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3765d971e576a044ea0791dbb90b273a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   maxBatterQuantity: 5
   setMaxOnStart: 0
 --- !u!114 &2222822000234081118
@@ -254,3 +256,16 @@ MonoBehaviour:
   distance: 1
   debug: 1
   debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &4514869339159877293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019446189347574308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce4f6ef3cd4d5a4c9465794d18ffbf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minY_outOfRange: -10
