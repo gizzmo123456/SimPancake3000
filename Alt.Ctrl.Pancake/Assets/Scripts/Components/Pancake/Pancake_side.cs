@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Pancake_state))]
-public class Pancake_side : MonoBehaviour
+public class Pancake_side : MonoBehaviour, IPanCollider
 {
 
 	private Pancake_state state;
@@ -19,7 +19,7 @@ public class Pancake_side : MonoBehaviour
 	// tbf, this only really need to update when the pancake enters the pan.
 	// SO THE THE FUCK IS IT IN UPDATE, SORT IT THE FUCK OUT.
 	// ... TODO: ^^^
-    void Update()
+    void UpdateSideDown()
     {
 
 		// work out what face of the pancake is in the frying pan.
@@ -39,6 +39,17 @@ public class Pancake_side : MonoBehaviour
 			state.SetSideDown( 1 );
 
 
+
+	}
+
+	public void SetPanCollider( Transform panObj )
+	{
+
+		// if the pan obj is null we are leaving the frying pan so we dont need to do anythink.
+		// else if it is not null we are entering the pan, so we need to update which side is face down in the pan.
+		if ( panObj == null ) return;
+
+		UpdateSideDown();
 
 	}
 
