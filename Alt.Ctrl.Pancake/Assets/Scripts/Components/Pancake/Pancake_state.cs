@@ -45,13 +45,13 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 
 		// update both sides with a delta of 0 to make sure that the materials are up-to-date.
 		// change to state 0 and update
-		ChangeSide();
+		ChangeSideDown();
 		UpdateState( 0 );
 		// change to state 1 and update
-		ChangeSide();
+		ChangeSideDown();
 		UpdateState( 0 );
 		// Change back to side 0
-		ChangeSide();
+		ChangeSideDown();
 
 		OnStateChanged?.Invoke( pancakeStates[ currentSide ] );
 	}
@@ -151,7 +151,7 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 
 	}
 
-	public void ChangeSide()
+	public void ChangeSideDown()
 	{
 
 		currentSide = currentSide == 0 ? 1 : 0;
@@ -160,13 +160,18 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 
 	}
 
-	public void SetSide(int sideId)
+	public void SetSideDown(int sideId)
 	{
 
 		if ( sideId == currentSide ) return; // nothing to update.
 
-		ChangeSide();
+		ChangeSideDown();
 
+	}
+
+	public int GetSideDown()
+	{
+		return currentSide;
 	}
 
 	/// <summary>

@@ -34,9 +34,9 @@ public class Pancake_side : MonoBehaviour
 		float worldBottom = transform.TransformPoint( -localTop ).y;
 
 		if ( worldTop >= worldBottom )   // side 0, the local top of the pancake is not face down in the pan 
-			state.SetSide( 0 );
+			state.SetSideDown( 0 );
 		else                            // side 1, the local top of the pancake is face down in the pan.
-			state.SetSide( 1 );
+			state.SetSideDown( 1 );
 
 
 
