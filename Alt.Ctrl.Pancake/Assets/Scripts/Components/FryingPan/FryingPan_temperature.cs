@@ -37,20 +37,17 @@ public class FryingPan_temperature : BasePanGroup_multipleInput
 		// Get our input values and update the current temp, if the pan is off the hob it will cool down
 		float knobInputVal = inputValues[ knob_inputId ].ClampedPrecent;
 		float hobInputVal = inputValues[ hob_inputId ].ClampedPrecent;
-
-		if ( hobInputVal == 0 )
-			currentTemperature -= cooldownRate * Time.deltaTime;
-		else
-			currentTemperature += ( minKnobValue + knobInputVal ) * hobInputVal * cookingTemperture * Time.deltaTime;
-
-
 		float maxTemp = panTempertureCurve.Evaluate( knobInputVal ) * maxPanTemperature;
 
-		//TODO: if the pan is to hot it should slowly cool down
-		// Clamp the value.
-		if ( currentTemperature > maxTemp )
-			currentTemperature = maxTemp;
-		else if ( currentTemperature < 0 )
+
+		if ( hobInputVal == 0 )	// cool down if not on hob.
+			currentTemperature -= cooldownRate * Time.deltaTime;
+		else if ( currentTemperature < maxTemp )
+			currentTemperature += ( minKnobValue + knobInputVal ) * hobInputVal * cookingTemperture * Time.deltaTime;
+		else if ( currentTemperature > maxTemp )
+			currentTemperature -= ( currentTemperature - maxTemp ) * Time.deltaTime;
+
+		 if ( currentTemperature < 0 )  // we not in the antarctic
 			currentTemperature = 0;
 
 		// Right we need to do some shiz with this now :), send it to fryingpan pancake??, idk.
