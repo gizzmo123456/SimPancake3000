@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: rename this class, collision is only one of the things it deals with
 [ RequireComponent( typeof( Pancake_velocity ) ), RequireComponent( typeof( Pancake_state ) ) ]
 public class Pancake_panCollision : Raycast_hit, IPanCollider
 {
@@ -95,8 +96,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		// Apply our final position to the object
 		transform.position = nextPosition;
 
-		// we must update the pan and pancake last so that the position has been updated.
-		// prevent the objects geting the position.
+		// we must update the pan and pancake last so that our position has been updated.
 		if( collision )
 		{
 			// Update pancake on pan and pan on pancake.
