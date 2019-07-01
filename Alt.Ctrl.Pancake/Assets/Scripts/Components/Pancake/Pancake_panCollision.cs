@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent( typeof( Pancake_velocity ) )]
+[ RequireComponent( typeof( Pancake_velocity ) ), RequireComponent( typeof( Pancake_state ) ) ]
 public class Pancake_panCollision : Raycast_hit, IPanCollider
 {
+	Pancake_state state;
 	Pancake_velocity pancake_velocity;
 	private Transform panColliderObj;
 	/*private*/ public Vector3 positionInPan;          // the local position of the pancake in the pan
@@ -21,6 +22,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	void Awake()
 	{
 		pancake_velocity = GetComponent<Pancake_velocity>();
+		state = GetComponent<Pancake_state>();
 	}
 
 	private void FixedUpdate()
@@ -50,7 +52,12 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	//TODO: give me a real name (HELP!, its hot in this pan)
 	private void a()
 	{
-		transform.eulerAngles = panColliderObj.eulerAngles;							// TODO: needs to side from the state into acount
+		// for now i can just cowboy it and let say we're on side 0 the offset is x or y is 0 else x or y offset is 180??
+		// TODO: make the rotation of the pancake match the rotation is landed in the pan.
+		// i think i wil have to work out the rotation dif, but not to sure at the moment.
+		Vector3 rotation_sideOffset = state.GetSideDown() == 0 ? Vector3.zero : new Vector3(180, 0, 0);
+		transform.eulerAngles = panColliderObj.eulerAngles + rotation_sideOffset; // TODO: needs to make more dynamic ^^^
+
 		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
 		transform.position = panColliderObj.TransformPoint( positionInPan );
 
