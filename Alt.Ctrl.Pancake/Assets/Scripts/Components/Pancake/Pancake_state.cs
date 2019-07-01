@@ -44,10 +44,10 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		GetComponent<Batter_quantity>().OnBatterChanged += OnBatterChanged;
 
 		// update both sides with a delta of 0 to make sure that the materials are up-to-date.
-		// change to state 0 and update
+		// change to side 0 and update
 		ChangeSideDown();
 		UpdateState( 0 );
-		// change to state 1 and update
+		// change to side 1 and update
 		ChangeSideDown();
 		UpdateState( 0 );
 		// Change back to side 0
