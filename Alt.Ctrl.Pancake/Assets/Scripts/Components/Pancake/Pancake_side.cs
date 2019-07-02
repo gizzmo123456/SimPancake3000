@@ -16,9 +16,6 @@ public class Pancake_side : MonoBehaviour, IPanCollider
 
     }
 
-	// tbf, this only really need to update when the pancake enters the pan.
-	// SO THE THE FUCK IS IT IN UPDATE, SORT IT THE FUCK OUT.
-	// ... TODO: ^^^
     void UpdateSideDown()
     {
 
