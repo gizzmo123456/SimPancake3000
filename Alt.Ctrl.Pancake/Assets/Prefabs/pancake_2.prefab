@@ -788,7 +788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89facffa5cc91c4e8cef0db32b66bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pancakeFire_prefab: {fileID: 0}
+  pancakeFire_prefab: {fileID: 7273050247810856313, guid: 49d3d27d61e0518469dd7165326c46bd,
+    type: 3}
+  fire_localOffset: {x: 0, y: 0, z: 0}
+  burn_idealThinkness: 0.25
   idealCookingTemperature: 175
   cookingStates:
   - pancakeState: 0
