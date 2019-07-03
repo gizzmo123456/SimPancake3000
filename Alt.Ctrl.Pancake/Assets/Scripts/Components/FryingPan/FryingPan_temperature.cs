@@ -58,4 +58,9 @@ public class FryingPan_temperature : BasePanGroup_multipleInput
 		fryingPan_pancake.CookPancakes( currentTemperature );
 
 	}
+
+	public float GetCurrentTemprature()
+	{
+		return currentTemperature;
+	}
 }
