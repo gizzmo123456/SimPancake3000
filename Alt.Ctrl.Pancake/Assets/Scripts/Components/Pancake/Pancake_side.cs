@@ -9,7 +9,7 @@ public class Pancake_side : MonoBehaviour, IPanCollider
 	private Pancake_state state;
 
 
-    void Start()
+    void Awake()
     {
 
 		state = GetComponent<Pancake_state>();
