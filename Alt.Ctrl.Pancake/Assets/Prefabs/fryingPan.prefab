@@ -214,14 +214,14 @@ MonoBehaviour:
   hob_inputId: 0
   knob_inputId: 1
   minKnobValue: 0.5
-  cookingTemperture: 250
-  maxPanTemperature: 300
+  cookingTemperture: 600
+  maxPanTemperature: 800
   panTempertureCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.85
+      value: 0.4
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -236,6 +236,39 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panConductiveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.75
+      inSlope: 6.750487
+      outSlope: 6.750487
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 0.15576442
+    - serializedVersion: 3
+      time: 0.6016019
+      value: 0.33606306
+      inSlope: -1.525203
+      outSlope: -1.525203
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0.104354665
+      outWeight: 0.29436293
+    - serializedVersion: 3
+      time: 1
+      value: 0.2
+      inSlope: -0.34152535
+      outSlope: 0.66631263
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.041499317
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -256,7 +289,7 @@ MonoBehaviour:
   steamParticleEffect: {fileID: 5580071339145631630}
   temperatureRange:
     min: 100
-    max: 300
+    max: 500
     current: 0
   particleMultiplierRange:
     min: 0

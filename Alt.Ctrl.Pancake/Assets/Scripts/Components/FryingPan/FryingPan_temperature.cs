@@ -21,6 +21,9 @@ public class FryingPan_temperature : BasePanGroup_multipleInput
 	private float currentTemperature = 0;
 	[Tooltip("pan max temperture curver for knob value")]
 	[SerializeField] private AnimationCurve panTempertureCurve;
+	[Tooltip( " How much temprature can be conducted over maxTemp (so if it value at current temp is 1 it conducts all " 
+			+ "temp, if value is 0 is conducts no temp), also reversed for cooldown " )]
+	[SerializeField] private AnimationCurve panConductiveCurve;
 	[SerializeField] private float cooldownRate = 10f; //per second
 
 	private void Start()
@@ -35,19 +38,22 @@ public class FryingPan_temperature : BasePanGroup_multipleInput
 		base.Update();
 
 		// Get our input values and update the current temp, if the pan is off the hob it will cool down
-		float knobInputVal = inputValues[ knob_inputId ].ClampedPrecent;
-		float hobInputVal = inputValues[ hob_inputId ].ClampedPrecent;
-		float maxTemp = panTempertureCurve.Evaluate( knobInputVal ) * maxPanTemperature;
+		float knobInputVal = inputValues[ knob_inputId ].ClampedPrecent;					// pan knob value
+		float hobInputVal = inputValues[ hob_inputId ].ClampedPrecent;						// pan on hob value
+		float maxTemp = panTempertureCurve.Evaluate( knobInputVal ) * maxPanTemperature;	// max temp the pan can reach @ knob input value
 
+		float currentTempPercentage = currentTemperature / maxPanTemperature;               // current % of very max pan temp (no limited to knob input value)
+		float currentConductivity = panConductiveCurve.Evaluate(currentTempPercentage);     // how conductive is the pan the current temp
+		float currentDissipation = 1f - currentConductivity;                                // how fast the heat can be dissipated from the pan (opersit of conductivity)
 
-		if ( hobInputVal == 0 )	// cool down if not on hob.
-			currentTemperature -= cooldownRate * Time.deltaTime;
-		else if ( currentTemperature < maxTemp )
-			currentTemperature += ( minKnobValue + knobInputVal ) * hobInputVal * cookingTemperture * Time.deltaTime;
-		else if ( currentTemperature > maxTemp )
-			currentTemperature -= ( currentTemperature - maxTemp ) * Time.deltaTime;
+		if ( hobInputVal == 0 )                     // cool down if not on hob.
+			currentTemperature -= cooldownRate * currentDissipation * Time.deltaTime;
+		else if ( currentTemperature < maxTemp )    // heat up, not at max temp
+			currentTemperature += ( minKnobValue + knobInputVal ) * hobInputVal * ( cookingTemperture * Time.deltaTime ) * currentConductivity * Time.deltaTime;
+		else if ( currentTemperature > maxTemp )    // cool down over max temp
+			currentTemperature -= ( currentTemperature - maxTemp ) * currentDissipation * Time.deltaTime;
 
-		 if ( currentTemperature < 0 )  // we not in the antarctic
+		 if ( currentTemperature < 0 )				// we not in the antarctic
 			currentTemperature = 0;
 
 		// Right we need to do some shiz with this now :), send it to fryingpan pancake??, idk.
