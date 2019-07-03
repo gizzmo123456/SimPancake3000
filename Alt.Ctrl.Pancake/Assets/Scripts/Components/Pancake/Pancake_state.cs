@@ -21,6 +21,9 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 	public event onStateChange OnStateChanged;
 
 	[SerializeField] private GameObject pancakeFire_prefab;
+	[SerializeField] private Vector3 fire_localOffset;
+	[SerializeField] private float burn_idealThinkness = 0.15f;
+
 	[Tooltip("The ideal cooking temperature for 1:1 cooking time ratio")]
 	[SerializeField] private float idealCookingTemperature = 175f;
 	[SerializeField] private CookingState[] cookingStates;
@@ -28,11 +31,20 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 	[SerializeField] private Renderer pancakeRenderer;
 	private Material[] pancakeMaterials;
 
-	private int currentSide = -1;	//-1 == un inited.
+	private int currentSideDown = -1;	//-1 == un inited.
 
 	private PancakeState[] pancakeStates = new PancakeState[ 2 ];
-	private Timer stateTimer = new Timer();
+	private Timer[] stateTimer = new Timer[ 2 ];
 	private float remainingTime = 0;
+
+	private bool caughtFire = false;
+
+	private void Awake()
+	{
+		// init our tiemrs for each side of the pancake
+		stateTimer[ 0 ] = new Timer();
+		stateTimer[ 1 ] = new Timer();
+	}
 
 	private void Start()
 	{
@@ -53,7 +65,7 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		// Change back to side 0
 		ChangeSideDown();
 
-		OnStateChanged?.Invoke( pancakeStates[ currentSide ] );
+		OnStateChanged?.Invoke( pancakeStates[ currentSideDown ] );
 	}
 
 	/// <summary>
@@ -62,38 +74,81 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 	/// <param name="delta"> the amount of time that has passed since the last update.</param>
 	public void UpdateState( float panTemp )
     {
-		// if the pancakes on fire we better get out of here (it might be a good idear to call the fire brigade)
-		if ( stateTimer.IsCompleat && GetState() == PancakeState.Fire ) return;
-		else if ( stateTimer.IsCompleat ) NextState();
+		// if the pancakes on fire we better get out of here (it might be a good idear to call the fire brigade)...
+		if ( IsOnFire() )
+		{
+			// If your not on fire, i demand you to be so.
+			if ( !caughtFire )
+				CatchFire();
 
-		remainingTime = stateTimer.Update( ( panTemp / idealCookingTemperature ) * Time.deltaTime );
+			return;
+		}
+		
+		// if the current side down is >= a burnt state, slowly cook the side up, since it does burn throught affter a while in the real world.
+		// once the pancake has a fire side and a side at, atleast burnt state trigger fire, also along this we need to trigger thick
+		// black smoke to indercate that the pancake is about to catch fire.
+		if ( GetState() >= PancakeState.Burnt ) CookOtherSide( panTemp );
 
-		UpdateMaterial();
+		if ( stateTimer[ currentSideDown ].IsCompleat && GetState() != PancakeState.Fire ) NextState();
 
+		remainingTime = stateTimer[ currentSideDown ].Update( ( panTemp / idealCookingTemperature ) * Time.deltaTime );
+		UpdateMaterial( currentSideDown );
 
     }
 
-	private void UpdateMaterial()
+	private void CookOtherSide( float panTemp )
+	{
+
+		// cookes the other side once the current side down has reached a burnt state,
+		// affected by the thickness of the pancake.
+
+		float thinkness = transform.localScale.y / burn_idealThinkness;  
+		int upSideId = GetSideUp();
+
+		float remainTime = stateTimer[ upSideId ].Update( ( panTemp / idealCookingTemperature ) * thinkness * Time.deltaTime );
+
+		if ( stateTimer[ upSideId ].IsCompleat && pancakeStates[upSideId] < PancakeState.Fire )
+		{
+			pancakeStates[ upSideId ]++;
+			SetTimer( upSideId, remainingTime );
+		}
+
+		UpdateMaterial( upSideId );
+
+	}
+
+	private void UpdateMaterial( int sideId )
 	{
 
 		// get the end color of the last cooking state. 
 		// if its the mixture state it start on it own endColor so it does not change color at all.
-		int startColorId = (int)pancakeStates[ currentSide ] == 0 ? 0 : (int)pancakeStates[ currentSide ] - 1;
+		int startColorId = (int)pancakeStates[ sideId ] == 0 ? 0 : (int)pancakeStates[ sideId ] - 1;
 		Color startColor = cookingStates[ startColorId ].endColor;
-		Color endColor = cookingStates[ (int)pancakeStates[ currentSide ] ].endColor;
+		Color endColor = cookingStates[ (int)pancakeStates[ sideId ] ].endColor;
 
 		// lerp between the start and end color updateing the material.
-		pancakeMaterials[ currentSide ].color = Color.Lerp( startColor, endColor, stateTimer.TimerPrecentage() );
+		pancakeMaterials[ sideId ].color = Color.Lerp( startColor, endColor, stateTimer[ sideId ].TimerPrecentage() );
 		
+	}
+
+	public bool IsOnFire()
+	{
+
+		bool downSide = GetState( true ) == PancakeState.Fire && GetState( false ) >= PancakeState.OverCooked;
+		bool upSide = GetState( true ) >= PancakeState.OverCooked && GetState( false ) == PancakeState.Fire;
+
+		return downSide || upSide;
+
 	}
 
 	/// <summary>
 	/// Get the current state of the side that is face down in the pan;
 	/// </summary>
 	/// <returns></returns>
-	public PancakeState GetState()
+	public PancakeState GetState( bool down = true )
 	{
-		return pancakeStates[ currentSide ];
+		print( "##################"+(down ? currentSideDown : GetSideUp()) );
+		return pancakeStates[ down ? currentSideDown : GetSideUp() ];
 	}
 
 	/// <summary>
@@ -108,9 +163,9 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		{
 			if ( cState.pancakeState == state )
 			{
-				pancakeStates[ currentSide ] = state;
+				pancakeStates[ currentSideDown ] = state;
 
-				SetTimer();
+				SetTimer( currentSideDown );
 
 				OnStateChanged?.Invoke( state );
 				return true;
@@ -128,24 +183,28 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 	public bool NextState()
 	{
 
-		if ( pancakeStates[ currentSide ] >= PancakeState.Count - 1 ) return false;
+		if ( pancakeStates[ currentSideDown ] >= PancakeState.Count - 1 ) return false;
 
 		// if the state is mixture update both states.
-		if ( pancakeStates[ currentSide ] == PancakeState.Mixture)
+		if ( pancakeStates[ currentSideDown ] == PancakeState.Mixture)
 		{
 			//update both states.
 			pancakeStates[ 0 ]++;
 			pancakeStates[ 1 ]++;
+
+			// when going from mixture to raw state we must update the upside timer as well as the down side.
+			SetTimer( GetSideUp(), 0 );	// do down side below, it need to be done for all state changes.
+
 		}
 		else
 		{
-			pancakeStates[ currentSide ]++;
+			pancakeStates[ currentSideDown ]++;
 
 		}
 
-		SetTimer();
+		SetTimer( currentSideDown );
 
-		OnStateChanged?.Invoke( pancakeStates[ currentSide ] );
+		OnStateChanged?.Invoke( pancakeStates[ currentSideDown ] );
 
 		return true;
 
@@ -154,16 +213,18 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 	public void ChangeSideDown()
 	{
 
-		currentSide = currentSide == 0 ? 1 : 0;
+		currentSideDown = currentSideDown == 0 ? 1 : 0;
 
-		SetTimer();
+		// SetTimer();		// we no longer need to reset the state timer if there are both sides have a timer.
+		// it only has to be done when the state changes.
 
 	}
 
 	public void SetSideDown(int sideId)
 	{
 
-		if ( sideId == currentSide ) return; // nothing to update.
+		if ( sideId == currentSideDown ) return; // nothing to update.
+		Debug.LogWarning( "Helloo #World" );
 
 		ChangeSideDown();
 
@@ -171,22 +232,61 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 
 	public int GetSideDown()
 	{
-		return currentSide;
+		return currentSideDown;
+	}
+
+	public int GetSideUp()
+	{
+		return 1 - currentSideDown;
 	}
 
 	/// <summary>
 	/// Reset the state timer for the current state.
 	/// </summary>
-	private void SetTimer()
+	/// <param name="updateDelta"> amount of time to update the time with less than 0 will use any remaing time  </param>
+	private void SetTimer( int sideId, float updateDelta = -1 )
 	{
 		// reset state length and add any ramining time from the last state.
-		float timerLength = cookingStates[ (int)pancakeStates[ currentSide ] ].stateLength;
+		float timerLength = cookingStates[ (int)pancakeStates[ sideId ] ].stateLength;
 
-		stateTimer.SetTimer( timerLength, true );
-		stateTimer.Update( remainingTime );			// Add the remaing time from the last state :)
+		stateTimer[ sideId ].SetTimer( timerLength, true );
 
-		remainingTime = 0;
+		if ( updateDelta < 0 ) // Add the remaing time from the last state :)
+		{
+			updateDelta = remainingTime;
+			remainingTime = 0;
+		}
 
+		stateTimer[ sideId ].Update( updateDelta );          
+
+
+	}
+
+	public void CatchFire()
+	{
+
+		// check to see if the pancake is on fire.
+		// spawn fire and sound the alarm.
+		if ( !IsOnFire() || caughtFire ) return;
+
+		GameObject fire;
+
+		if ( pancakeFire_prefab != null )
+		{
+			// spawn then make child so it is orientated corrently
+			fire = Instantiate( pancakeFire_prefab, transform.position, Quaternion.identity );
+			fire.transform.parent = transform;
+		}
+
+		// Send message to arduino via serial.
+		GameGlobals.inputs.Serial_queueWriteLine("f");
+
+		caughtFire = true;
+
+		// Fire....
+		// Alarm...
+		// Visual feedback...
+		// ??? 
 	}
 
 	public void OnBatterChanged( float batterPercentage )
@@ -195,7 +295,7 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		// we only have to check one side of the pancake 
 		// since there are both mixture or nither of are mixture (cant be mixture state and another state)
 		if ( pancakeStates[ 0 ] == PancakeState.Mixture )
-			SetTimer();
+			SetTimer( currentSideDown );
 
 	}
 
