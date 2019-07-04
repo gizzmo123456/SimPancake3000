@@ -47,11 +47,11 @@ public class FryingPan_temperature : BasePanGroup_multipleInput
 		float currentDissipation = 1f - currentConductivity;                                // how fast the heat can be dissipated from the pan (opersit of conductivity)
 
 		if ( hobInputVal == 0 )                     // cool down if not on hob.
-			currentTemperature -= cooldownRate * currentDissipation * Time.deltaTime;
+			currentTemperature -= (cooldownRate * Time.deltaTime) * currentDissipation * Time.deltaTime;
 		else if ( currentTemperature < maxTemp )    // heat up, not at max temp
 			currentTemperature += ( minKnobValue + knobInputVal ) * hobInputVal * ( cookingTemperture * Time.deltaTime ) * currentConductivity * Time.deltaTime;
 		else if ( currentTemperature > maxTemp )    // cool down over max temp
-			currentTemperature -= ( currentTemperature - maxTemp ) * currentDissipation * Time.deltaTime;
+			currentTemperature -= ( (currentTemperature - maxTemp) * Time.deltaTime) * currentDissipation * Time.deltaTime;
 
 		 if ( currentTemperature < 0 )				// we not in the antarctic
 			currentTemperature = 0;
