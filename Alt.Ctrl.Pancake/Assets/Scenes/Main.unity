@@ -412,6 +412,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 963854055}
     m_Modifications:
+    - target: {fileID: 1730138566134322713, guid: e66926b63ce16e846aa520bd7aa93033,
+        type: 3}
+      propertyPath: m_Name
+      value: fryingPan (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730138566134322713, guid: e66926b63ce16e846aa520bd7aa93033,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5580071339145631629, guid: e66926b63ce16e846aa520bd7aa93033,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -436,16 +446,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.004
-      objectReference: {fileID: 0}
-    - target: {fileID: 1730138566134322713, guid: e66926b63ce16e846aa520bd7aa93033,
-        type: 3}
-      propertyPath: m_Name
-      value: fryingPan (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1730138566134322713, guid: e66926b63ce16e846aa520bd7aa93033,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4953708216097187116, guid: e66926b63ce16e846aa520bd7aa93033,
         type: 3}

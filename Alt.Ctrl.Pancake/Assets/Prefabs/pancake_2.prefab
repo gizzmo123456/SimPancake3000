@@ -899,6 +899,8 @@ MonoBehaviour:
   - 1
   - 0
   transformForceDistance: 0.5
+  flattenSpeed_rotation: 0.5
+  flattenSpeed_position: 2
 --- !u!114 &1342944897696942894
 MonoBehaviour:
   m_ObjectHideFlags: 0
