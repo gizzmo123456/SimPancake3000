@@ -44,16 +44,12 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		// init our tiemrs for each side of the pancake
 		stateTimer[ 0 ] = new Timer();
 		stateTimer[ 1 ] = new Timer();
-	}
-
-	private void Start()
-	{
-
-		pancakeMaterials = pancakeRenderer.materials;
 
 		// Register onto the batter changed callback so we can reset the state timer 
 		// if batter is added while in a batter state.
 		GetComponent<Batter_quantity>().OnBatterChanged += OnBatterChanged;
+
+		pancakeMaterials = pancakeRenderer.materials;
 
 		// update both sides with a delta of 0 to make sure that the materials are up-to-date.
 		// change to side 0 and update
@@ -62,9 +58,13 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		// change to side 1 and update
 		ChangeSideDown();
 		UpdateState( 0 );
+
 		// Change back to side 0
 		ChangeSideDown();
+	}
 
+	private void Start()
+	{
 		OnStateChanged?.Invoke( pancakeStates[ currentSideDown ] );
 	}
 
@@ -215,6 +215,9 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 
 		currentSideDown = currentSideDown == 0 ? 1 : 0;
 
+		Debug.Log( "[" + name + "] Side Down Changed: " + currentSideDown, gameObject );
+
+
 		// SetTimer();		// we no longer need to reset the state timer if there are both sides have a timer.
 		// it only has to be done when the state changes.
 
@@ -223,8 +226,9 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 	public void SetSideDown(int sideId)
 	{
 
+		Debug.Log( "["+name+"] Set Side Down: "+sideId+" ( "+ ( sideId == currentSideDown ) + ")", gameObject );
+
 		if ( sideId == currentSideDown ) return; // nothing to update.
-		Debug.LogWarning( "Helloo #World" );
 
 		ChangeSideDown();
 

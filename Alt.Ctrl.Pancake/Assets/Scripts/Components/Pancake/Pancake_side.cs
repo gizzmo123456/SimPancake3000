@@ -32,10 +32,8 @@ public class Pancake_side : MonoBehaviour, IPanCollider
 
 		if ( worldTop >= worldBottom )   // side 0, the local top of the pancake is not face down in the pan 
 			state.SetSideDown( 0 );
-		else                            // side 1, the local top of the pancake is face down in the pan.
+		else                             // side 1, the local top of the pancake is face down in the pan.
 			state.SetSideDown( 1 );
-
-
 
 	}
 
