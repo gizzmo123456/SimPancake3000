@@ -23,6 +23,9 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 
 	[SerializeField] private float transformForceDistance;
 
+	[SerializeField] private float flattenSpeed_rotation = 1f;
+	[SerializeField] private float flattenSpeed_position = 2f; 
+
 
 	private void Awake()
 	{
@@ -57,9 +60,7 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 
 			Pancake_joint childJoint = child.gameObject.AddComponent<Pancake_joint>();
 			childJoint.SetupColliderData(colliderCurve, maxDistanceFromCenter);
-			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset);
-
-			
+			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset, flattenSpeed_rotation, flattenSpeed_position);
 
 			pancakeJoints.Add( childJoint );
 			
