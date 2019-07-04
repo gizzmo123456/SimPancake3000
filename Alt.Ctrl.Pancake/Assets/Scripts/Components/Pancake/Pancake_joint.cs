@@ -24,6 +24,8 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 	// ...
 
 	private Vector3 startLocalPosition;
+
+	// DEBUGING
 	private float TEMP_DIST;
 	private float TEMP_CV;
 
@@ -36,13 +38,8 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
     {
 		if ( panColliderObj == null ) return;
 
-		// rotate the joint based on the distance from the cneter of the panColliderObj.
+		// rotate the joint based on the distance from the center of the panColliderObj.
 		// ignoreing the Y axis.
-
-	//	Vector3 position = transform.position;
-	//	Vector3 panPosition = panColliderObj.transform.position;
-
-	//	position.y = panPosition.y = 0;
 
 		float distanceFromCenter = TEMP_DIST = scaleJointPosition ? jointDistance.GetDistanceScaled() : jointDistance.GetDistance();// Vector3.Distance( position, panPosition );
 		float distancePercent = distanceFromCenter / maxDistanceFromCenter;
