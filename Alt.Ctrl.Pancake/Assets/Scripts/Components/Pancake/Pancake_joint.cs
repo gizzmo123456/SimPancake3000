@@ -24,6 +24,10 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 	// ...
 
 	private Vector3 startLocalPosition;
+	private Quaternion startLocalRotation;
+
+	[SerializeField] private float flattenSpeed_rotation = 1f;
+	[SerializeField] private float flattenSpeed_position = 2f;
 
 	// DEBUGING
 	private float TEMP_DIST;
@@ -32,11 +36,20 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 	private void Start()
 	{
 		startLocalPosition = transform.localPosition;
+		startLocalRotation = transform.localRotation;
 	}
 
 	private void Update()
     {
-		if ( panColliderObj == null ) return;
+		if ( panColliderObj == null )
+			FlatenJoint();
+		else
+			DynamicJointRotation();
+
+	}
+
+	public void DynamicJointRotation()
+	{
 
 		// rotate the joint based on the distance from the center of the panColliderObj.
 		// ignoreing the Y axis.
@@ -55,8 +68,8 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		// update the position offset.
 		// local
 		Vector3 lPos = startLocalPosition;
-		lPos.y +=  curveValue * maxPositionOffset ;
-	
+		lPos.y += curveValue * maxPositionOffset;
+
 		transform.localPosition = lPos;
 
 		// world 
@@ -64,6 +77,39 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		wPos.y = curveValue * maxPositionOffset;
 
 		transform.position += wPos;
+
+	}
+
+	public void FlatenJoint()
+	{
+
+		// if there is any rotation on the joint or we are out of local position 
+		// lerp it back to the default position / rotation
+
+		// work out the rotation step by the z axis, since this is the only axis that really rotates.
+		// and it must be absolute, as if its negative it will rotate to the opersite angle.
+		float rotationStep = Mathf.Abs( transform.localEulerAngles.z - startLocalRotation.eulerAngles.z ) * flattenSpeed_rotation * Time.deltaTime;
+		Vector3 localPositionDif = transform.localPosition - startLocalPosition;
+
+		if ( rotationStep > 0f || localPositionDif != Vector3.zero )
+		{
+
+			// return to the default position
+			// this will never be perfect, but cloese enought :)
+
+			Vector3 position = transform.localPosition;
+			position -= localPositionDif * flattenSpeed_position * Time.deltaTime;
+
+			transform.localPosition = position;
+			
+			// rotate back to the start rotation via the shortest path.
+			transform.localRotation = Quaternion.RotateTowards( transform.localRotation, startLocalRotation, rotationStep );
+
+/*
+			if ( name.ToLower() == "joint51" )
+				Debug.LogWarning( "SP: "+startLocalRotation+" ## rDiff: "+localRotationDif+" ## rot: " + rotation, gameObject );
+*/
+		}
 
 	}
 
