@@ -57,7 +57,7 @@ public class FryingPan_force : BasePanGroup_multipleInput
 	{
 		// check that theres is at least one pancake in the pan to send the pans force to.
 		// making sure that it is not mixture.
-		if ( pancake.PancakeCount == 0 || !pancake.IsMixturePancake() ) return;
+		if ( pancake.PancakeCount == 0 || pancake.IsMixturePancake() ) return;
 
 		// So, i fucked up...
 		// To work out the force to give the pancake lift off we new to work it out the force by its delta
