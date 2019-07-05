@@ -19,4 +19,16 @@ public class HobGroupManager : MonoBehaviour
 		return hobGroups[ hobId ];
 	}
 
+	public GameObject[] GetFryingPans()
+	{
+
+		GameObject[] pans = new GameObject[ hobGroups.Length ];
+
+		for ( int i = 0; i < hobGroups.Length; i++ )
+			pans[ i ] = hobGroups[ i ].fryingPan;
+
+		return pans;
+
+	}
+
 }

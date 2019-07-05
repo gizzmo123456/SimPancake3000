@@ -11,8 +11,8 @@ using AMS_Helpers;
 [RequireComponent(typeof(Batter_quantity))]
 public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 {
-
-	private bool active = true;	// we aleays start in a mixture state. (this will only change if i start pooling pancakes, but that unnessary atm)
+	// active when in mixture state, as the mixture has not set yet and is sill in a runny state irl :D
+	private bool active = true;	// we always start in a mixture state. (this will only change if i start pooling pancakes, but that unnessary atm)
 	private Batter_quantity batterQuantity;
 
 	[SerializeField] private float spreadRate = 1f;
@@ -88,6 +88,7 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 
 	public void OnPancakeStateChanged(PancakeState state)
 	{
+		// only update pancake scale when in a state of mixture :)
 		active = state == PancakeState.Mixture;
 	}
 

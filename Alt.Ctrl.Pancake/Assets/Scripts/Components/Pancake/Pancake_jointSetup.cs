@@ -35,7 +35,7 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 	}
 
 	/// <summary>
-	/// find all the children with joint in the.
+	/// find all the children with joint in the name.
 	/// </summary>
 	/// <param name="parent">transform to search</param>
 	/// <param name="nestedId">the depth of child in hierarchy from objects root</param>

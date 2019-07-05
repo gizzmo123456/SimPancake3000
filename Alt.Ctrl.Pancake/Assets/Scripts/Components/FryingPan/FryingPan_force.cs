@@ -61,8 +61,8 @@ public class FryingPan_force : BasePanGroup_multipleInput
 
 		// So, i fucked up...
 		// To work out the force to give the pancake lift off we new to work it out the force by its delta
-		// so we know what direct the pan is being rotated in thus knowing the direction to apply force.
-		// The centered input value should be used to slide the pancake around the pan as is being rotates.
+		// so we know what direction the pan is being rotated in thus knowing the direction to apply force.
+		// The centered (-1, 1) input value should be used to slide the pancake around the pan as is being rotates.
 		// ... Well kinda.
 
 		Vector3 curVel = Vector3.zero;
@@ -79,6 +79,7 @@ public class FryingPan_force : BasePanGroup_multipleInput
 
 		// add some slide force (velocity) to them pancakes.
 		// Normalized the inputs values to the center of the input, so when the pan is flat the value is 0,0,0 :)
+		// TODO: slide force
 //		curVel.x += ( ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * slideVelocity.y;
 //		curVel.z += ( ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * slideVelocity.z;
 
