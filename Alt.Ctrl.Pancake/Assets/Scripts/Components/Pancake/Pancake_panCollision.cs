@@ -145,6 +145,10 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 		SendMessage( "SetFlipRotation");
 
+		// correct the up direction when the pancake has been flips
+		if ( state.GetSideDown() == 1 )
+			forwardsDirection.y = -forwardsDirection.y;
+
 		// It is worth noting that we do NOT need to take the pancakes mass into account when we transform the pancakes velocity to up/flip
 		// since its mass has been taken into account up until now and we are only transforming it current velocity into it upforce.
 		// As it stands we do NOT add any velocity to aid the fliping process (altho that might change)
