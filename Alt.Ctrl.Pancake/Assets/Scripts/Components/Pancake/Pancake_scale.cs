@@ -83,7 +83,7 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 	{
 		lerpTimer.Update( Time.deltaTime);
 
-		transform.localScale = Vector3.Lerp( startLerpScale, targetScale, ( lerpTimer.TimerPrecentage(true) ) );
+		transform.localScale = Vector3.Lerp( startLerpScale, targetScale, lerpTimer.TimerPrecentage(true) );
 	}
 
 	public void OnPancakeStateChanged(PancakeState state)
