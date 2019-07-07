@@ -5,22 +5,38 @@ using UnityEngine;
 /// <summary>
 /// Stores object without rigidbodys, velocitys
 /// </summary>
+[RequireComponent( typeof( Batter_quantity ) )]
 public class Pancake_velocity : MonoBehaviour, IVelocity
 {
 	// TODO: should this have both world a local velcoity.
 	// or at least a method to convert to and from local velocity of anouther object.
 	// or maybe it could have a method to switch in and out of a velocity mode (local and world) <<-- i think that might be better.
 
-	[SerializeField] private Transform updateSpace;         // space that velocity is oriented to. if null then world space. //TODO: 
+	private Batter_quantity batterQuantity;
+	[SerializeField] private Transform updateSpace;         // space that velocity is oriented to. if null then world space. //TODO:	// DOES this even get used??
 
 	private Vector3 velocity = Vector3.zero;
 	public Vector3 Velocity { get { return velocity; } }
+	private float Mass { get { return batterQuantity.Mass; } }	// NOTE: it might be better if this was set by Pancake scale, but i want to play factorio, so this will do for now.
 
-	public void AddVelocity( Vector3 vel )
+	private void Awake()
 	{
-		velocity += vel;
+		batterQuantity = GetComponent<Batter_quantity>();
 	}
 
+	/// <summary>
+	/// Set the velocity of a pancake take its mass into acount.
+	/// </summary>
+	/// <param name="vel">Velocity to add</param>
+	public void AddVelocity( Vector3 vel )
+	{
+		velocity += vel * Mass;
+	}
+
+	/// <summary>
+	/// Set the velocity of a pancake ignoring the mass.
+	/// </summary>
+	/// <param name="vel">Velocity to add</param>
 	public void SetVelocity( Vector3 vel )
 	{
 		velocity = vel;
@@ -115,5 +131,5 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 		}
 
 	}
-
+	
 }

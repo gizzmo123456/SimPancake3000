@@ -12,6 +12,9 @@ public class Batter_quantity : BasePanGroup
 	[SerializeField] private bool setMaxOnStart = true;
 
 	private float currentBatterQuantity;
+	[SerializeField] private float quantityToMassRatio = 5f;
+
+	public float Mass { get { return currentBatterQuantity / quantityToMassRatio; } }
 
 	private void Start()
 	{

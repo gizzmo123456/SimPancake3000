@@ -32,7 +32,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		// Apply Transformed upforce and send messages to clear it from the pan.
 		if(transformedVelocity != Vector3.zero)
 		{
-			pancake_velocity.SetVelocity( transformedVelocity );//*/
+			pancake_velocity.SetVelocity( transformedVelocity );
 			transformedVelocity = Vector3.zero;
 			SendMessages( null, null );
 		}
@@ -144,8 +144,16 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		transformUpforceDistance = distance;
 
 		SendMessage( "SetFlipRotation");
-		//pancake_velocity.SetVelocity( /*new Vector3(0, vel, 0) );/*/ forwardsDirection * vel );//*/
-		transformedVelocity = forwardsDirection * vel;
+
+		// It is worth noting that we do NOT need to take the pancakes mass into account when we transform the pancakes velocity to up/flip
+		// since its mass has been taken into account up until now and we are only transforming it current velocity into it upforce.
+		// As it stands we do NOT add any velocity to aid the fliping process (altho that might change)
+		// so taking that all into account we must use SetVelocity witch ignores the pancake mass :)
+
+		// we set the velocity in Update function :) as each joint need to call this function to find if its the thurthest away.
+		// so we can not update the velocity until all joints have been tested. so we'll just set the velocity at the start of the next update.
+		// not ideal but hay.
+		transformedVelocity = forwardsDirection * vel; 
 	}
 
 	public void SetPanCollider( Transform panColl )
