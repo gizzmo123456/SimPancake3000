@@ -7,8 +7,8 @@ using AMS_Helpers;
 /// Scales the pancake by its volume (quantity) when in a mixture state.
 /// based on the volume of a cylinder :D :
 /// </summary>
-[RequireComponent(typeof(Pancake_state))]
-[RequireComponent(typeof(Batter_quantity))]
+[RequireComponent( typeof( Pancake_state   ))]
+[RequireComponent( typeof( Batter_quantity ))]
 public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 {
 	// active when in mixture state, as the mixture has not set yet and is sill in a runny state irl :D
@@ -17,7 +17,7 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 
 	[SerializeField] private float spreadRate = 1f;
 	[SerializeField] private MinMax heightRange = new MinMax(0.1f, 1f);
-	[Range( 0f, 100f ), Tooltip("ie. if 10 then 10 quantitys == 1 volume :D (ratio 10:1)")]
+	[Range( 0f, 100f ), Tooltip( "ie. if 10 then 10 quantitys == 1 volume :D (ratio 10:1)" )]
 	[SerializeField] private float quantityToVolumRatio = 10;
 	private float volume = 0;
 	private float radius = 0.05f;
@@ -99,4 +99,14 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 		lerpTimer.SetTimer( lerpIntervals, true );
 		volume = batterQuantity.GetBatterQuantity() / quantityToVolumRatio;
 	}
+
+	/// <summary>
+	/// Get the size of the pancake in Radius/Height
+	/// </summary>
+	/// <returns> X = Radius, Y = Height</returns>
+	public Vector2 GetPancakeSize()
+	{
+		return new Vector2(radius, Height);
+	}
+
 }
