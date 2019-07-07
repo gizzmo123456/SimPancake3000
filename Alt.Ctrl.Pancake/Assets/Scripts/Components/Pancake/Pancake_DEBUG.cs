@@ -53,7 +53,7 @@ public class Pancake_DEBUG : MonoBehaviour
 
 		if (changePancakeSide)
 		{
-			pancake.SendMessage("ChangeSide");
+			pancake.SendMessage("ChangeSideDown");
 			changePancakeSide = false;
 		}
 
