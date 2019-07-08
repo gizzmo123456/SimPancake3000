@@ -40,15 +40,15 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		Vector3 currentVelocity = velocity.GetVelocity();
 		float flipSpeed = ( currentVelocity.y / ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) ) * rotateSpeed; //per sec;
 
-		Vector3 currentRot = rotateObj.eulerAngles;
-		currentRot.z += flipSpeed * Time.deltaTime;
+		Vector3 nextRot = rotateObj.eulerAngles;
+		nextRot.z += flipSpeed * Time.deltaTime;
 
 		// make sure the rotateObj is in the same position as the pancake befor makeing the pancake a child
 		// so we always rotating from the center...
 		rotateObj.position = transform.position;
 
 		transform.parent = rotateObj;
-		rotateObj.eulerAngles = currentRot;
+		rotateObj.eulerAngles = nextRot;
 
 		transform.parent = null;
 		
