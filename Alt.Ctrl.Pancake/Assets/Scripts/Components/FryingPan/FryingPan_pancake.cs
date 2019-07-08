@@ -40,10 +40,10 @@ public class FryingPan_pancake : BasePanGroup, IReceivePancake
 			// TODO: Also this states should be set onto this pancake??
 			for(int i = 0; i < pancakes.Count; i++ )
 			{
-				pancakes[ i ].transform.parent = pancake.transform;
+				pancakes[ i ].gameObject.AddComponent<Pancake_child>().SetParent( pancake.transform );
 			}
 
-			// Clear the list and add out new pancake, since it's now the only pancake in the pan.
+			// Clear the list and add the new pancake, since it's now the only pancake in the pan.
 			// and add the new pancake
 			pancakes.Clear();
 			pancakes.Add( pancake );
