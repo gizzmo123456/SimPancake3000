@@ -27,4 +27,6 @@ public static class GameGlobals
 		return "[" + objectName + "::" + className + "::" + functName + "] ";
 	}
 
+
+
 }
