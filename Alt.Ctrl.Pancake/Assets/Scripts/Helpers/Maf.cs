@@ -1,4 +1,4 @@
-﻿namespace AMS
+﻿namespace AMS_Helpers
 {
 	public static class Maf
 	{
