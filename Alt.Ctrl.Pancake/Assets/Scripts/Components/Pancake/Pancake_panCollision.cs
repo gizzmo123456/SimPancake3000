@@ -4,7 +4,7 @@ using UnityEngine;
 
 // TODO: rename this class, collision is only one of the things it deals with
 [ RequireComponent( typeof( Pancake_velocity ) ), RequireComponent( typeof( Pancake_state ) ) ]
-public class Pancake_panCollision : Raycast_hit, IPanCollider
+public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 {
 	Pancake_state state;
 	Pancake_velocity pancake_velocity;
@@ -20,6 +20,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 	private float transformUpforceDistance = 0;
 	private Vector3 transformedVelocity = Vector3.zero;
 
+	private bool isChild = false;
+
 	void Awake()
 	{
 		pancake_velocity = GetComponent<Pancake_velocity>();
@@ -28,6 +30,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 
 	private void FixedUpdate()
 	{
+
+		if ( isChild ) return;	// the pancake will move with its parent. (see pancake_child)
 
 		// Apply Transformed upforce and send messages to clear it from the pan.
 		if(transformedVelocity != Vector3.zero)
@@ -158,6 +162,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 		// so we can not update the velocity until all joints have been tested. so we'll just set the velocity at the start of the next update.
 		// not ideal but hay.
 		transformedVelocity = forwardsDirection * vel; 
+
 	}
 
 	public void SetPanCollider( Transform panColl )
@@ -216,6 +221,11 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider
 			i++;
 		}
 
+	}
+
+	public void SetIsChild( bool isChi )
+	{
+		isChild = isChi;
 	}
 
 }

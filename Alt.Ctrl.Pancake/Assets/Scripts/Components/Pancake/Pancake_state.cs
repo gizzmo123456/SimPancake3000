@@ -14,7 +14,7 @@ public enum PancakeState {
 	Count		= 7		// count of elements in enum
 }
 
-public class Pancake_state : MonoBehaviour, IBatterChanged
+public class Pancake_state : MonoBehaviour, IBatterChanged, IChild
 {
 
 	public delegate void onStateChange( PancakeState state );
@@ -38,6 +38,9 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 	private float remainingTime = 0;
 
 	private bool caughtFire = false;
+	private bool isChild = false;
+	[Range(0f, 0.75f)]
+	[SerializeField] private float isChildCookingSpeed = 0.1f;
 
 	private void Awake()
 	{
@@ -91,7 +94,12 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 
 		if ( stateTimer[ currentSideDown ].IsCompleat && GetState() != PancakeState.Fire ) NextState();
 
-		remainingTime = stateTimer[ currentSideDown ].Update( ( panTemp / idealCookingTemperature ) * Time.deltaTime );
+		float updateAmount = ( panTemp / idealCookingTemperature ) * Time.deltaTime;
+
+		if ( isChild )
+			updateAmount *= isChildCookingSpeed;
+
+		remainingTime = stateTimer[ currentSideDown ].Update( updateAmount );
 		UpdateMaterial( currentSideDown );
 
     }
@@ -105,7 +113,12 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		float thinkness = transform.localScale.y / burn_idealThinkness;  
 		int upSideId = GetSideUp();
 
-		float remainTime = stateTimer[ upSideId ].Update( ( panTemp / idealCookingTemperature ) * thinkness * Time.deltaTime );
+		float updateAmount = ( panTemp / idealCookingTemperature ) * thinkness * Time.deltaTime;
+
+		if ( isChild )
+			updateAmount *= isChildCookingSpeed;
+
+		float remainTime = stateTimer[ upSideId ].Update( updateAmount );
 
 		if ( stateTimer[ upSideId ].IsCompleat && pancakeStates[upSideId] < PancakeState.Fire )
 		{
@@ -301,6 +314,11 @@ public class Pancake_state : MonoBehaviour, IBatterChanged
 		if ( pancakeStates[ 0 ] == PancakeState.Mixture )
 			SetTimer( currentSideDown );
 
+	}
+
+	public void SetIsChild( bool isChi )
+	{
+		isChild = isChi;
 	}
 
 	//TODO: when the side changes i need to update the pancake states array
