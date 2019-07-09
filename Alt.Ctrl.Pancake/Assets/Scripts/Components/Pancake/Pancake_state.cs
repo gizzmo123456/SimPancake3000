@@ -160,7 +160,7 @@ public class Pancake_state : MonoBehaviour, IBatterChanged, IChild
 	/// <returns></returns>
 	public PancakeState GetState( bool down = true )
 	{
-		print( "##################"+(down ? currentSideDown : GetSideUp()) );
+
 		return pancakeStates[ down ? currentSideDown : GetSideUp() ];
 	}
 
