@@ -69,7 +69,7 @@ public class Pancake_scale : MonoBehaviour, IPancakeStateChanged, IBatterChanged
 		heightRange.current = Height;
 
 		if ( targetScale.y > heightRange.min )
-			radius += spreadRate * heightRange.Precent * Time.deltaTime;
+			radius += spreadRate * heightRange.ClampedPrecent * Time.deltaTime;
 
 		if ( radius > maxRadius ) radius = maxRadius;
 
