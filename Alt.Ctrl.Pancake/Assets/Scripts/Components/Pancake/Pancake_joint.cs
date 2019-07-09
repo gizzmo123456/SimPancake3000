@@ -19,6 +19,7 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 	[SerializeField] private bool scaleJointPosition = false;
 
 	// joint constains
+	private float rotationDirection = 1f;
 	/*private*/ public float maxCurveRotation = 90f;            // y axis of curve.
 	/*private*/ public float maxPositionOffset = 0.05f;
 	// ...
@@ -61,14 +62,14 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		Vector3 rotation = transform.localEulerAngles;
 		float curveValue = TEMP_CV = colliderCurve.Evaluate( distancePercent );
 
-		rotation.z = curveValue * maxCurveRotation;
+		rotation.z = curveValue * rotationDirection * maxCurveRotation;
 
 		transform.localEulerAngles = rotation;
 
 		// update the position offset.
 		// local
 		Vector3 lPos = startLocalPosition;
-		lPos.y += curveValue * maxPositionOffset;
+		lPos.y += curveValue * rotationDirection * maxPositionOffset;
 
 		transform.localPosition = lPos;
 
@@ -111,6 +112,11 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 */
 		}
 
+	}
+
+	public void OnPancakeSideChanged( int sideID )
+	{
+		rotationDirection = ( sideID == 0 ? 1 : -1 );
 	}
 
 	public void SetPanCollider( Transform panColl )

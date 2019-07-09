@@ -8,6 +8,8 @@ using UnityEngine;
 public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 {
 
+	private Pancake_state pancakeState;
+
 	private Transform panColliderObj;
 	private Pancake_joint[] joints;
 
@@ -29,7 +31,7 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 
 	private void Awake()
 	{
-
+		pancakeState = GetComponent<Pancake_state>();
 		joints = FindChildrenWithJoints( transform ).ToArray();
 
 	}
@@ -61,6 +63,8 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 			Pancake_joint childJoint = child.gameObject.AddComponent<Pancake_joint>();
 			childJoint.SetupColliderData(colliderCurve, maxDistanceFromCenter);
 			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset, flattenSpeed_rotation, flattenSpeed_position);
+			pancakeState.OnSideChanged += childJoint.OnPancakeSideChanged;	// reg onto the side change callback, to make sure the joints are being rotated in the correct diection.
+			
 
 			pancakeJoints.Add( childJoint );
 			
