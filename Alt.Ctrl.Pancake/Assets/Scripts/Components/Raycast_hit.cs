@@ -12,6 +12,7 @@ public class Raycast_hit : MonoBehaviour
 	[SerializeField] protected RaycastHit rayHit;
 	[SerializeField] private LayerMask hitLayers;
 
+	protected virtual Vector3 RayPosition { get { return transform.position; } }
 	[SerializeField] private Vector3 direction = Vector3.up;
 	[SerializeField] private bool useLocalDirection;
 
@@ -24,10 +25,10 @@ public class Raycast_hit : MonoBehaviour
 	protected virtual bool CastRay()
 	{
 
-		bool hit = Physics.Raycast( transform.position, GetDirection().normalized, out rayHit, distance, hitLayers );
+		bool hit = Physics.Raycast( RayPosition, GetDirection().normalized, out rayHit, distance, hitLayers );
 
 		if ( debug )
-			Debug.DrawLine(transform.position, transform.position + (direction.normalized * distance), debug_lineColor );
+			Debug.DrawLine(RayPosition, RayPosition + (direction.normalized * distance), debug_lineColor );
 
 		return hit;
 
