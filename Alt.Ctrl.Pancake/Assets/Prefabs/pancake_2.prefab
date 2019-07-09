@@ -764,6 +764,7 @@ MonoBehaviour:
   inputValueOffset: 0
   maxBatterQuantity: 1000
   setMaxOnStart: 0
+  quantityToMassRatio: 5
 --- !u!114 &7957850165208351122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,6 +817,7 @@ MonoBehaviour:
     stateLength: 5
     endColor: {r: 0, g: 0, b: 0, a: 0}
   pancakeRenderer: {fileID: 1342944897710637299}
+  isChildCookingSpeed: 0.1
 --- !u!114 &1342944897696942892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -951,6 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: -30
+  flipSpeedDeltaThresshold: 135
 --- !u!114 &1014095123069567935
 MonoBehaviour:
   m_ObjectHideFlags: 0
