@@ -18,6 +18,9 @@ public static class GameGlobals
 	public static GameManager gameManager;
 	public static LevelManager levelManager;
 
+	//
+	public static bool mute = true;
+
 	// Constants
 	public const int fryingpanCount = 3;	// aparently in c# if a var is a const it is also static, i did not know that :)
 

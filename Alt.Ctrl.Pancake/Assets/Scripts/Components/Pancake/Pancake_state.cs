@@ -18,7 +18,9 @@ public class Pancake_state : MonoBehaviour, IBatterChanged, IChild
 {
 
 	public delegate void onStateChange( PancakeState state );
+	public delegate void onSideChanged( int sideId );
 	public event onStateChange OnStateChanged;
+	public event onSideChanged OnSideChanged;
 
 	[SerializeField] private GameObject pancakeFire_prefab;
 	[SerializeField] private Vector3 fire_localOffset;
@@ -228,6 +230,8 @@ public class Pancake_state : MonoBehaviour, IBatterChanged, IChild
 
 		currentSideDown = currentSideDown == 0 ? 1 : 0;
 
+		OnSideChanged?.Invoke( currentSideDown );
+
 		Debug.Log( "[" + name + "] Side Down Changed: " + currentSideDown, gameObject );
 
 
@@ -295,8 +299,10 @@ public class Pancake_state : MonoBehaviour, IBatterChanged, IChild
 			fire.transform.parent = transform;
 		}
 
-		// Send message to arduino via serial.
-		GameGlobals.inputs.Serial_queueWriteLine("f");
+		// Send message to arduino via serial. to sound the alarm.
+		// if the game is not muted 
+		if(!GameGlobals.mute)
+			GameGlobals.inputs.Serial_queueWriteLine("f");
 
 		caughtFire = true;
 
