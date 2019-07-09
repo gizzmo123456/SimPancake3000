@@ -88,5 +88,16 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 		}
 	}
 
+	public Pancake_joint[] GetJoints()
+	{
+		return joints;
+	}
+
+	public Pancake_joint GetJointAt( int jointId )
+	{
+
+		return joints[ jointId ];
+
+	}
 
 }
