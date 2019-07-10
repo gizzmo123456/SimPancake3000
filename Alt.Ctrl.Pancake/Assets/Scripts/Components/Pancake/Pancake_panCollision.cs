@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // TODO: rename this class, collision is only one of the things it deals with
-[ RequireComponent( typeof( Pancake_velocity ) ), RequireComponent( typeof( Pancake_state ) ) ]
+[ RequireComponent( typeof( Pancake_velocity	) ) ]
+[ RequireComponent( typeof( Pancake_state		) ) ]
+[ RequireComponent( typeof( Pancake_jointSetup	) ) ]	// required to access the array of pancake joints.
 public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 {
-	Pancake_state state;
-	Pancake_velocity pancake_velocity;
+
+
+	private Pancake_state state;
+	private Pancake_velocity pancake_velocity;
+	private Pancake_joint[] pancake_joints;
+
 	private Transform panColliderObj;
 	/*private*/ public Vector3 positionInPan;          // the local position of the pancake in the pan
 
@@ -20,12 +26,24 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	private float transformUpforceDistance = 0;
 	private Vector3 transformedVelocity = Vector3.zero;
 
+	// [Header( "Collider/Ray things" )]
+	private int ray_jointId = 0;
+	protected override Vector3 RayPosition { get { return pancake_joints[ray_jointId].transform.position; } }
+
 	private bool isChild = false;
 
 	void Awake()
 	{
+
 		pancake_velocity = GetComponent<Pancake_velocity>();
 		state = GetComponent<Pancake_state>();
+		
+	}
+
+	private void Start()
+	{
+		// must get joints in start to make shore the joints and array have been initilized
+		pancake_joints = GetComponent<Pancake_jointSetup>().GetJoints();	// NOTE: I dont think we need all the joints, rather only the outer joints, and maybe the center for safety.
 	}
 
 	private void FixedUpdate()
@@ -79,7 +97,23 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 
 		// find the max distance that we are going to move during the update.
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
-		distance = Vector3.Distance( transform.position, /*pancake_velocity.Velocity );/*/ nextPosition );//*/	// << comment switch :D
+
+		JointHitData hitData = ResolveJointCollisions();    // find if any collision occurred, null if none.
+		bool collision = hitData != null;
+
+		if ( collision )
+		{
+			// TODO: 
+			// For the moment just going to move the pancake's transform the same distance the joint has moved :)
+			Vector3 jointDistanceTraved = pancake_joints[hitData.jointId].transform.position - hitData.hitPosition;
+			Debug.LogWarning( "BipBop"+ jointDistanceTraved + " # po: "+ transform.position +" # npo: "+ transform.position + jointDistanceTraved );
+
+			nextPosition = transform.position + jointDistanceTraved;
+			pancake_velocity.SetVelocity( Vector3.zero );
+		}
+
+/*
+		distance = Vector3.Distance( transform.position, nextPosition );
 
 		bool collision = false;
 
@@ -96,15 +130,15 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 				Debug.Log( "hit : "+rayHit.point, rayHit.transform );
 			}
 		}
-
+*/
 		// Apply our final position to the object
 		transform.position = nextPosition;
 
-		// we must update the pan and pancake last so that our position has been updated.
+		// we must update the pan and pancake last so that the position has been updated.
 		if( collision )
 		{
 			// Update pancake on pan and pan on pancake.
-			SendMessages( rayHit.transform, GetComponent<Pancake_state>() );
+			SendMessages( hitData.hitObject, GetComponent<Pancake_state>() );
 
 		}
 
@@ -119,6 +153,65 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
 
 		transform.position = nextPosition;
+
+	}
+
+	/// <summary>
+	/// Find if any joints collid with an object
+	/// </summary>
+	/// <returns> null if no collision occurred </returns>
+	private JointHitData ResolveJointCollisions()
+	{
+
+		// NOTE: starting basic!! :D
+		// NOTE: remember to remove note ^^^
+		// cast the ray from all joints and find the collest collision point.
+
+		// TODO: stop overscaning. its pointless.
+		Vector3 distanceTravled = pancake_velocity.GetTravleDistance( Time.deltaTime );
+		distance = Vector3.Distance( Vector3.zero, distanceTravled );
+
+		Vector3 jointNextPosition = Vector3.zero;
+
+		JointHitData hitData = new JointHitData();
+		float minDistance = -1;	// <0 not inited
+
+
+		for (int i = 0; i < pancake_joints.Length; i++ )
+		{
+			// update the current joint and fire the ray
+			ray_jointId = i;
+
+			if(CastRay())
+			{
+				// Find if this is the cloest point.
+				jointNextPosition = pancake_joints[ i ].transform.position + distanceTravled;
+
+				if(jointNextPosition.y <= rayHit.point.y) // collision.
+				{
+
+					float dist = Vector3.Distance( pancake_joints[ i ].transform.position, jointNextPosition );
+
+					if( minDistance < 0 || dist < minDistance)
+					{
+						minDistance = dist;
+
+						// set the new cloest data.
+						hitData.jointId = i;
+						hitData.hitPosition = rayHit.point;
+						hitData.hitObject = rayHit.transform;
+
+					}
+
+				}
+
+
+			}
+			
+		}
+
+		// if the min distance is still less than 0, no collision has occurred
+		return minDistance < 0 ? null : hitData;
 
 	}
 
@@ -170,7 +263,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		panColliderObj = panColl;
 
 		if ( panColl != null )
-			positionInPan = panColl.InverseTransformPoint( transform.position );
+			positionInPan = panColl.InverseTransformPoint( transform.position );	// BUG: ?? for an unkown reason when the pancake re-enters the pan it can somtimes snap to the center.
 	}
 
 	public Transform GetPanCollider()
@@ -185,7 +278,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		IReceivePancake[] recivePancakes = GetComponentsInParent<IReceivePancake>();
 		FryingPan_pancake fryingpan = null;
 
-		// add / remove pancake rom frying pan.
+		// add / remove pancake from frying pan.
 		// if state is null then we are removing so we will need to get the pancake_state from this object. :)
 		if ( state == null )
 		{
@@ -226,6 +319,28 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	public void SetIsChild( bool isChi )
 	{
 		isChild = isChi;
+	}
+
+	class JointHitData
+	{
+		public int jointId;
+		public Transform hitObject;
+		public Vector3 hitPosition;
+
+		public JointHitData()
+		{
+			jointId = 0;
+			hitObject = null;
+			hitPosition = Vector3.zero;
+		}
+
+		public JointHitData( int jId, Transform hitObj, Vector3 hitPos)
+		{
+			jointId = jId;
+			hitObject = hitObj;
+			hitPosition = hitPos;
+		}
+
 	}
 
 }
