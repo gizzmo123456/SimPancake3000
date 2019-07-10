@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AMS_Helpers;
 
 /// Corrects the position of the pancake when in frying pan.
 /// Prevents the pancake from leaving the confins of the pan
@@ -20,7 +21,11 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 	[SerializeField]
 	private float panRadius = 1;
+	[Tooltip("The pan radius offset when the pancake is mixture to prevent the pancake coming up the edges.")]
+	[SerializeField] private MinMax mixturePanRadiusOffset = new MinMax(0, 0.75f );
 	private float pancakeRadius;
+	[SerializeField] private float maxPancakeRadius;
+
 	// this is the max distance from the center of the pancake to the center of the pan collider obj.
 	// its is the diferents between the pancake and pan radius.
 	private float maxDistanceFromCenter;
@@ -50,9 +55,14 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 		Vector3 panPosition = panColliderObj.position;
 		position.y = panPosition.y = 0;
 
+		float panMixOffset = 0;
+
+		if ( canUpdatePancakeRadius )
+			panMixOffset = mixturePanRadiusOffset.GetValue( pancakeRadius / maxPancakeRadius );
+
 		float distance = Vector3.Distance( position, panPosition );
 
-		if ( distance <= maxDistanceFromCenter ) return;
+		if ( distance <= maxDistanceFromCenter - panMixOffset ) return;
 
 		// Ooo crap how do i correct the position around a circel?? hmmm.
 
@@ -65,7 +75,7 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 		float cos = Mathf.Cos( angle );
 
 		// get the max position in front of us then rotate it to the required angle
-		Vector3 maxPosition = new Vector3( 0, 0, maxDistanceFromCenter + correctionOffset );   
+		Vector3 maxPosition = new Vector3( 0, 0, (maxDistanceFromCenter - panMixOffset) + correctionOffset );   
 		Vector3 newPosition = Vector3.zero;
 
 		newPosition.x = maxPosition.x * cos - maxPosition.z * sin;
