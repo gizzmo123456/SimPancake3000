@@ -12,6 +12,7 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 	// or at least a method to convert to and from local velocity of anouther object.
 	// or maybe it could have a method to switch in and out of a velocity mode (local and world) <<-- i think that might be better.
 
+	private bool physicsEnabled = true;
 	private Batter_quantity batterQuantity;
 	[SerializeField] private Transform updateSpace;         // space that velocity is oriented to. if null then world space. //TODO:	// DOES this even get used??
 
@@ -70,6 +71,7 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 	/// <param name="delta">Amount of time since the last physic step or update</param>
 	public void PhysicsStep(float delta)
 	{
+		if ( !physicsEnabled ) return;
 
 		velocity += Physics.gravity * delta;
 
@@ -132,4 +134,8 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 
 	}
 	
+	public void EnabledPhysics( bool enable )
+	{
+		physicsEnabled = enable;
+	}
 }
