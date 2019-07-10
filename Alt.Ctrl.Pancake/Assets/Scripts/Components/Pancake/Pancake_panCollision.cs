@@ -112,25 +112,6 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 			pancake_velocity.SetVelocity( Vector3.zero );
 		}
 
-/*
-		distance = Vector3.Distance( transform.position, nextPosition );
-
-		bool collision = false;
-
-		// find if we collide with any objects
-		if ( CastRay() )
-		{
-			if ( nextPosition.y <= rayHit.point.y )  // collided
-			{
-				nextPosition.y = rayHit.point.y;
-				pancake_velocity.SetVelocity( Vector3.zero );
-
-				collision = true;
-
-				Debug.Log( "hit : "+rayHit.point, rayHit.transform );
-			}
-		}
-*/
 		// Apply our final position to the object
 		transform.position = nextPosition;
 
