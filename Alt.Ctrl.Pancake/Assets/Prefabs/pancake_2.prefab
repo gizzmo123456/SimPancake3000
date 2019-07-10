@@ -837,7 +837,7 @@ MonoBehaviour:
     current: 0
   quantityToVolumRatio: 15
   maxRadius: 1.6
-  lerpIntervals: 0.5
+  lerpIntervals: 2
 --- !u!114 &1342944897696942895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,6 +968,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1342944897710637299}
   panRadius: 0.575
+  mixturePanRadiusOffset:
+    min: 0.05
+    max: 0.4
+    current: 0
+  maxPancakeRadius: 1.6
   correctionOffset: 0
   yOffset: 0.05
 --- !u!114 &8506403883546672853
