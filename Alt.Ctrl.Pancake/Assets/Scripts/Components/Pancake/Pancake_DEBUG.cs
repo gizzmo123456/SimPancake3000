@@ -15,7 +15,10 @@ public class Pancake_DEBUG : MonoBehaviour
 	public bool updatePosition = false;
 	public bool addVelocity = false;
 	public bool killVelocity = false;
+	public bool disablePhysics = false;
+	public bool enablePhysics = false;
 	public bool changePancakeSide = false;
+
 
     void Update()
     {
@@ -35,8 +38,10 @@ public class Pancake_DEBUG : MonoBehaviour
 		{
 			Pancake_panCollision panColl = pancake.GetComponent<Pancake_panCollision>();
 
-			if( panColl.GetPanCollider() != null )
-				panColl.positionInPan = panColl.GetPanCollider().InverseTransformPoint(transform.position);
+			if ( panColl.GetPanCollider() != null )
+				panColl.positionInPan = panColl.GetPanCollider().InverseTransformPoint( transform.position );
+			else
+				panColl.transform.position = transform.position;
 		}
 
 		if( addVelocity )
@@ -45,10 +50,22 @@ public class Pancake_DEBUG : MonoBehaviour
 			addVelocity = false;
 		}
 
-		if (killVelocity)
+		if (killVelocity || disablePhysics)
 		{
 			pancake.SendMessage( "SetVelocity", Vector3.zero );
 			killVelocity = false;
+		}
+	
+		if( disablePhysics )
+		{
+			pancake.SendMessage( "EnabledPhysics", false );
+			disablePhysics = false;
+		}
+
+		if ( enablePhysics )
+		{
+			pancake.SendMessage( "EnabledPhysics", true );
+			enablePhysics = false;
 		}
 
 		if (changePancakeSide)
