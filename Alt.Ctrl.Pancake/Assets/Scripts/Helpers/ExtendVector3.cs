@@ -13,4 +13,19 @@ public static class ExtendVector3
 
 		return muli;
 	}
+
+	public static Vector3 Clamp(this Vector3 value, Vector3 min, Vector3 max)
+	{
+		// loop x, y, z axis in vector.
+		// [0] = x, [1] = y, [2] = z
+		for (int v = 0; v < 3; v++ )
+		{
+			if ( value[ v ] < min[ v ] ) value[ v ] = min[ v ];
+			if ( value[ v ] > max[ v ] ) value[ v ] = max[ v ];
+		}
+
+		return value;
+
+	}
+
 }
