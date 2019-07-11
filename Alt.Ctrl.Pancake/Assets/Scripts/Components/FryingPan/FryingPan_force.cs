@@ -20,8 +20,7 @@ public class FryingPan_force : BasePanGroup_multipleInput
 	private int inputId_zRotation = 1;
 
 	[SerializeField] private float maxDeltaRotation = 20;
-	[Tooltip("Also used as the max slide delta rotation")]
-	[SerializeField] private float deltaRotationThresshold = 2;	// also used as the max slide delta rotation
+	[SerializeField] private float deltaRotationThresshold = 2;
 	private Vector3 rotateDelta = Vector3.zero;
 	private Vector3 lastRotation = Vector3.zero;
 
