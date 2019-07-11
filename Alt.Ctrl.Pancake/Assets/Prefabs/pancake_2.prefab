@@ -938,7 +938,49 @@ MonoBehaviour:
   debug: 0
   debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
   positionInPan: {x: 0, y: 0, z: 0}
-  panFriction: 0.25
+  panFriction: 1
+  panFrictionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 1
+      outSlope: 0.3
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.25
+      inSlope: 0.10279246
+      outSlope: 0.024907967
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.34270418
+      outWeight: 0.6083
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 24.48889
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 3
+      inWeight: 0.059705496
+      outWeight: 0.9464524
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0
+      outSlope: -41.634796
+      tangentMode: 5
+      weightedMode: 1
+      inWeight: 0.18741603
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   airFriction: 0.1
   upforceThresshold: 4
 --- !u!114 &3677443432926609069

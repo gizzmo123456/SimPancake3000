@@ -181,7 +181,7 @@ MonoBehaviour:
   - min: -90
     max: 90
     current: 0
-  slideVelocity: {x: 0.25, y: 0, z: 0.25}
+  slideVelocity: {x: 0.125, y: 0, z: 0.125}
   flipVelocity: {x: 2, y: 0, z: 6}
   inputId_xRotation: 0
   inputId_zRotation: 1
