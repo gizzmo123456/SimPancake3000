@@ -86,14 +86,11 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		// Add the pans world position to the new position to get the final position of the pancake.
 
-		// What we should really be doing is get the new position and convert it into the panColliders local spcae and set the pos in pan in panCollidion.
 		newPosition += panColliderObj.position;
 		newPosition.y -= yOffset;
 
-		// Update the position in the pan and set the position of the pancake.
-		// as the panCollision has already been updated
-		panCollision.SetPositionInPan(newPosition, false);
-		transform.position = newPosition;
+		// Update the position in the pan
+		panCollision.SetPositionInPan(newPosition, false, true);
 		
     }
 

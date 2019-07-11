@@ -256,13 +256,16 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		return panColliderObj;
 	}
 
-	public void SetPositionInPan( Vector3 position, bool isLocal )
+	public void SetPositionInPan( Vector3 position, bool isLocal, bool update )
 	{
 
 		if ( isLocal )
 			positionInPan = position;
 		else
 			positionInPan = panColliderObj.InverseTransformPoint( position );
+
+		if(update)
+			transform.position = panColliderObj.TransformPoint( positionInPan );
 
 	}
 
