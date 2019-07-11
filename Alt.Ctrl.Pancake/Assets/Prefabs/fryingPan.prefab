@@ -181,12 +181,12 @@ MonoBehaviour:
   - min: -90
     max: 90
     current: 0
-  slideVelocity: {x: 1, y: 0, z: 1}
+  slideVelocity: {x: 0.25, y: 0, z: 0.25}
   flipVelocity: {x: 2, y: 0, z: 6}
   inputId_xRotation: 0
   inputId_zRotation: 1
   maxDeltaRotation: 20
-  DeltaRotationThresshold: 2
+  deltaRotationThresshold: 2
 --- !u!114 &3698298927851665178
 MonoBehaviour:
   m_ObjectHideFlags: 0

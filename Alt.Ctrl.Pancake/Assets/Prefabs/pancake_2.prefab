@@ -916,6 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateSpace: {fileID: 0}
+  limitedVelocity_limit: {x: 1, y: 0, z: 1}
 --- !u!114 &1342944897696942929
 MonoBehaviour:
   m_ObjectHideFlags: 0

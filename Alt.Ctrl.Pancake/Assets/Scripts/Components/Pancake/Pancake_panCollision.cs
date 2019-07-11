@@ -55,6 +55,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		if(transformedVelocity != Vector3.zero)
 		{
 			pancake_velocity.SetVelocity( transformedVelocity );
+			pancake_velocity.SetVelocity( Vector3.zero, Pancake_velocity.VelocityType.Limited );		// clear the limited velocity that is used for slinding in the pan.
 			transformedVelocity = Vector3.zero;
 			SendMessages( null, null );
 		}
@@ -84,7 +85,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
 		transform.position = panColliderObj.TransformPoint( positionInPan );
 
-		pancake_velocity.AddFriction(panFriction);
+		pancake_velocity.AddFriction(panFriction, panFriction);
 
 	}
 
@@ -93,7 +94,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	{
 		// Apply the physic step now so we can work out where we will be at the end of this update.
 		pancake_velocity.PhysicsStep( Time.deltaTime );
-		pancake_velocity.AddFriction( airFriction );
+		pancake_velocity.AddFriction( airFriction, panFriction );
 
 		// find the max distance that we are going to move during the update.
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
@@ -109,7 +110,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 			Debug.LogWarning( "BipBop"+ jointDistanceTraved + " # po: "+ transform.position +" # npo: "+ transform.position + jointDistanceTraved );
 
 			nextPosition = transform.position + jointDistanceTraved;
-			pancake_velocity.SetVelocity( Vector3.zero );
+			pancake_velocity.SetVelocity( Vector3.zero, true );
 		}
 
 		// Apply our final position to the object
@@ -129,7 +130,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	private void c()
 	{
 		pancake_velocity.PhysicsStep( Time.deltaTime );
-		pancake_velocity.AddFriction( airFriction ); 
+		pancake_velocity.AddFriction( airFriction, panFriction ); 
 
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
 

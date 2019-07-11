@@ -19,9 +19,9 @@ public class FryingPan_force : BasePanGroup_multipleInput
 	[SerializeField, Range( 0, 1 )]
 	private int inputId_zRotation = 1;
 
-	private Vector3 currentVelocity = Vector3.zero;
 	[SerializeField] private float maxDeltaRotation = 20;
-	[SerializeField] private float DeltaRotationThresshold = 2;
+	[Tooltip("Also used as the max slide delta rotation")]
+	[SerializeField] private float deltaRotationThresshold = 2;	// also used as the max slide delta rotation
 	private Vector3 rotateDelta = Vector3.zero;
 	private Vector3 lastRotation = Vector3.zero;
 
@@ -62,33 +62,43 @@ public class FryingPan_force : BasePanGroup_multipleInput
 		// So, i fucked up...
 		// To work out the force to give the pancake lift off we new to work it out the force by its delta
 		// so we know what direction the pan is being rotated in thus knowing the direction to apply force.
-		// The centered (-1, 1) input value should be used to slide the pancake around the pan as is being rotates.
+		// The centered (-1, 1) input value should be used to slide the pancake around the pan as its being rotates.
 		// ... Well kinda.
 
 		Vector3 curVel = Vector3.zero;
+		Vector3 curSlideVel = Vector3.zero;
 
 		// We only need to use the delta force for forards, left/right. Theres no point applying backwards force
 		// for fliping the pancake, it just can't happen. Imagin that in the real world, rotating the pan down realy
 		// fast and getting a face full of scorching pancake.
 
-		if ( rotateDelta.x > DeltaRotationThresshold )												// forwards
+		if ( rotateDelta.x > deltaRotationThresshold )												// forwards
 			curVel.x = (rotateDelta.x / maxDeltaRotation) * flipVelocity.x;
 
-		if (rotateDelta.z > DeltaRotationThresshold || rotateDelta.z < -DeltaRotationThresshold)	// left/right
+		if (rotateDelta.z > deltaRotationThresshold || rotateDelta.z < -deltaRotationThresshold)	// left/right
 			curVel.z = (-rotateDelta.z / maxDeltaRotation) * flipVelocity.z;
 
 		// add some slide force (velocity) to them pancakes.
-		// Normalized the inputs values to the center of the input, so when the pan is flat the value is 0,0,0 :)
-		// TODO: slide force
-//		curVel.x += ( ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * slideVelocity.y;
-//		curVel.z += ( ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * slideVelocity.z;
 
-		currentVelocity = curVel;
+		// work out the slide dorce percentage making sure is is clamp, 
+		// we dont want to exceed the slide force.
+		Vector3 slideDeltaPercentage = Vector3.zero;
+		slideDeltaPercentage.x = Mathf.Clamp( rotateDelta.x / deltaRotationThresshold, -1, 1 );
+		slideDeltaPercentage.z = Mathf.Clamp( rotateDelta.z / deltaRotationThresshold, -1, 1 );
 
-		// Semnd velocity to all pancakes in the frying pan.
+		// Get the input values between -1, 1 so when the pan is flat it is zero
+		Vector3 inputSlideDeltaPercentage = Vector3.zero;
+		inputSlideDeltaPercentage.x = ( ( ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.x ) );
+		inputSlideDeltaPercentage.z = ( ( ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.z ) );
+
+		curSlideVel.x = ( ( inputSlideDeltaPercentage.x + slideDeltaPercentage.x ) / 2f ) * slideVelocity.x;
+		curSlideVel.z = ( ( inputSlideDeltaPercentage.z + slideDeltaPercentage.z ) / 2f ) * slideVelocity.z;	
+
+		// Send velocity to all pancakes in the frying pan.
 		foreach ( Pancake_state pancake in pancake.GetPancakes() )
 		{       // TODO: Add Pancake class with a ref to all of its outher classes, i dont have to keep using GetComponet :)
-			pancake.GetComponent<Pancake_velocity>().AddVelocity( currentVelocity );
+			pancake.GetComponent<Pancake_velocity>().AddVelocity( curVel, Pancake_velocity.VelocityType.Default );
+			pancake.GetComponent<Pancake_velocity>().AddVelocity( curSlideVel, Pancake_velocity.VelocityType.Limited );
 		}
 
 	}
