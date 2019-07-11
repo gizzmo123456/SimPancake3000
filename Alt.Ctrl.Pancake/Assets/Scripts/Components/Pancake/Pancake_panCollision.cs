@@ -9,7 +9,6 @@ using UnityEngine;
 public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 {
 
-
 	private Pancake_state state;
 	private Pancake_velocity pancake_velocity;
 	private Pancake_joint[] pancake_joints;
@@ -20,6 +19,9 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	[Header( "Collider things" )]
 	[Range(0f, 2f)]
 	[SerializeField] private float panFriction = 0.25f;
+	[SerializeField] private AnimationCurve panFrictionCurve;
+	private float panFriction_distanceFromCenter = 0f;
+
 	[SerializeField] private float airFriction = 0.1f;
 
 	[SerializeField] private float upforceThresshold = 1f;
@@ -43,7 +45,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	private void Start()
 	{
 		// must get joints in start to make shore the joints and array have been initilized
-		pancake_joints = GetComponent<Pancake_jointSetup>().GetJoints();	// NOTE: I dont think we need all the joints, rather only the outer joints, and maybe the center for safety.
+		pancake_joints = GetComponent<Pancake_jointSetup>().GetJoints();    // NOTE: I dont think we need all the joints, rather only the outer joints, and maybe the center for safety.
+		panFriction_distanceFromCenter = GetComponent<Pancake_jointSetup>().GetMaxDistanceFromCenter();
 	}
 
 	private void FixedUpdate()
@@ -85,7 +88,9 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
 		transform.position = panColliderObj.TransformPoint( positionInPan );
 
-		pancake_velocity.AddFriction(panFriction, panFriction);
+		float panFrictionMutiplier = panFrictionCurve.Evaluate( Vector3.Distance( Vector3.zero, positionInPan ) / panFriction_distanceFromCenter );
+
+		pancake_velocity.AddFriction( panFrictionMutiplier * panFriction, panFrictionMutiplier * panFriction );
 
 	}
 
@@ -158,7 +163,6 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		JointHitData hitData = new JointHitData();
 		float minDistance = -1;	// <0 not inited
 
-
 		for (int i = 0; i < pancake_joints.Length; i++ )
 		{
 			// update the current joint and fire the ray
@@ -186,7 +190,6 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 					}
 
 				}
-
 
 			}
 			

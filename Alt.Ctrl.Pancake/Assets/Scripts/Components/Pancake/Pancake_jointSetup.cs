@@ -100,4 +100,21 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 
 	}
 
+	/// <summary>
+	/// Evaluates collider curve by the distance from center
+	/// </summary>
+	/// <param name="distFromCenter">distance from center (world)</param>
+	/// <returns>collider curve value</returns>
+	public float EvaluateDistanceFromCenter( float distFromCenter )
+	{
+
+		return colliderCurve.Evaluate( Mathf.Clamp01( distFromCenter / maxDistanceFromCenter ) );
+
+	}
+
+	public float GetMaxDistanceFromCenter()
+	{
+		return maxDistanceFromCenter;
+	}
+
 }
