@@ -65,7 +65,7 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		}
 		else if ( currentVelocity.y > 0f )
 		{
-			flipSpeed = ( ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) /*/ 2f*/ ) / currentVelocity.y ) * rotateSpeed; //per sec;
+			flipSpeed = ( currentVelocity.y / ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) ) * rotateSpeed; //per sec;
 			print( "fliping ## cv: "+ currentVelocity.y +" /  x "+  Mathf.Abs( currentVelocity.x ) + " ## z" +Mathf.Abs( currentVelocity.z ) +" ## x/z "+ ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) );
 
 		}
