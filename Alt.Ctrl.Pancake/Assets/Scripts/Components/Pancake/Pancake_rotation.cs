@@ -44,6 +44,7 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		// This will give us a dynamic flip velocity and will make it less likely that the pancake will land verticaly.
 		// giving the player a better chance of compleating a flip :)
 
+		// fs < 0 ??
 		if ( flipSpeed < 0f && ( currentVelocity.y < 0 || flipSpeed > -flipSpeedDeltaThresshold ) )
 		{
 			if ( targetFinishRotation < 0 )
@@ -64,8 +65,8 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		}
 		else if ( currentVelocity.y > 0f )
 		{
-			print( "fliping" );
-			flipSpeed = ( currentVelocity.y / ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) ) * rotateSpeed; //per sec;
+			flipSpeed = ( ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) /*/ 2f*/ ) / currentVelocity.y ) * rotateSpeed; //per sec;
+			print( "fliping ## cv: "+ currentVelocity.y +" /  x "+  Mathf.Abs( currentVelocity.x ) + " ## z" +Mathf.Abs( currentVelocity.z ) +" ## x/z "+ ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) );
 
 		}
 
