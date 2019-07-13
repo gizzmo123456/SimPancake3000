@@ -997,7 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: -30
-  flipSpeedDeltaThresshold: 135
+  flipSpeedDeltaThresshold: 100
 --- !u!114 &1014095123069567935
 MonoBehaviour:
   m_ObjectHideFlags: 0
