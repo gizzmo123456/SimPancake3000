@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45d400c34f3db443879f933934ed8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: panToggle
   addPanId_prefix: 0
   inputValue:
@@ -106,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6d8890130ee024d8bef26e4ff7428e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: jug
   addPanId_prefix: 0
   inputValue:
@@ -128,8 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3765d971e576a044ea0791dbb90b273a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   maxBatterQuantity: 100
   setMaxOnStart: 1
+  quantityToMassRatio: 5
 --- !u!114 &680959882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9ea8ff904438544b34075085395c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: jug
   addPanId_prefix: 0
   inputValue:
@@ -215,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f14f77fc8e10e44b6b2f3d241294cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: jug
   addPanId_prefix: 0
   inputValue:
@@ -234,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfe2a79bf634aa4987f7bacf2d7008f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValueOffset: 0
   inputName: jug
   addPanId_prefix: 0
   inputValue:
@@ -457,7 +464,8 @@ PrefabInstance:
       propertyPath: m_DirtyAABB
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3035ad548a901c4499c9a7bc719d6ddc, type: 3}
 --- !u!1 &2389801165119501743 stripped
 GameObject:

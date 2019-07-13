@@ -4,8 +4,9 @@ using UnityEngine;
 using AMS_Helpers;
 
 [RequireComponent( typeof( SkinnedMeshRenderer ) )]
-public class Jug_batterWobBlendShape : BasePanGroup_singleInput
+public class Jug_batterWobBlendShape : BasePanGroup_singleInput, IPanChanged
 {
+	private bool active = false;
 	[Range( 0.25f, 3f )]
 	[SerializeField] float inputMultiplier = 1f;
 	private SkinnedMeshRenderer skinnedMeshRenderer;
@@ -31,10 +32,19 @@ public class Jug_batterWobBlendShape : BasePanGroup_singleInput
 		NewBlendWeights();
 	}
 
+	private void Start()
+	{
+		// Add Panchanged Callback.
+		GetComponentInParent<Jug_panSellect>().OnPanChanged += OnPanChanged;
+	}
+
 	protected override void Update()
     {
 
-		base.Update();
+		if ( active )
+		{	// only update the inputs when active. so the wobble doesnt just stop.
+			base.Update();
+		}
 
 		UpdateBlendAmount();
 
@@ -92,11 +102,22 @@ public class Jug_batterWobBlendShape : BasePanGroup_singleInput
 
 	}
 
-	void NewBlendWeights()
+	private void NewBlendWeights()
 	{
 
 		for ( int i = 0; i < blendShapeWeights.Length; i++ )
 			blendShapeWeights[ i ] = Random.Range(0.25f, 1f);
 
 	}
+
+	public void OnPanChanged( int panId )
+	{
+		active = panId > -1;
+
+		// reset the input to 0 if not active
+		if ( !active )
+			inputValue.current = 0f;
+
+	}
+
 }
