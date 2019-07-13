@@ -3074,6 +3074,11 @@ PrefabInstance:
       propertyPath: panTransforms.Array.data[2]
       value: 
       objectReference: {fileID: 868931887}
+    - target: {fileID: 2389801163493601598, guid: 30f95149d9c96d04d986936c658b0d22,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f95149d9c96d04d986936c658b0d22, type: 3}
 --- !u!1001 &3272112495155834381
