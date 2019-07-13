@@ -28,4 +28,9 @@ public static class ExtendVector3
 
 	}
 
+	public static float Sum(this Vector3 vector)
+	{
+		return vector.x + vector.y + vector.z;
+	}
+
 }
