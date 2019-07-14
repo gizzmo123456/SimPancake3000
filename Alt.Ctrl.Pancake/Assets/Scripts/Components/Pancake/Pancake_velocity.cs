@@ -25,7 +25,7 @@ public class Pancake_velocity : MonoBehaviour, IVelocity, IPanCollider
 	private Vector3 velocity = Vector3.zero;
 	private Vector3 limitedVelocity = Vector3.zero;
 
-	public Vector3 Velocity { get { return velocity + limitedVelocity; } }	// Not sure if this should include the limited velocity.
+	public Vector3 Velocity { get { return velocity;/* + limitedVelocity;*/ } }	// TODO: Not sure if this should include the limited velocity.
 	private float Mass { get { return batterQuantity.Mass; } }	// NOTE: it might be better if this was set by Pancake scale, but i want to play factorio, so this will do for now.
 
 	private void Awake()
