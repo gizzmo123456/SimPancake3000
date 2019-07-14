@@ -65,8 +65,19 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		}
 		else if ( currentVelocity.y > 0f )
 		{
-			flipSpeed = ( currentVelocity.y / ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) ) * rotateSpeed; //per sec;
-			print( "fliping ## cv: "+ currentVelocity.y +" /  x "+  Mathf.Abs( currentVelocity.x ) + " ## z" +Mathf.Abs( currentVelocity.z ) +" ## x/z "+ ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) );
+			//flipSpeed = ( currentVelocity.y / ( ( Mathf.Abs( currentVelocity.x ) + Mathf.Abs( currentVelocity.z ) ) / 2f ) ) * rotateSpeed; //per sec;
+			// Get the sum of vector.
+			// use the ABS value of X and the inverse value of Z so the flip is reduced if the pancake it going away from the pan. (forwards +z axis)
+
+			// TODO: work out X if we are going away from the pan on the X axis. so if the pancake is on the left and it moves left is cosider moving away.
+			// if its on the right and it flips right its also consider moving away. left/right :: right/left is consider satying in the pan :)
+
+			float velSum = Mathf.Abs( currentVelocity.x ) + currentVelocity.y - currentVelocity.z;	
+			
+			flipSpeed = velSum < 0f ? 0f : Mathf.Sqrt( velSum );
+			flipSpeed *= rotateSpeed;
+
+			print( "fliping ## cv: "+ currentVelocity.y +" /  x "+  Mathf.Abs( currentVelocity.x ) + " ## z" + -currentVelocity.z +" ## x/z "+ ( ( Mathf.Abs( currentVelocity.x ) - currentVelocity.z )) );
 
 		}
 
