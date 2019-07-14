@@ -103,7 +103,7 @@ public class Pancake_velocity : MonoBehaviour, IVelocity, IPanCollider
 	{
 
 		if ( updateSpace )
-			return updateSpace.TransformDirection(velocity + limitedVelocity);	//mige be better to use Vector insted of direction
+			return updateSpace.InverseTransformVector(velocity + limitedVelocity);	//mige be better to use Vector insted of direction 
 		else
 			return velocity + limitedVelocity;
 
