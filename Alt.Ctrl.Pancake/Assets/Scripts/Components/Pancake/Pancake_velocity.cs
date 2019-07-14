@@ -6,7 +6,7 @@ using UnityEngine;
 /// Stores object without rigidbodys, velocitys
 /// </summary>
 [RequireComponent( typeof( Batter_quantity ) )]
-public class Pancake_velocity : MonoBehaviour, IVelocity
+public class Pancake_velocity : MonoBehaviour, IVelocity, IPanCollider
 {
 	// Note: should this have both world a local velcoity.
 	// or at least a method to convert to and from local velocity of anouther object.
@@ -273,5 +273,10 @@ public class Pancake_velocity : MonoBehaviour, IVelocity
 	public void EnabledPhysics( bool enable )
 	{
 		physicsEnabled = enable;
+	}
+
+	public void SetPanCollider(Transform panColl)
+	{
+		updateSpace = panColl;
 	}
 }
