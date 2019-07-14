@@ -86,6 +86,8 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		// Add the pans world position to the new position to get the final position of the pancake.
 
+		//BUG: this is really wrong (i think its why we sink below the pan), i think. we're basicly working out the local position anway.
+		// maybe need to add yOffset insted??
 		newPosition += panColliderObj.position;
 		newPosition.y -= yOffset;
 

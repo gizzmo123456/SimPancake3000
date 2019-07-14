@@ -212,6 +212,11 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		// only want to transform to upforce for the point that is furthest away
 		// and it must be in the front of the pan (+z)
 		// you cant realy flip form the back of a frying pan, that would be black magic.
+		// BUG: Here where we test for zPos > this.pos.z is checking to see if pancake is in the front half of the pan.
+		//		But we are check if the joint is in the front half of the pan insed. the prob is that the joint can be in the 
+		//		Front half of the pan where as the pancake center it self can be in the back half of the pan.
+		//		Thurermore the is causing the pancake to flip altho it in the wrong position.
+		//		and it might be contubuting the sticking.
 		if ( zPosition > panColliderObj.position.z && transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
 
 		if ( Pancake_DEBUG.debug_joints )
