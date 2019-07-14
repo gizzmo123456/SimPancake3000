@@ -44,7 +44,7 @@ public class Pancake_rotation : MonoBehaviour, IPanCollider
 		// This will give us a dynamic flip velocity and will make it less likely that the pancake will land verticaly.
 		// giving the player a better chance of compleating a flip :)
 
-		// fs < 0 ??
+	
 		if ( flipSpeed < 0f && ( currentVelocity.y < 0 || flipSpeed > -flipSpeedDeltaThresshold ) )
 		{
 			if ( targetFinishRotation < 0 )
