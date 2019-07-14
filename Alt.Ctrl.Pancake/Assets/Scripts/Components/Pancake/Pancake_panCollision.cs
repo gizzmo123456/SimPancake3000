@@ -217,13 +217,13 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		//		Front half of the pan where as the pancake center it self can be in the back half of the pan.
 		//		Thurermore the is causing the pancake to flip altho it in the wrong position.
 		//		and it might be contubuting the sticking.
-		if ( zPosition > panColliderObj.position.z && transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
+		if ( transform.position.z < panColliderObj.position.z && zPosition > panColliderObj.position.z && transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
 
 		if ( Pancake_DEBUG.debug_joints )
 			print( "Accepting next..."+(panColliderObj == null)+" && "+(distance < transformUpforceDistance) );
 
-		
-		float vel = pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
+
+		float vel = /*pancake_velocity.Velocity.sqrMagnitude;/*/ pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
 
 		if ( vel < upforceThresshold )
 			return;
@@ -246,6 +246,12 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		// not ideal but hay.
 		transformedVelocity = forwardsDirection * vel; 
 
+	}
+
+	public bool CanFlip()
+	{
+
+		return false;
 	}
 
 	public void SetPanCollider( Transform panColl )
