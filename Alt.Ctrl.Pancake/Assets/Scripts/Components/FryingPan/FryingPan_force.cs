@@ -82,20 +82,8 @@ public class FryingPan_force : BasePanGroup_multipleInput
 
 		// add some slide force (velocity) to them pancakes.
 
-		// work out the slide force percentage making sure is is clamp, 
-		// we dont want to exceed the slide force.
-		Vector3 slideDeltaPercentage = Vector3.zero;
-		slideDeltaPercentage.x = Mathf.Clamp( rotateDelta.x / deltaRotationThresshold, -1, 1 );
-		slideDeltaPercentage.z = Mathf.Clamp( rotateDelta.z / deltaRotationThresshold, -1, 1 );
-		/*
-				// Get the input values between -1, 1 so when the pan is flat it is zero
-				Vector3 inputSlideDeltaPercentage = Vector3.zero;
-				inputSlideDeltaPercentage.x = ( ( ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.x ) );
-				inputSlideDeltaPercentage.z = ( ( ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.z ) );
-		*/
-		//curSlideVel.x = slideDeltaPercentage.x * slideVelocity.x; // ( ( inputSlideDeltaPercentage.x * slideDeltaPercentage.x ) /*/ 2f*/ ) * slideVelocity.x;
-		//curSlideVel.z = slideDeltaPercentage.z * slideVelocity.z; //( ( inputSlideDeltaPercentage.z * slideDeltaPercentage.z ) /*/ 2f*/ ) * slideVelocity.z;	
 		curSlideVel = GetSlideForce().Multiply(slideVelocity);
+
 		// Send velocity to all pancakes in the frying pan.
 		foreach ( Pancake_state pancake in pancake.GetPancakes() )
 		{       // TODO: Add Pancake class with a ref to all of its outher classes, i dont have to keep using GetComponet :)
@@ -107,6 +95,7 @@ public class FryingPan_force : BasePanGroup_multipleInput
 
 	private Vector3 GetSlideForce()
 	{
+		// Get the input values between -1, 1 so when the pan is flat it is zero
 		Vector3 inputPercentage = Vector3.zero;
 		inputPercentage.x = ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f; // range -1 to 1
 		inputPercentage.z = ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f; // range -1 to 1
