@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(FryingPan_pancake))]
+[RequireComponent( typeof( FryingPan_pancake ) )]
 public class FryingPan_force : BasePanGroup_multipleInput
 {
 	protected override int RequiredInputs { get { return 2; } }
 	private FryingPan_pancake pancake;
 
-	[Header("Force")]
+	[Header( "Force" )]
 	[SerializeField] private Vector3 slideVelocity = new Vector3( 1, 0, 1 );
 	[SerializeField] private Vector3 flipVelocity = new Vector3( 2, 0, 6 );
 
@@ -24,6 +24,9 @@ public class FryingPan_force : BasePanGroup_multipleInput
 	private Vector3 rotateDelta = Vector3.zero;
 	private Vector3 lastRotation = Vector3.zero;
 
+	private Vector3 lastInputPercentage = Vector3.zero;     // range -1 to 1
+
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -33,7 +36,7 @@ public class FryingPan_force : BasePanGroup_multipleInput
 	}
 
 	protected override void Update()
-    {
+	{
 
 		base.Update();
 
@@ -50,7 +53,7 @@ public class FryingPan_force : BasePanGroup_multipleInput
 		lastRotation.x = inputValues[ inputId_xRotation ].current;
 		lastRotation.z = inputValues[ inputId_zRotation ].current;
 
-    }
+	}
 
 	private void UpdateVelocity()
 	{
@@ -71,28 +74,28 @@ public class FryingPan_force : BasePanGroup_multipleInput
 		// for fliping the pancake, it just can't happen. Imagin that in the real world, rotating the pan down realy
 		// fast and getting a face full of scorching pancake.
 
-		if ( rotateDelta.x > deltaRotationThresshold )												// forwards
-			curVel.x = (rotateDelta.x / maxDeltaRotation) * flipVelocity.x;
+		if ( rotateDelta.x > deltaRotationThresshold )                                              // forwards
+			curVel.x = ( rotateDelta.x / maxDeltaRotation ) * flipVelocity.x;
 
-		if (rotateDelta.z > deltaRotationThresshold || rotateDelta.z < -deltaRotationThresshold)	// left/right
-			curVel.z = (-rotateDelta.z / maxDeltaRotation) * flipVelocity.z;
+		if ( rotateDelta.z > deltaRotationThresshold || rotateDelta.z < -deltaRotationThresshold )  // left/right
+			curVel.z = ( -rotateDelta.z / maxDeltaRotation ) * flipVelocity.z;
 
 		// add some slide force (velocity) to them pancakes.
 
-		// work out the slide dorce percentage making sure is is clamp, 
+		// work out the slide force percentage making sure is is clamp, 
 		// we dont want to exceed the slide force.
 		Vector3 slideDeltaPercentage = Vector3.zero;
 		slideDeltaPercentage.x = Mathf.Clamp( rotateDelta.x / deltaRotationThresshold, -1, 1 );
 		slideDeltaPercentage.z = Mathf.Clamp( rotateDelta.z / deltaRotationThresshold, -1, 1 );
-
-		// Get the input values between -1, 1 so when the pan is flat it is zero
-		Vector3 inputSlideDeltaPercentage = Vector3.zero;
-		inputSlideDeltaPercentage.x = ( ( ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.x ) );
-		inputSlideDeltaPercentage.z = ( ( ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.z ) );
-
-		curSlideVel.x = ( ( inputSlideDeltaPercentage.x + slideDeltaPercentage.x ) / 2f ) * slideVelocity.x;
-		curSlideVel.z = ( ( inputSlideDeltaPercentage.z + slideDeltaPercentage.z ) / 2f ) * slideVelocity.z;	
-
+		/*
+				// Get the input values between -1, 1 so when the pan is flat it is zero
+				Vector3 inputSlideDeltaPercentage = Vector3.zero;
+				inputSlideDeltaPercentage.x = ( ( ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.x ) );
+				inputSlideDeltaPercentage.z = ( ( ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f ) * Mathf.Abs( slideDeltaPercentage.z ) );
+		*/
+		//curSlideVel.x = slideDeltaPercentage.x * slideVelocity.x; // ( ( inputSlideDeltaPercentage.x * slideDeltaPercentage.x ) /*/ 2f*/ ) * slideVelocity.x;
+		//curSlideVel.z = slideDeltaPercentage.z * slideVelocity.z; //( ( inputSlideDeltaPercentage.z * slideDeltaPercentage.z ) /*/ 2f*/ ) * slideVelocity.z;	
+		curSlideVel = GetSlideForce().Multiply(slideVelocity);
 		// Send velocity to all pancakes in the frying pan.
 		foreach ( Pancake_state pancake in pancake.GetPancakes() )
 		{       // TODO: Add Pancake class with a ref to all of its outher classes, i dont have to keep using GetComponet :)
@@ -102,4 +105,42 @@ public class FryingPan_force : BasePanGroup_multipleInput
 
 	}
 
+	private Vector3 GetSlideForce()
+	{
+		Vector3 inputPercentage = Vector3.zero;
+		inputPercentage.x = ( inputValues[ inputId_xRotation ].ClampedPrecent - 0.5f ) / 0.5f; // range -1 to 1
+		inputPercentage.z = ( inputValues[ inputId_zRotation ].ClampedPrecent - 0.5f ) / 0.5f; // range -1 to 1
+
+		Vector3 slideForce = Vector3.zero;
+		slideForce.x = GetAxisSlideForce( lastInputPercentage.x, inputPercentage.x );
+		slideForce.z = GetAxisSlideForce( lastInputPercentage.z, inputPercentage.z );
+
+		lastInputPercentage = inputPercentage;
+
+		return slideForce;
+	}
+
+	private float GetAxisSlideForce(float lastInputValue, float inputValue)
+	{
+
+		float mod = 1;	// pos/neg modifier
+
+		// make the last input value positve.
+		// this means we have to invert the input and mod value as well.
+		// so we can put corrent the +/- when the value is returned.
+		if(lastInputValue < 0)
+		{
+			lastInputValue = -lastInputValue;
+			inputValue = -inputValue;
+			mod = -1;
+		}
+
+		// Therefor we only need to check if the input is grater than last input or less then zero
+		// since its granteed to be positive.
+		if ( inputValue > lastInputValue || inputValue < 0 )
+			return (inputValue - lastInputValue) * mod;
+
+		return 0;	
+
+	}
 }
