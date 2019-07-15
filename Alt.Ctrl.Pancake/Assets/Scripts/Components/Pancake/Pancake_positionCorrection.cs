@@ -88,11 +88,11 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		//BUG: this is really wrong (i think its why we sink below the pan), i think. we're basicly working out the local position anway.
 		// maybe need to add yOffset insted??
-		newPosition += panColliderObj.position;
-		newPosition.y -= yOffset;
+		//newPosition += panColliderObj.position;
+		newPosition.y = yOffset;
 
 		// Update the position in the pan
-		panCollision.SetPositionInPan(newPosition, false, true);
+		panCollision.SetPositionInPan(newPosition, true, true);
 		
     }
 

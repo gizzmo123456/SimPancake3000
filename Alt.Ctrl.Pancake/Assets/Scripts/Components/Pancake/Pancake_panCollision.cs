@@ -86,7 +86,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		transform.eulerAngles = panColliderObj.eulerAngles + rotation_sideOffset; // TODO: needs to make more dynamic ^^^
 
 		positionInPan += pancake_velocity.GetTravleDistance( Time.deltaTime );
-		transform.position = panColliderObj.TransformPoint( positionInPan );
+		transform.localPosition = panColliderObj.TransformPoint( positionInPan );
 
 		float panFrictionMutiplier = panFrictionCurve.Evaluate( Vector3.Distance( Vector3.zero, positionInPan ) / panFriction_distanceFromCenter );
 
@@ -134,6 +134,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	//TODO: I need real name. (Im scared, i dont know what i am )
 	private void c()
 	{
+
 		pancake_velocity.PhysicsStep( Time.deltaTime );
 		pancake_velocity.AddFriction( airFriction, panFriction ); 
 
@@ -217,6 +218,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		//		Front half of the pan where as the pancake center it self can be in the back half of the pan.
 		//		Thurermore the is causing the pancake to flip altho it in the wrong position.
 		//		and it might be contubuting the sticking.
+		// TODO: Move to Can Flip
 		if ( transform.position.z < panColliderObj.position.z && zPosition > panColliderObj.position.z && transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
 
 		if ( Pancake_DEBUG.debug_joints )
