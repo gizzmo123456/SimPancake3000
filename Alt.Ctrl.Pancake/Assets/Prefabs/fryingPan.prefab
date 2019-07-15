@@ -138,7 +138,7 @@ MonoBehaviour:
     max: 1024
     current: 0
   yPositionRange:
-    min: 0.2
+    min: 0.3
     max: 0
     current: 0
 --- !u!114 &3369809952559602342
@@ -181,7 +181,7 @@ MonoBehaviour:
   - min: -90
     max: 90
     current: 0
-  slideVelocity: {x: 0.12, y: 0, z: 0.12}
+  slideVelocity: {x: 2.5, y: 0, z: 2.5}
   flipVelocity: {x: 4, y: 0, z: 6}
   inputId_xRotation: 0
   inputId_zRotation: 1

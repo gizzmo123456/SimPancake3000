@@ -277,6 +277,6 @@ public class Pancake_velocity : MonoBehaviour, IVelocity, IPanCollider
 
 	public void SetPanCollider(Transform panColl)
 	{
-	//	updateSpace = panColl;
+	//	updateSpace = panColl;			// TODO: Remove UpdateSpace??? needs confirming.
 	}
 }
