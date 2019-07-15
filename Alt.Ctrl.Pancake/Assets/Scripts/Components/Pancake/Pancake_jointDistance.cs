@@ -39,12 +39,13 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 	public float GetDistance()
 	{
 		// find how far from the center we are
-		Vector3 originPosition = originTranform.TransformPoint( localOrigin );
-		Vector3 panPosition = panColliderObj.transform.position;
+		// we store the local orgin of the joint to topmost parent of the pancake.
+		// we need to convert it into world space then into the panObj local space to find the local distance 
+		Vector3 originPosition = originTranform.TransformPoint( localOrigin );		// from pancake local to world
+		originPosition = panColliderObj.InverseTransformPoint( originPosition );	// from world to panObj local
 
-		originPosition.y = panPosition.y = 0;
+		originPosition.y = 0;
 
-		return Vector3.Distance( originPosition, panPosition );
 		return Vector3.Distance( originPosition, Vector3.zero );	// get distance reavent to the panObj
 	}
 
@@ -65,7 +66,7 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 		localOrigin = originTranform.InverseTransformPoint( transform.position );
 		origin.localScale = originScale;
 
-		Debug.Log( "SETUP FOR: " + name + " wPos:" + transform.position, gameObject );
+		Debug.Log( "SETUP FOR: " + name + " wPos:" + transform.position + " # LP: "+transform.localPosition+" # LO: "+localOrigin.x+", "+localOrigin.y+", "+localOrigin.z, gameObject );
 
 		maxDistanceFromCenter = maxDist;
 		panCollision = panColl;
