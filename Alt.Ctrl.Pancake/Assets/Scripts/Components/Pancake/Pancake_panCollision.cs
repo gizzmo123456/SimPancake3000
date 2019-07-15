@@ -232,7 +232,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 
 		transformUpforceDistance = distance;
 
-		SendMessage( "SetFlipRotation");
+		SendMessage( "SetFlipRotation");	// should be in the if statment  ??
 
 		// correct the up direction when the pancake has been flips
 		if ( state.GetSideDown() == 1 )

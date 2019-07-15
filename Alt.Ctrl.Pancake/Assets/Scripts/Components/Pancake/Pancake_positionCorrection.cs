@@ -51,34 +51,37 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		UpdatePancakeRadius();
 
-		// correct the position of the pancake once we have gone beond maxDistance.
+		// correct the position of the pancake once we have gone beond maxDistance (in panColliderSpace).
 		// ignoring the Y axis.
 
-		Vector3 position = transform.position;
-		Vector3 panPosition = panColliderObj.position;
-		position.y = panPosition.y = 0;
+		Vector3 position = panColliderObj.InverseTransformPoint( transform.position );
+		//Vector3 panPosition = panColliderObj.localPosition;
+		position.y = /*panPosition.y =*/ 0;
 
-		float panMixOffset = 0;
+		float panMaxOffset = 0;
 
 		if ( canUpdatePancakeRadius )
-			panMixOffset = mixturePanRadiusOffset.GetValue( pancakeRadius / maxPancakeRadius );
+			panMaxOffset = mixturePanRadiusOffset.GetValue( pancakeRadius / maxPancakeRadius );
 
-		float distance = Vector3.Distance( position, panPosition );
+		float distance = Vector3.Distance( position, Vector3.zero );// panPosition );
 
-		if ( distance <= maxDistanceFromCenter - panMixOffset ) return;
+		print( maxDistanceFromCenter +" - "+ panMaxOffset +" ## Dist: " + distance );
+
+		if ( distance <= maxDistanceFromCenter - panMaxOffset ) return;
 
 		// Ooo crap how do i correct the position around a circel?? hmmm.
 
 		// find the angle between the pancake and pan along the forwards axis.
 		// so we can rotate the position around the y maintaing the max distance.
 
-		float angle = Mathf.Atan2( panColliderObj.position.x - transform.position.x, transform.position.z - panColliderObj.position.z );
+		//float angle = Mathf.Atan2( panColliderObj.position.x - transform.position.x, transform.position.z - panColliderObj.position.z );
+		float angle = Mathf.Atan2( -position.x, position.z );
 
 		float sin = Mathf.Sin( angle );
 		float cos = Mathf.Cos( angle );
 
 		// get the max position in front of us then rotate it to the required angle
-		Vector3 maxPosition = new Vector3( 0, 0, (maxDistanceFromCenter - panMixOffset) + correctionOffset );   
+		Vector3 maxPosition = new Vector3( 0, 0, (maxDistanceFromCenter - panMaxOffset) + correctionOffset );   
 		Vector3 newPosition = Vector3.zero;
 
 		newPosition.x = maxPosition.x * cos - maxPosition.z * sin;
@@ -93,7 +96,7 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		// Update the position in the pan
 		panCollision.SetPositionInPan(newPosition, true, true);
-		
+
     }
 
 	void UpdatePancakeRadius()
