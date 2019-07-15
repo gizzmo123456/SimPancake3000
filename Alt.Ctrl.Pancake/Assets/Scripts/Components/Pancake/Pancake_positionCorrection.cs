@@ -55,15 +55,14 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 		// ignoring the Y axis.
 
 		Vector3 position = panColliderObj.InverseTransformPoint( transform.position );
-		//Vector3 panPosition = panColliderObj.localPosition;
-		position.y = /*panPosition.y =*/ 0;
+		position.y = 0;
 
 		float panMaxOffset = 0;
 
 		if ( canUpdatePancakeRadius )
 			panMaxOffset = mixturePanRadiusOffset.GetValue( pancakeRadius / maxPancakeRadius );
 
-		float distance = Vector3.Distance( position, Vector3.zero );// panPosition );
+		float distance = Vector3.Distance( position, Vector3.zero );
 
 		print( maxDistanceFromCenter +" - "+ panMaxOffset +" ## Dist: " + distance );
 
@@ -71,10 +70,10 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		// Ooo crap how do i correct the position around a circel?? hmmm.
 
-		// find the angle between the pancake and pan along the forwards axis.
+		// find the angle between the pancake and pan along the forwards axis in the pans local space.
 		// so we can rotate the position around the y maintaing the max distance.
 
-		//float angle = Mathf.Atan2( panColliderObj.position.x - transform.position.x, transform.position.z - panColliderObj.position.z );
+		// we dont have to subtract the pans position as it in the pans local space.
 		float angle = Mathf.Atan2( -position.x, position.z );
 
 		float sin = Mathf.Sin( angle );
@@ -89,13 +88,11 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		// Add the pans world position to the new position to get the final position of the pancake.
 
-		//BUG: this is really wrong (i think its why we sink below the pan), i think. we're basicly working out the local position anway.
-		// maybe need to add yOffset insted??
-		//newPosition += panColliderObj.position;
 		newPosition.y = yOffset;
 
 		// Update the position in the pan
 		panCollision.SetPositionInPan(newPosition, true, true);
+
 
     }
 
