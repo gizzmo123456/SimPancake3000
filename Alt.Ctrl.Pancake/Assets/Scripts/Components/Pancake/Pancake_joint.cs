@@ -55,7 +55,7 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		// rotate the joint based on the distance from the center of the panColliderObj.
 		// ignoreing the Y axis.
 
-		float distanceFromCenter = TEMP_DIST = scaleJointPosition ? jointDistance.GetDistanceScaled() : jointDistance.GetDistance();// Vector3.Distance( position, panPosition );
+		float distanceFromCenter = TEMP_DIST = jointDistance.GetDistance();// Vector3.Distance( position, panPosition );
 		float distancePercent = distanceFromCenter / maxDistanceFromCenter;
 
 		// Get the rotation from the colliderCurve.

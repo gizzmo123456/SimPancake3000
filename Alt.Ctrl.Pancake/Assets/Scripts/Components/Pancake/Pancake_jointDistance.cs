@@ -45,22 +45,7 @@ public class Pancake_jointDistance : MonoBehaviour, IPanCollider
 		originPosition.y = panPosition.y = 0;
 
 		return Vector3.Distance( originPosition, panPosition );
-	}
-
-	/// <summary>
-	/// Get the distance scaled by it origin (top most parent)
-	/// </summary>
-	public float GetDistanceScaled()
-	{
-		// find how far from the center we are
-		Vector3 originPosition = originTranform.TransformPoint( localOrigin );
-		originPosition.Multiply( originTranform.localScale );
-
-		Vector3 panPosition = panColliderObj.transform.position;
-
-		originPosition.y = panPosition.y = 0;
-
-		return Vector3.Distance( originPosition, panPosition );
+		return Vector3.Distance( originPosition, Vector3.zero );	// get distance reavent to the panObj
 	}
 
 	public void SetPanCollider( Transform panCollObj)
