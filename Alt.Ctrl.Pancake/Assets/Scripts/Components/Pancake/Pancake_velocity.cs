@@ -101,9 +101,9 @@ public class Pancake_velocity : MonoBehaviour, IVelocity, IPanCollider
 	/// <returns>velocity scaled to transform, in no transform them returns velocity</returns>
 	public Vector3 GetVelocity()
 	{
-
+		 
 		if ( updateSpace )
-			return updateSpace.InverseTransformVector(velocity + limitedVelocity);	//mige be better to use Vector insted of direction 
+			return updateSpace.TransformVector(velocity + limitedVelocity);	//mige be better to use Vector insted of direction 
 		else
 			return velocity + limitedVelocity;
 
@@ -277,6 +277,6 @@ public class Pancake_velocity : MonoBehaviour, IVelocity, IPanCollider
 
 	public void SetPanCollider(Transform panColl)
 	{
-		updateSpace = panColl;
+	//	updateSpace = panColl;
 	}
 }
