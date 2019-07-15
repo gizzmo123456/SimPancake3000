@@ -64,8 +64,6 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 
 		float distance = Vector3.Distance( position, Vector3.zero );
 
-		print( maxDistanceFromCenter +" - "+ panMaxOffset +" ## Dist: " + distance );
-
 		if ( distance <= maxDistanceFromCenter - panMaxOffset ) return;
 
 		// Ooo crap how do i correct the position around a circel?? hmmm.
