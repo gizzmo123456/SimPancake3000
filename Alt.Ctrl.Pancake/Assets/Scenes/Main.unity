@@ -3179,6 +3179,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4953708216097187116, guid: e66926b63ce16e846aa520bd7aa93033,
+        type: 3}
+      propertyPath: flipVelocity.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953708216097187116, guid: e66926b63ce16e846aa520bd7aa93033,
+        type: 3}
+      propertyPath: flipVelocity.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1730138566134352441, guid: e66926b63ce16e846aa520bd7aa93033,
         type: 3}
       propertyPath: m_LocalPosition.x
