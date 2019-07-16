@@ -33,4 +33,13 @@ public static class ExtendVector3
 		return vector.x + vector.y + vector.z;
 	}
 
+	/// <summary>
+	/// prints the vector values to 5 des rather than 1
+	/// </summary>
+	/// <returns></returns>
+	public static string ToDetailedString(this Vector3 vector)
+	{
+		return "(" + vector.x + ", " + vector.y + ", " + vector.z + ")";
+	}
+
 }
