@@ -893,8 +893,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxDistanceFromCenter: 0.43
-  maxJointRotation: -90
-  maxPositionOffset: 0.05
+  maxJointRotation: -50
+  maxPositionOffset: 0.25
   jointDepthWeight:
   - 0
   - 1
@@ -1018,7 +1018,7 @@ MonoBehaviour:
     current: 0
   maxPancakeRadius: 1.6
   correctionOffset: 0
-  yOffset: -0.025
+  yOffset: -0.05
 --- !u!114 &8506403883546672853
 MonoBehaviour:
   m_ObjectHideFlags: 0
