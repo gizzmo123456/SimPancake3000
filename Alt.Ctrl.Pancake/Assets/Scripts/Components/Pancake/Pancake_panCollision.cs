@@ -254,6 +254,14 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		// ... TODO: unpdate the joints in here ??? indted of the joint calling this function. 
 		transformedVelocity = forwardsDirection * vel;
 
+#if UNITY_EDITOR
+		if ( transformedVelocity.y < 0f )
+		{
+			Debug.Log( "I Paused The Editor :D If this has happened check the joints havent folded over them selfs again. Oh and TransformedVelocity.y is < 0 btw" );
+			UnityEditor.EditorApplication.isPaused = true;
+		}
+# endif
+
 	}
 
 	public bool CanFlip()
