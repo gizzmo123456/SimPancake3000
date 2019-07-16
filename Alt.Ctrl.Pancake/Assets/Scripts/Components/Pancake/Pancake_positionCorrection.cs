@@ -91,7 +91,6 @@ public class Pancake_positionCorrection : MonoBehaviour, IPanCollider, IPancakeS
 		// Update the position in the pan
 		panCollision.SetPositionInPan(newPosition, true, true);
 
-
     }
 
 	void UpdatePancakeRadius()

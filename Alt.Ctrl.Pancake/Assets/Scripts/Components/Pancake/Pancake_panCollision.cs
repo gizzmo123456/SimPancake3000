@@ -49,7 +49,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		panFriction_distanceFromCenter = GetComponent<Pancake_jointSetup>().GetMaxDistanceFromCenter();
 	}
 
-	private void FixedUpdate()
+	private void /*Fixed*/Update()
 	{
 
 		if ( isChild ) return;	// the pancake will move with its parent. (see pancake_child)
@@ -57,10 +57,12 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		// Apply Transformed upforce and send messages to clear it from the pan.
 		if(transformedVelocity != Vector3.zero)
 		{
+
 			pancake_velocity.SetVelocity( transformedVelocity );
 			pancake_velocity.SetVelocity( Vector3.zero, Pancake_velocity.VelocityType.Limited );		// clear the limited velocity that is used for slinding in the pan.
 			transformedVelocity = Vector3.zero;
 			SendMessages( null, null );
+
 		}
 
 		// if there current no panColliderObj we need to be searching for it with the ray cast, if we are falling.
@@ -112,7 +114,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 			// TODO: 
 			// For the moment just going to move the pancake's transform the same distance the joint has moved :)
 			Vector3 jointDistanceTraved = pancake_joints[hitData.jointId].transform.position - hitData.hitPosition;
-			Debug.LogWarning( "BipBop"+ jointDistanceTraved + " # po: "+ transform.position +" # npo: "+ transform.position + jointDistanceTraved );
+			Debug.LogWarning( "BipBop"+ jointDistanceTraved + " # po: "+ transform.position +" # npo: "+ transform.position + jointDistanceTraved +" # Vel: "+ pancake_velocity.Velocity.y );
 
 			nextPosition = transform.position + jointDistanceTraved;
 			pancake_velocity.SetVelocity( Vector3.zero, true );
@@ -136,11 +138,14 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	{
 
 		pancake_velocity.PhysicsStep( Time.deltaTime );
-		pancake_velocity.AddFriction( airFriction, panFriction ); 
+		pancake_velocity.AddFriction( airFriction, panFriction );
 
 		Vector3 nextPosition = transform.position + pancake_velocity.GetTravleDistance( Time.deltaTime );
 
 		transform.position = nextPosition;
+
+		Debug.LogWarning( " # Vel: " + pancake_velocity.Velocity.y );
+
 
 	}
 
@@ -232,7 +237,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 
 		transformUpforceDistance = distance;
 
-		SendMessage( "SetFlipRotation");	// should be in the if statment  ??
+		SendMessage( "SetFlipRotation");	// should be in the if statment ??
 
 		// correct the up direction when the pancake has been flips
 		if ( state.GetSideDown() == 1 )
@@ -245,8 +250,9 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 
 		// we set the velocity in Update function :) as each joint need to call this function to find if its the thurthest away.
 		// so we can not update the velocity until all joints have been tested. so we'll just set the velocity at the start of the next update.
-		// not ideal but hay.
-		transformedVelocity = forwardsDirection * vel; 
+		// not ideal but hay...
+		// ... TODO: unpdate the joints in here ??? indted of the joint calling this function. 
+		transformedVelocity = forwardsDirection * vel;
 
 	}
 
