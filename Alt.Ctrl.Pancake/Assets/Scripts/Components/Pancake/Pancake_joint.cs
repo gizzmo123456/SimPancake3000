@@ -66,9 +66,6 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 		transform.localEulerAngles = rotation;
 
-		//Below is a BUG.
-		// wheres my splater.
-
 		// update the local Y position offset,
 
 		float yPosOffset = curveValue * rotationDirection * maxPositionOffset;
@@ -79,7 +76,6 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		transform.localPosition = position;
 
 		print( transform.TransformPoint( new Vector3( 0, startLocalPosition.y, 0 ) ) + " ## " + yPosOffset + " ## " + position );
-
 
 	}
 
