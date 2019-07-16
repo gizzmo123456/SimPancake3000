@@ -62,7 +62,7 @@ public class Pancake_jointSetup : MonoBehaviour, IPanCollider
 
 			Pancake_joint childJoint = child.gameObject.AddComponent<Pancake_joint>();
 			childJoint.SetupColliderData(colliderCurve, maxDistanceFromCenter);
-			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset, flattenSpeed_rotation, flattenSpeed_position);
+			childJoint.SetupJointData(maxJointRotation * jointWeight, maxPositionOffset, flattenSpeed_rotation, flattenSpeed_position );
 			pancakeState.OnSideChanged += childJoint.OnPancakeSideChanged;	// reg onto the side change callback, to make sure the joints are being rotated in the correct diection.
 			
 

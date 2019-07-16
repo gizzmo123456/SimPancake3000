@@ -66,18 +66,20 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 		transform.localEulerAngles = rotation;
 
-		// update the position offset.
-		// local
-		Vector3 lPos = startLocalPosition;
-		lPos.y += curveValue * rotationDirection * maxPositionOffset;
+		//Below is a BUG.
+		// wheres my splater.
 
-		transform.localPosition = lPos;
+		// update the local Y position offset,
 
-		// world 
-		Vector3 wPos = Vector3.zero;
-		wPos.y = curveValue * maxPositionOffset;
+		float yPosOffset = curveValue * rotationDirection * maxPositionOffset;
 
-		transform.position += wPos;
+		Vector3 position = transform.localPosition;
+		position.y = startLocalPosition.y + yPosOffset;
+
+		transform.localPosition = position;
+
+		print( transform.TransformPoint( new Vector3( 0, startLocalPosition.y, 0 ) ) + " ## " + yPosOffset + " ## " + position );
+
 
 	}
 
@@ -131,11 +133,12 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 		maxDistanceFromCenter = maxDistance;
 	}
 
-	public void SetupJointData( float curveRotation, float positionOffset, float flattenSpeed_rot, float flattenSpeed_pos)
+	public void SetupJointData( float curveRotation, float positionOffset, float flattenSpeed_rot, float flattenSpeed_pos )
 	{
 		maxCurveRotation = curveRotation;
 		maxPositionOffset = positionOffset;
 		flattenSpeed_rotation = flattenSpeed_rot;
 		flattenSpeed_position = flattenSpeed_pos;
+
 	}
 }
