@@ -1018,7 +1018,7 @@ MonoBehaviour:
     current: 0
   maxPancakeRadius: 1.6
   correctionOffset: 0
-  yOffset: -0.05
+  yOffset: -0.035
 --- !u!114 &8506403883546672853
 MonoBehaviour:
   m_ObjectHideFlags: 0
