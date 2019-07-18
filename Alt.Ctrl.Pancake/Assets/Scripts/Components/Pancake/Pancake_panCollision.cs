@@ -224,7 +224,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		//		Thurermore the is causing the pancake to flip altho it in the wrong position.
 		//		and it might be contubuting the sticking.
 		// TODO: Move to Can Flip
-		if ( transform.position.z < panColliderObj.position.z && zPosition > panColliderObj.position.z && transformedVelocity != Vector3.zero && distance < transformUpforceDistance ) return;
+		//	should it be in pan local space. ??
+		if ( transform.position.z < panColliderObj.position.z && zPosition < panColliderObj.position.z && transformedVelocity != Vector3.zero && dist < transformUpforceDistance ) return;
 
 		if ( Pancake_DEBUG.debug_joints )
 			print( "Accepting next..."+(panColliderObj == null)+" && "+(distance < transformUpforceDistance) );
