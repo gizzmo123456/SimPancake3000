@@ -210,25 +210,19 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 	/// Transform the current velocity into flip velocity.
 	/// </summary>
 	/// <param name="forwardsDirection"> the direction to move forwards in </param>
-	/// <param name="distance"> distance from center of pan</param>
+	/// <param name="dist"> distance from center of pan</param>
 	/// <param name="yRotation"> y rotation of point </param>
 	/// <param name="zPosition"> z position of point</param>
-	public void TransformToUpforce(Vector3 forwardsDirection, float distance, float zPosition )
+	public void TransformToUpforce(Vector3 forwardsDirection, float dist, float zPosition )
 	{
 		// only want to transform to upforce for the point that is furthest away
 		// and it must be in the front of the pan (+z)
 		// you cant realy flip form the back of a frying pan, that would be black magic.
-		// BUG: Here where we test for zPos > this.pos.z is checking to see if pancake is in the front half of the pan.
-		//		But we are check if the joint is in the front half of the pan insed. the prob is that the joint can be in the 
-		//		Front half of the pan where as the pancake center it self can be in the back half of the pan.
-		//		Thurermore the is causing the pancake to flip altho it in the wrong position.
-		//		and it might be contubuting the sticking.
-		// TODO: Move to Can Flip
-		//	should it be in pan local space. ??
-		if ( transform.position.z < panColliderObj.position.z && zPosition < panColliderObj.position.z && transformedVelocity != Vector3.zero && dist < transformUpforceDistance ) return;
+
+		if ( !CanFlip( dist, zPosition ) ) return;
 
 		if ( Pancake_DEBUG.debug_joints )
-			print( "Accepting next..."+(panColliderObj == null)+" && "+(distance < transformUpforceDistance) );
+			print( "Accepting next..."+(panColliderObj == null)+" && "+(dist < transformUpforceDistance) );
 
 
 		float vel = /*pancake_velocity.Velocity.sqrMagnitude;/*/ pancake_velocity.Velocity.x + pancake_velocity.Velocity.z;
@@ -236,7 +230,7 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		if ( vel < upforceThresshold )
 			return;
 
-		transformUpforceDistance = distance;
+		transformUpforceDistance = dist;
 
 		SendMessage( "SetFlipRotation");	// should be in the if statment ??
 
@@ -265,10 +259,28 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 
 	}
 
-	public bool CanFlip()
+	public bool CanFlip(float dist, float zPosition)
 	{
 
-		return false;
+		// BUG: Here where we test for zPos > this.pos.z is checking to see if pancake is in the front half of the pan.
+		//		But we are check if the joint is in the front half of the pan insed. the prob is that the joint can be in the 
+		//		Front half of the pan where as the pancake center it self can be in the back half of the pan.
+		//		Thurermore the is causing the pancake to flip altho it in the wrong position.
+		//		and it might be contubuting the sticking.
+
+		// TODO: check that the force is relevent to the edge that the pancake is on.
+		// atm it will still flip even when the force is in the opersit direction. :|
+
+		//	should it be in pan local space. ??
+		bool frontOfPan = transform.position.z >= panColliderObj.position.z && zPosition >= panColliderObj.position.z;      // joint and center of pancake must be in front half of pan.
+		bool transformingVelocity = transformedVelocity != Vector3.zero;													// have we started transforming velocity?
+		bool jointIsGraterDist = dist > transformUpforceDistance;															// is this joint a grater distance away from any that have been transformed.
+
+		// Velocity.
+		// TODO ...
+
+		return ( !transformingVelocity && frontOfPan ) || ( transformingVelocity && jointIsGraterDist && frontOfPan );
+
 	}
 
 	public void SetPanCollider( Transform panColl )
