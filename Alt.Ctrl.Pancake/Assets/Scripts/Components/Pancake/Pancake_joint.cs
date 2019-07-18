@@ -75,8 +75,6 @@ public class Pancake_joint : MonoBehaviour, IPanCollider
 
 		transform.localPosition = position;
 
-		print( transform.TransformPoint( new Vector3( 0, startLocalPosition.y, 0 ) ) + " ## " + yPosOffset + " ## " + position );
-
 	}
 
 	public void FlatenJoint()
