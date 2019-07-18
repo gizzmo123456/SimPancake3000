@@ -34,6 +34,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 
 	private bool isChild = false;
 
+	public bool debug_pause = false;
+
 	void Awake()
 	{
 
@@ -253,7 +255,8 @@ public class Pancake_panCollision : Raycast_hit, IPanCollider, IChild
 		if ( transformedVelocity.y < 0f )
 		{
 			Debug.Log( "I Paused The Editor :D If this has happened check the joints havent folded over them selfs again. Oh and TransformedVelocity.y is < 0 btw" );
-			UnityEditor.EditorApplication.isPaused = true;
+			if ( debug_pause )
+				UnityEditor.EditorApplication.isPaused = true;
 		}
 # endif
 
