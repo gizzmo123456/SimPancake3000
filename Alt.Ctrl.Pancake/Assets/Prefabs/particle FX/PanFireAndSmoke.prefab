@@ -4789,9 +4789,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1151713934504736235}
-  - component: {fileID: 3093735624690388120}
+  - component: {fileID: 9107743704787314368}
   m_Layer: 0
-  m_Name: PancakeFire (1)
+  m_Name: PanFireAndSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4804,7 +4804,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7273050247810856313}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4814,7 +4814,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3093735624690388120
+--- !u!114 &9107743704787314368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4823,29 +4823,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 7273050247810856313}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f2155f029f5b344dafb135f075bb7f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a5ae256036dc784e98e2f3e5c1e84a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputValueOffset: 0
-  inputName: hobKnob
-  addPanId_prefix: 1
-  inputValue:
+  localScale: {x: 1, y: 1, z: 1}
+  fire: {fileID: 523253511342314255}
+  fire_minShapeScale: {x: 0.4, y: 0, z: 0.4}
+  fire_maxShapeScale: {x: 0.7, y: 0.1, z: 0.7}
+  fire_emissionRateRange:
+    min: 75
+    max: 250
+    current: 0
+  fire_velocityOffsetYRange:
     min: 0
-    max: 1010
+    max: 6
     current: 0
-  particleSys: {fileID: 523253511342314255}
-  lifetime:
-    min: 0.5
-    max: 0.8
+  fire_velocitySpeedModRange:
+    min: 0.1
+    max: 0.6
     current: 0
-  yForce:
-    min: 50
-    max: 25
+  fire_SimulationSpeedRange:
+    min: 0.2
+    max: 0.4
     current: 0
-  emissions:
-    min: 125
-    max: 225
+  fireLight: {fileID: 1635774017088344907}
+  fire_lightIntensityRange:
+    min: 2
+    max: 10
     current: 0
+  smoke: {fileID: 6740190547670928993}
+  smoke_minShapeScale: {x: 0.1, y: 0.75, z: 0.1}
+  smoke_maxShapeScale: {x: 1, y: 1, z: 1}
+  smoke_emissionRateRange:
+    min: 1
+    max: 13
+    current: 0
+  smoke_alphaRange:
+    min: 0
+    max: 1
+    current: 0
+  warmup_length: 10
 --- !u!1001 &3272112494882432585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4857,11 +4874,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pan Smoke (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133808162597414998, guid: 242cd280ac78d9a4da8baa362b8e399c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8133808162597414955, guid: 242cd280ac78d9a4da8baa362b8e399c,
         type: 3}
@@ -4921,42 +4933,17 @@ PrefabInstance:
     - target: {fileID: 8133808162597414955, guid: 242cd280ac78d9a4da8baa362b8e399c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8133808162597414955, guid: 242cd280ac78d9a4da8baa362b8e399c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8133808162597414955, guid: 242cd280ac78d9a4da8baa362b8e399c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
-        type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.atime2
-      value: 46453
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
-        type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 24672
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
-        type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key1.a
-      value: 0.32156864
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
-        type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key2.a
-      value: 0.5176471
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133808162597414953, guid: 242cd280ac78d9a4da8baa362b8e399c,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8133808162597414953, guid: 242cd280ac78d9a4da8baa362b8e399c,
         type: 3}
@@ -4968,11 +4955,37 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0.32156864
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key2.a
+      value: 0.5176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 24672
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime2
+      value: 46453
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 242cd280ac78d9a4da8baa362b8e399c, type: 3}
 --- !u!4 &6740190547670928994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8133808162597414955, guid: 242cd280ac78d9a4da8baa362b8e399c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3272112494882432585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6740190547670928993 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8133808162597414952, guid: 242cd280ac78d9a4da8baa362b8e399c,
     type: 3}
   m_PrefabInstance: {fileID: 3272112494882432585}
   m_PrefabAsset: {fileID: 0}
